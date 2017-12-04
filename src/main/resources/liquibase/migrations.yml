@@ -24,3 +24,161 @@ databaseChangeLog:
               - column:
                   name: country
                   type: char(2)
+  - changeSet:
+      id: 2
+      author: Mathias Egekvist
+      changes:
+        - createTable:
+            tableName: movies
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    clustered: true
+              - column:
+                  name: title
+                  type: char(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: duration
+                  type: int
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: rooms
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    clustered: true
+              - column:
+                  name: row_amount
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seat_amount
+                  type: int
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: timeslots
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    clustered: true
+              - column:
+                  name: start_time
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: int
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: shows
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    clustered: true
+              - column:
+                  name: room_fk
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: shows_room_fk
+                    references: rooms(id)
+              - column:
+                  name: movie_fk
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: shows_movie_fk
+                    references: movies(id)
+              - column:
+                  name: timeslot_fk
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: shows_timeslot_fk
+                    references: timeslots(id)
+        - createTable:
+            tableName: seats
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    clustered: true
+              - column:
+                  name: show_fk
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: seats_show_fk
+                    references: shows(id)
+              - column:
+                  name: available
+                  type: bool
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    clustered: true
+              - column:
+                  name: seats_fk
+                  type: array
+                  constraints:
+                    nullable: false
+                    foreignKeyName: orders_seats_fk
+                    references: seats(id)
+        - createTable:
+            tableName: customers
+            columns:
+              - column:
+                  name: mobile_number
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    clustered: true
+              - column:
+                  name: orders_fk
+                  type: array
+                  constraints:
+                    nullable: false
+                    foreignKeyName: customers_orders_fk
+                    references: orders(id)
