@@ -24,3 +24,22 @@ databaseChangeLog:
               - column:
                   name: country
                   type: char(2)
+  - changeSet:
+      id: 2
+      author: Vilfred Sikker Dreijer
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: seat_fk
+                  type: int
+                  constraints:
+                    nullable: false
