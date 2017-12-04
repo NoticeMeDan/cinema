@@ -22,5 +22,5 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: state
+                  name: country
                   type: char(2)
