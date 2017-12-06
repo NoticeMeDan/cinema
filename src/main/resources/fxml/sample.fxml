@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" stylesheets="/css/stylesheet.css">
+    <top>
+        <GridPane fx:id="topPane">
+            <DatePicker
+                fx:id="pickDate"
+                promptText="Pick a date"
+                GridPane.columnIndex="1"
+                GridPane.rowIndex="1"
+            />
+            <ComboBox fx:id="pickMovie" promptText="Pick a movie" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="The Movie, Movie" />
+                        <String fx:value="Movie 2" />
+                        <String fx:value="Movie 3" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </GridPane>
+    </top>
+
+    <left>
+        <GridPane alignment="BASELINE_LEFT" hgap="2" vgap="10">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <SplitPane orientation="VERTICAL" prefHeight="500.0" prefWidth="160.0">
+                <items>
+                    <AnchorPane maxHeight="70.0" prefWidth="42.0">
+                        <children>
+                            <TextField maxWidth="150" text="Insert number" />
+                            <Button fx:id="enterPhoneNumber" text="Enter" layoutY="30" />
+                        </children>
+                    </AnchorPane>
+
+                    <AnchorPane minHeight="500" minWidth="0.0"   >
+                        <children>
+                            <Button fx:id="newBooking" text="New booking" />
+                            <Button fx:id="booking1" text="The Movie, movie" />
+                        </children>
+                    </AnchorPane>
+
+                    <AnchorPane>
+                        <Button fx:id="addBooking" text="+"/>
+                    </AnchorPane>
+                </items>
+            </SplitPane>
+        </GridPane>
+    </left>
+
+    <center>
+        <SplitPane orientation="VERTICAL">
+            <AnchorPane maxHeight="50">
+                <GridPane fx:id="seatSettings">
+                    <ComboBox
+                        promptText="Seats"
+                        GridPane.rowIndex="1"
+                        GridPane.columnIndex="1"
+                    >
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="1"/>
+                                <String fx:value="2"/>
+                                <String fx:value="3"/>
+                                <String fx:value="4"/>
+                                <String fx:value="5"/>
+                                <String fx:value="6"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                    <CheckBox
+                        text="Check for individual seatings"
+                        GridPane.rowIndex="1"
+                        GridPane.columnIndex="2"
+                    />
+                    <ComboBox
+                        promptText="TimeSlot"
+                        GridPane.rowIndex="1"
+                        GridPane.columnIndex="3">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList">
+                                <String fx:value="8-12"/>
+                                <String fx:value="12-16"/>
+                                <String fx:value="16-20"/>
+                                <String fx:value="20-24"/>
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </GridPane>
+            </AnchorPane>
+
+            <AnchorPane>
+                <GridPane>
+
+                </GridPane>
+            </AnchorPane>
+        </SplitPane>
+    </center>
+
+    <right>
+
+    </right>
+    <bottom>
+        <HBox alignment="BOTTOM_RIGHT">
+            <Button fx:id="submitChange" text="✔ save" />
+            <Button fx:id="cancelChange" text="╳ cancel" />
+        </HBox>
+    </bottom>
+</BorderPane>
