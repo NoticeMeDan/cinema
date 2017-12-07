@@ -182,3 +182,11 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: customers_orders_fk
                     references: orders(id)
+  - changeset:
+      id: 3
+      author: Mathias Egekvist
+      changes:
+        - dropNotNullConstraint:
+            tableName: customers
+            columnName: orders_fk
+            columnDataType: array
