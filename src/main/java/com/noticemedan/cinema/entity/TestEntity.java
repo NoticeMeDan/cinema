@@ -1,4 +1,4 @@
-package com.noticemedan.cinema.entities;
+package com.noticemedan.cinema.entity;
 
 public class TestEntity {
     private int id = 0;
