@@ -1,8 +1,10 @@
 package com.noticemedan.cinema.dao;
 
 import com.noticemedan.cinema.entity.CustomerEntity;
+import com.noticemedan.cinema.entity.OrderEntity;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
+import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
