@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import com.noticemedan.cinema.controller.ShowDummy?>
 <?import javafx.collections.FXCollections?>
