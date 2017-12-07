@@ -18,7 +18,7 @@ public class CustomerEntity {
         return orderIds;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderIds.add(orderId);
+    public void setOrderIds(List<Integer> orderIds) {
+        this.orderIds = orderIds;
     }
 }
