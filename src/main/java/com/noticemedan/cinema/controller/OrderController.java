@@ -7,7 +7,7 @@ import java.util.List;
 
 public class OrderController {
     private OrderService orderService = new OrderService();
-
+    
     public void newOrder(List<SeatEntity> seats) {
         orderService.newOrder(seats);
     }
