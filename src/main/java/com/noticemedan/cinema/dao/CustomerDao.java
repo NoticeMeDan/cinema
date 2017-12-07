@@ -30,4 +30,7 @@ public interface CustomerDao {
                "WHERE :phone_number = customers.phone_number " +
                "AND :orderId = customers.orders_fk")
     void deleteCustomerOrder(@Bind("phone_number") String phone_number, @Bind("orderId") int orderId);
+
+    @SqlUpdate("INSERT INTO customers(phone_number, orders) VALUES (:phone_number)")
+    void saveCustomer(@Bind("phone_number") String phone_number);
 }
