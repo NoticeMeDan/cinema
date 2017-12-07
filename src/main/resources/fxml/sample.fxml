@@ -5,16 +5,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
-<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" stylesheets="/css/stylesheet.css">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" stylesheets="/css/stylesheet.css" fx:controller="com.noticemedan.cinema.controller.UIController">
     <top>
         <GridPane fx:id="topPane">
             <DatePicker
                 fx:id="pickDate"
+                onAction="#chooseDate"
                 promptText="Pick a date"
                 GridPane.columnIndex="1"
                 GridPane.rowIndex="1"
             />
-            <ComboBox fx:id="pickMovie" promptText="Pick a movie" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ComboBox fx:id="pickMovie" promptText="Pick a movie" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#chooseMovie">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="The Movie, Movie" />
@@ -35,20 +36,20 @@
                 <items>
                     <AnchorPane maxHeight="70.0" prefWidth="42.0">
                         <children>
-                            <TextField maxWidth="150" text="Insert number" />
-                            <Button fx:id="enterPhoneNumber" text="Enter" layoutY="30" />
+                            <TextField maxWidth="150" text="Insert number" onAction="#test" />
+                            <Button fx:id="enterPhoneNumber" text="Enter" onAction="#test" layoutY="30" />
                         </children>
                     </AnchorPane>
 
                     <AnchorPane minHeight="500" minWidth="0.0"   >
                         <children>
-                            <Button fx:id="newBooking" text="New booking" />
-                            <Button fx:id="booking1" text="The Movie, movie" />
+                            <Button fx:id="newBooking" text="New booking" onAction="#addOrder" />
+                            <Button fx:id="booking1" text="The Movie, movie" onAction="#getOrder"/>
                         </children>
                     </AnchorPane>
 
                     <AnchorPane>
-                        <Button fx:id="addBooking" text="+"/>
+                        <Button fx:id="addBooking" text="+" onAction="#addOrder"/>
                     </AnchorPane>
                 </items>
             </SplitPane>
@@ -63,6 +64,7 @@
                         promptText="Seats"
                         GridPane.rowIndex="1"
                         GridPane.columnIndex="1"
+                        onAction="#setAmountOfSeats"
                     >
                         <items>
                             <FXCollections fx:factory="observableArrayList">
@@ -76,14 +78,19 @@
                         </items>
                     </ComboBox>
                     <CheckBox
+                        fx:id="seatsChecked"
+                        onAction="#isChecked"
                         text="Check for individual seatings"
                         GridPane.rowIndex="1"
                         GridPane.columnIndex="2"
+
                     />
                     <ComboBox
                         promptText="TimeSlot"
+                        onAction="#chooseTimeSlot"
                         GridPane.rowIndex="1"
                         GridPane.columnIndex="3">
+
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="8-12"/>
@@ -109,8 +116,8 @@
     </right>
     <bottom>
         <HBox alignment="BOTTOM_RIGHT">
-            <Button fx:id="submitChange" text="✔ save" />
-            <Button fx:id="cancelChange" text="╳ cancel" />
+            <Button fx:id="submitChange" onAction="#saveSettings" text="✔ save" />
+            <Button fx:id="cancelChange" onAction="#cancelSettings" text="╳ cancel" />
         </HBox>
     </bottom>
 </BorderPane>
