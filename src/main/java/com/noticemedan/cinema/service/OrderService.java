@@ -1,24 +1,23 @@
 package com.noticemedan.cinema.service;
 
-import com.noticemedan.cinema.dao.OrderDao;
 import com.noticemedan.cinema.entity.OrderEntity;
+import com.noticemedan.cinema.entity.SeatEntity;
 
 import java.util.List;
 
-public class OrderService {
-    private final OrderDao orderDao;
-    private final OrderEntity orderEntity;
+public class OrderService extends BaseService {
+    private final OrderEntity orderEntity = new OrderEntity();
 
-    public OrderService(OrderDao orderDao) {
-        this.orderDao = orderDao;
-        this.orderEntity = new OrderEntity();
+    public OrderService() {
+        super();
     }
 
     public void newOrder(List seats) {
-        orderEntity.setSeats(seats);
+        orderEntity.chooseSeats(seats);
+        this.orderDao.saveOrder(orderEntity.getSeats());
     }
 
     public void editOrder() {
-        List<Seats> seats = orderEntity.getSeats();
+        List<SeatEntity> seats = orderEntity.getSeats();
     }
 }

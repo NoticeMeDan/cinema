@@ -3,7 +3,7 @@ package com.noticemedan.cinema.service;
 import com.noticemedan.cinema.dao.CustomerDao;
 import com.noticemedan.cinema.entity.CustomerEntity;
 
-public class CustomerService {
+public class CustomerService extends BaseService {
     private final CustomerDao customerDao;
     private final CustomerEntity customerEntity;
 
