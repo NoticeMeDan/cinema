@@ -11,5 +11,10 @@ import javafx.scene.layout.VBox;
 public class OrderController extends VBox{
 
 
+
+    public void createNewOrder(){
+
+    }
+
 }
 
