@@ -190,13 +190,20 @@ databaseChangeLog:
             tableName: customers
             columnName: orders_fk
             columnDataType: array
+  - changeset:
+      id: 4
+      author: Mathias Egekvist
+      changes:
         - renameColumn:
+            tableName: customers
             columnDataType: int
             newColumnName: phone_number
             oldColumnName: mobile_number
-            remarks: Consistency
-            tableName: customers
+  - changeset:
+      id: 5
+      author: Mathias Egekvist
+      changes:
         - modifyDataType:
+            tableName: customers
             columnName: phone_number
             newDataType: String
-            tableName: customers
