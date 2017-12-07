@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CustomerEntity {
     private String phoneNumber;
-    private List<OrderEntity> orders;
+    private List<Integer> orderIds;
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -14,11 +14,11 @@ public class CustomerEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public List getOrders() {
-        return orders;
+    public List<Integer> getOrderIds() {
+        return orderIds;
     }
 
-    public void setOrders(List orders) {
-        this.orders = orders;
+    public void setOrderIds(List<Integer> orderIds) {
+        this.orderIds = orderIds;
     }
 }

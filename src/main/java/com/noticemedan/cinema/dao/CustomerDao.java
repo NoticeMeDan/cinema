@@ -14,8 +14,8 @@ public interface CustomerDao {
 
     @SqlUpdate("INSERT INTO customers(orders) " +
                "VALUES (:id) " +
-               "WHERE :phone_number = customers.phone_number ")
-    void saveCustomerOrders(@Bind("phone_number") String phone_number, @BindBean OrderEntity orders);
+               "WHERE :phone_number = customers.phone_number")
+    void saveCustomerOrderId(@Bind("phone_number") String phone_number, @BindBean OrderEntity order);
 
     @SqlQuery("SELECT customer " +
               "FROM customers " +
