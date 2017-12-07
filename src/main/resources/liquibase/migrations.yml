@@ -190,3 +190,13 @@ databaseChangeLog:
             tableName: customers
             columnName: orders_fk
             columnDataType: array
+        - renameColumn:
+            columnDataType: int
+            newColumnName: phone_number
+            oldColumnName: mobile_number
+            remarks: Consistency
+            tableName: customers
+        - modifyDataType:
+            columnName: phone_number
+            newDataType: String
+            tableName: customers
