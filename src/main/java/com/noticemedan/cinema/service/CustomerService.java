@@ -25,11 +25,11 @@ public class CustomerService extends BaseService {
     }
 
     public CustomerEntity getCustomer(String phoneNumber) {
-        return customerDao.getCustomer(Integer.parseInt(phoneNumber));
+        return customerDao.getCustomer(phoneNumber);
     }
 
     public void saveCustomerOrderId(String phoneNumber, int orderId) {
         customerEntity.setOrderId(orderId);
-        customerDao.saveCustomerOrderId(Integer.parseInt(phoneNumber), orderId);
+        customerDao.saveCustomerOrderId(phoneNumber, orderId);
     }
 }

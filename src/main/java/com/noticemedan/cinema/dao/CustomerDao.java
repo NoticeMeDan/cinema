@@ -5,8 +5,6 @@ import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-
-import java.lang.reflect.Array;
 import java.util.List;
 
 public interface CustomerDao {
@@ -16,7 +14,7 @@ public interface CustomerDao {
 
     @SqlQuery("SELECT orders_fk " +
               "FROM customers " +
-              "WHERE :phone_number = customers.mobile_number")
+              "WHERE :phone_number = customers.phone_number")
     @RegisterBeanMapper(CustomerEntity.class)
     List<Integer> getCustomerOrderIds(@Bind("phone_number") String phone_number);
 
