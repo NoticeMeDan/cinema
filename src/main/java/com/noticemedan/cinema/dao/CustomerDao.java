@@ -7,6 +7,9 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import java.util.List;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 public interface CustomerDao {
     @SqlUpdate("INSERT INTO customers(phone_number, orders_fk) " +
                "VALUES (:phone_number, :orderId) ")
@@ -18,6 +21,15 @@ public interface CustomerDao {
     @RegisterBeanMapper(CustomerEntity.class)
     List<Integer> getCustomerOrderIds(@Bind("phone_number") String phone_number);
 
+<<<<<<< HEAD
+=======
+    @SqlQuery("SELECT orders_fk " +
+              "FROM customers " +
+              "WHERE :phone_number = customers.phone_number " +
+              "AND :orderId = customers.orders_fk")
+    int getCustomerOrderId(@Bind("phone_number") String phone_number, @Bind("orderId") int orderId);
+
+>>>>>>> e7a6447670f5243c6a31e4ac28dceb28f0919292
     @SqlUpdate("DELETE FROM customers " +
                "WHERE :phone_number = customers.phone_number " +
                "AND :orderId = customers.orders_fk")

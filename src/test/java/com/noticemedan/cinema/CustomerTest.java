@@ -16,6 +16,10 @@ import java.util.List;
 public class CustomerTest {
     private CustomerDao customerDao;
     private CustomerService customerService;
+<<<<<<< HEAD
+=======
+    private CustomerEntity customerEntity;
+>>>>>>> e7a6447670f5243c6a31e4ac28dceb28f0919292
 
     @BeforeMethod
     public void setUp() throws Exception {
@@ -25,10 +29,22 @@ public class CustomerTest {
 
         this.customerDao = jdbi.onDemand(CustomerDao.class);
         this.customerService = new CustomerService();
+<<<<<<< HEAD
     }
 
     /*@Test
     public void testOrderCreation() throws Exception {
         this.customerService.saveCustomerOrder("12345678", 1);
     }*/
+=======
+        this.customerEntity = new CustomerEntity();
+    }
+
+    @Test
+    public void testCustomerCreation() throws Exception {
+        customerService.createUser("88888888");
+        CustomerEntity customer = customerService.getCustomer("88888888");
+        Assert.assertEquals("88888888", customer.getPhoneNumber());
+    }
+>>>>>>> e7a6447670f5243c6a31e4ac28dceb28f0919292
 }
