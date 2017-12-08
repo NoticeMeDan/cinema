@@ -182,3 +182,28 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: customers_orders_fk
                     references: orders(id)
+  - changeSet:
+      id: 3
+      author: Mathias Egekvist
+      changes:
+        - renameColumn:
+            newColumnName: phone_number
+            oldColumnName: mobile_number
+            remarks: Consistency
+            tableName: customers
+        - modifyDataType:
+            columnName: phone_number
+            newDataType: varchar(20)
+            tableName: customers
+        - modifyDataType:
+            columnName: seats_fk
+            newDataType: int
+            tableName: orders
+  - changeSet:
+      id: 4
+      author: Mathias Egekvist
+      changes:
+        - modifyDataType:
+            columnName: orders_fk
+            newDataType: int
+            tableName: customers
