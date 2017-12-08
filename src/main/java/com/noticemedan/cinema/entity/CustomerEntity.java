@@ -1,10 +1,19 @@
 package com.noticemedan.cinema.entity;
 
-import java.util.List;
-
 public class CustomerEntity {
     private String phoneNumber;
-    private List<Integer> orderIds;
+    private int orderId;
+
+    public CustomerEntity() {}
+
+    public CustomerEntity(String phoneNumber) {
+        setPhoneNumber(phoneNumber);
+    }
+
+    public CustomerEntity(String phoneNumber, int orderId) {
+        setPhoneNumber(phoneNumber);
+        setOrderId(orderId);
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -14,11 +23,11 @@ public class CustomerEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Integer> getOrderIds() {
-        return orderIds;
+    public int getOrderId() {
+        return orderId;
     }
 
     public void setOrderId(int orderId) {
-        this.orderIds.add(orderId);
+        this.orderId = orderId;
     }
 }

@@ -16,7 +16,6 @@ import java.util.List;
 public class CustomerTest {
     private CustomerDao customerDao;
     private CustomerService customerService;
-    private CustomerEntity customerEntity;
 
     @BeforeMethod
     public void setUp() throws Exception {
@@ -26,13 +25,10 @@ public class CustomerTest {
 
         this.customerDao = jdbi.onDemand(CustomerDao.class);
         this.customerService = new CustomerService();
-        this.customerEntity = new CustomerEntity();
     }
 
-    @Test
-    public void testCustomerCreation() throws Exception {
-        customerService.createUser("88888888");
-        CustomerEntity customer = customerService.getCustomer("88888888");
-        Assert.assertEquals("88888888", customer.getPhoneNumber());
-    }
+    /*@Test
+    public void testOrderCreation() throws Exception {
+        this.customerService.saveCustomerOrder("12345678", 1);
+    }*/
 }
