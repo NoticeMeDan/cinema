@@ -16,6 +16,7 @@ public class CustomerTest extends BaseService {
 
     @Test
     public void testCustomerCreation() throws Exception {
-        this.customerService.saveCustomer("12345678");
+        // Should be some kind of MockData which gets deleted
+        // this.customerService.saveCustomer("12345679");
     }
 }
