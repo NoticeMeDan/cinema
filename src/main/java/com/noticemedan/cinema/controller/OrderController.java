@@ -16,4 +16,7 @@ public class OrderController {
     public List<OrderEntity> getCostumerOrders(String phoneNumber, int orderId) {
         return orderService.getCostumerOrders(orderId, phoneNumber);
     }
+    public void createNewOrder(){
+    }
+
 }
