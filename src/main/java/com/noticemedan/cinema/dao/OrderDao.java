@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface OrderDao {
     @SqlUpdate("")
-    void saveOrder(@BindBean List<SeatEntity> seat);
+    void createOrder(@BindBean List<SeatEntity> seat);
 
     @SqlUpdate("")
     @RegisterBeanMapper(OrderEntity.class)

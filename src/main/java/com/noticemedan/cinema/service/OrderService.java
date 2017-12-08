@@ -13,8 +13,8 @@ public class OrderService extends BaseService {
     }
 
     public void newOrder(List seats) {
-        orderEntity.chooseSeats(seats);
-        this.orderDao.saveOrder(orderEntity.getSeats());
+        orderEntity.setSeats(seats);
+        this.orderDao.createOrder(orderEntity.getSeats());
     }
 
     public void editOrder() {

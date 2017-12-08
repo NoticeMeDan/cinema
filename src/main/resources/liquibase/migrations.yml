@@ -207,3 +207,34 @@ databaseChangeLog:
             columnName: orders_fk
             newDataType: int
             tableName: customers
+  - changeSet:
+      id: 5
+      author: Elias Jørgensen
+      changes:
+        - renameColumn:
+            newColumnName: customer_fk
+            oldColumnName: seats_fk
+            tableName: orders
+        - dropColumn:
+            columnName: orders_fk
+            tableName: customers
+        - addColumn:
+            columns:
+              - column:
+                  name: order_fk
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: seats_orders_fk
+                    references: orders(id)
+            tableName: seats
+  - changeSet:
+      id: 6
+      author: Elias Jørgensen
+      changes:
+        - dropColumn:
+            columnName: available
+            tableName: seats
+        - dropColumn:
+            columnName: seat_amount
+            tableName: rooms

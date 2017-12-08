@@ -18,7 +18,7 @@ public class OrderEntity {
         return seats;
     }
 
-    public void chooseSeats(List<SeatEntity> seats) {
+    public void setSeats(List<SeatEntity> seats) {
         this.seats = seats;
     }
 }
