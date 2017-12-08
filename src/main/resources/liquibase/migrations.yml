@@ -238,3 +238,40 @@ databaseChangeLog:
         - dropColumn:
             columnName: seat_amount
             tableName: rooms
+  - changeSet:
+      id: movie-default-data
+      author: Elias Jørgensen
+      changes:
+        - loadData:
+           tableName: movies
+           file: src/main/resources/liquibase/movies.csv
+           quotchar: '"' # String with commas will break if you do not include this
+           columns:
+            - column:
+                name: title
+                type: STRING
+            - column:
+                name: duration
+                type: NUMERIC
+    - changeSet:
+        id: room-default-data
+        author: Elias Jørgensen
+        changes:
+          - loadData:
+             tableName: rooms
+             file: src/main/resources/liquibase/rooms.csv
+             columns:
+              - column:
+                  name: row_amount
+                  type: NUMERIC
+    - changeSet:
+        id: room-default-data
+        author: Elias Jørgensen
+        changes:
+          - loadData:
+             tableName: rooms
+             file: src/main/resources/liquibase/rooms.csv
+             columns:
+              - column:
+                  name: row_amount
+                  type: NUMERIC
