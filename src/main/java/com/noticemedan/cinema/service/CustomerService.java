@@ -1,35 +1,22 @@
 package com.noticemedan.cinema.service;
 
 import com.noticemedan.cinema.entity.CustomerEntity;
+import java.util.List;
 
 public class CustomerService extends BaseService {
-    private final CustomerEntity customerEntity;
-
     public CustomerService() {
         super();
         this.customerEntity = new CustomerEntity();
     }
 
-    public void createUser (String phoneNumber, int orderId) {
-        customerEntity.setPhoneNumber(phoneNumber);
-        customerDao.saveCustomer(phoneNumber, orderId);
+    public List<Integer> getCustomerOrderIds(String phoneNumber) {
+        CustomerEntity customerEntity = new CustomerEntity(phoneNumber);
+
+        return customerDao.getCustomerOrderIds(customerEntity.getPhoneNumber());
     }
 
-    public CustomerEntity getCustomer(String phoneNumber) {
-        return customerDao.getCustomer(phoneNumber);
-    }
-
-    public void saveCustomerOrderId(String phoneNumber, int orderId) {
-        customerEntity.setOrderId(orderId);
-        customerDao.saveCustomerOrderId(phoneNumber, orderId);
-    }
-
-    public CustomerEntity getCustomer(String phoneNumber) {
-        return customerDao.getCustomer(phoneNumber);
-    }
-
-    public void saveCustomerOrderId(String phoneNumber, int orderId) {
-        customerEntity.setOrderId(orderId);
-        customerDao.saveCustomerOrderId(phoneNumber, orderId);
+    public void saveCustomer(String phoneNumber) {
+        CustomerEntity customerEntity = new CustomerEntity(phoneNumber);
+        customerDao.saveCustomer(customerEntity.getPhoneNumber());
     }
 }

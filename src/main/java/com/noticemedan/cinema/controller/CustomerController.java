@@ -2,10 +2,16 @@ package com.noticemedan.cinema.controller;
 
 import com.noticemedan.cinema.service.CustomerService;
 
-public class CustomerController {
-    private CustomerService customerService = new CustomerService();
+import java.util.List;
 
-    public void createCustomer(String phoneNumber) {
-        customerService.createUser(phoneNumber);
+public class CustomerController {
+    private CustomerService customerService;
+
+    public CustomerController() {
+        this.customerService = new CustomerService();
+    }
+
+    public void saveCustomerOrder(String phoneNumber) {
+        customerService.saveCustomer(phoneNumber);
     }
 }

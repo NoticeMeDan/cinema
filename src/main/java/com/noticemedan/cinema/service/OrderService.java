@@ -12,12 +12,21 @@ public class OrderService extends BaseService {
         super();
     }
 
-    public void newOrder(List seats) {
-        orderEntity.setSeats(seats);
-        this.orderDao.createOrder(orderEntity.getSeats());
+    public void saveCustomerOrder (int orderId, String customerId) {
+        OrderEntity orderEntity = new OrderEntity(orderId, customerId);
+
+        orderDao.saveOrder(orderEntity.getId(), orderEntity.getCustomerId());
     }
 
-    public void editOrder() {
-        List<SeatEntity> seats = orderEntity.getSeats();
+    public void deleteCustomerOrder(int orderId, String customerId) {
+        OrderEntity orderEntity = new OrderEntity(orderId, customerId);
+
+        orderDao.deleteCustomerOrder(orderEntity.getId(), orderEntity.getCustomerId());
+    }
+
+    public List<OrderEntity> getCostumerOrders(int orderId, String customerId) {
+        OrderEntity orderEntity = new OrderEntity(orderId, customerId);
+
+        return orderDao.getCustomerOrders(orderEntity.getCustomerId());
     }
 }
