@@ -3,6 +3,12 @@ package com.noticemedan.cinema.service;
 import com.noticemedan.cinema.entity.CustomerEntity;
 import com.noticemedan.cinema.entity.OrderEntity;
 
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import static java.sql.DriverManager;
+
 
 public class CustomerService extends BaseService {
     private final CustomerEntity customerEntity;
@@ -14,15 +20,15 @@ public class CustomerService extends BaseService {
 
     public void createUser (String phoneNumber) {
         customerEntity.setPhoneNumber(phoneNumber);
-        customerDao.saveCustomer(phoneNumber);
+        customerDao.saveCustomer(88888888, id);
     }
 
     public CustomerEntity getCustomer(String phoneNumber) {
-        return customerDao.getCustomer(phoneNumber);
+        return customerDao.getCustomer(Integer.parseInt(phoneNumber));
     }
 
     public void saveCustomerOrderId(String phoneNumber, int orderId) {
         customerEntity.setOrderId(orderId);
-        customerDao.saveCustomerOrderId(phoneNumber, orderId);
+        customerDao.saveCustomerOrderId(Integer.parseInt(phoneNumber), orderId);
     }
 }
