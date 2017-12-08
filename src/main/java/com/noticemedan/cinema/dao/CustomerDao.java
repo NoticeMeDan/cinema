@@ -16,7 +16,7 @@ public interface CustomerDao {
 
     @SqlQuery("SELECT orders_fk " +
               "FROM customers " +
-              "WHERE :phone_number = customers.phone_number")
+              "WHERE :phone_number = customers.mobile_number")
     @RegisterBeanMapper(CustomerEntity.class)
     List<Integer> getCustomerOrderIds(@Bind("phone_number") String phone_number);
 
