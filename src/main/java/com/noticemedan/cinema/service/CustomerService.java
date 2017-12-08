@@ -18,17 +18,17 @@ public class CustomerService extends BaseService {
         this.customerEntity = new CustomerEntity();
     }
 
-    public void createUser (String phoneNumber) {
+    public void createUser (String phoneNumber, int orderId) {
         customerEntity.setPhoneNumber(phoneNumber);
-        customerDao.saveCustomer(88888888, id);
+        customerDao.saveCustomer(phoneNumber, orderId);
     }
 
     public CustomerEntity getCustomer(String phoneNumber) {
-        return customerDao.getCustomer(Integer.parseInt(phoneNumber));
+        return customerDao.getCustomer(phoneNumber);
     }
 
     public void saveCustomerOrderId(String phoneNumber, int orderId) {
         customerEntity.setOrderId(orderId);
-        customerDao.saveCustomerOrderId(Integer.parseInt(phoneNumber), orderId);
+        customerDao.saveCustomerOrderId(phoneNumber, orderId);
     }
 }
