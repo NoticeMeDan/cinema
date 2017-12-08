@@ -25,7 +25,6 @@ public class OrderController {
         orderService.saveOrder(phoneNumber);
     }
 
-
     public void createNewOrder(){
 
     }
