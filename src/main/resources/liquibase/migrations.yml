@@ -237,7 +237,6 @@ databaseChangeLog:
             tableName: seats
         - dropColumn:
             columnName: seat_amount
-<<<<<<< HEAD
             tableName: rooms
   - changeSet:
       id: movie-default-data
@@ -354,4 +353,3 @@ databaseChangeLog:
       changes:
         - sql:
             sql: SET REFERENTIAL_INTEGRITY TRUE
-
