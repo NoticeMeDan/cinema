@@ -1,5 +1,6 @@
 package com.noticemedan.cinema;
 
+import com.noticemedan.cinema.service.CustomerService;
 import com.noticemedan.cinema.service.TestService;
 
 import java.util.Arrays;
@@ -11,5 +12,6 @@ public class Application {
 
         System.out.println("Hey");
         System.out.println(Arrays.deepToString(testService.getTestsWithEasterEgg().toArray()));
+        //System.out.println(Arrays.deepToString(customerService.getTestsWithEasterEgg().toArray()));
     }
 }
