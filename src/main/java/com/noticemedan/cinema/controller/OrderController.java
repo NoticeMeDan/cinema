@@ -13,7 +13,7 @@ public class OrderController {
         this.orderService = new OrderService();
     }
 
-    public void getCostumerOrder(String phoneNumber, int orderId) {
-        List<OrderEntity> costumerOrders = orderService.getCostumerOrders(orderId, phoneNumber);
+    public List<OrderEntity> getCostumerOrders(String phoneNumber, int orderId) {
+        return orderService.getCostumerOrders(orderId, phoneNumber);
     }
 }

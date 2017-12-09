@@ -6,27 +6,22 @@ import com.noticemedan.cinema.entity.SeatEntity;
 import java.util.List;
 
 public class OrderService extends BaseService {
-    private final OrderEntity orderEntity = new OrderEntity();
-
     public OrderService() {
         super();
     }
 
     public void saveCustomerOrder (int orderId, String customerId) {
         OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-
         orderDao.saveOrder(orderEntity.getId(), orderEntity.getCustomerId());
     }
 
     public void deleteCustomerOrder(int orderId, String customerId) {
         OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-
         orderDao.deleteCustomerOrder(orderEntity.getId(), orderEntity.getCustomerId());
     }
 
     public List<OrderEntity> getCostumerOrders(int orderId, String customerId) {
         OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-
         return orderDao.getCustomerOrders(orderEntity.getCustomerId());
     }
 }
