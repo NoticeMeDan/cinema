@@ -9,7 +9,7 @@ import java.util.List;
 public class OrderController {
     private OrderService orderService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController() {
         this.orderService = new OrderService();
     }
 
@@ -24,4 +24,9 @@ public class OrderController {
     public void saveOrder(String phoneNumber) {
         orderService.saveOrder(phoneNumber);
     }
+
+    public void createNewOrder(){
+
+    }
+
 }
