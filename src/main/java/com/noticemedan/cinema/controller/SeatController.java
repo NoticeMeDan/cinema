@@ -12,8 +12,4 @@ public class SeatController {
     public void bookSeat(int seatNumber, int showId, int orderId) {
         seatService.bookSeat(seatNumber, showId, orderId);
     }
-
-    public void deleteSeatBooking(int seatNumber, int orderId) {
-        seatService.deleteSeatBooking(seatNumber, orderId);
-    }
 }
