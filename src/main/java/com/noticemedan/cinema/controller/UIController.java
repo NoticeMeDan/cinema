@@ -1,97 +1,43 @@
 package com.noticemedan.cinema.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+
+import java.awt.event.ActionEvent;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class UIController {
+public class UIController implements Initializable {
+    //TopPane
+    @FXML private DatePicker pickDate;
+    @FXML private Button login;
+    @FXML private TextField customerID;
+    @FXML private Label showID;
+    @FXML private Label ld;
+    @FXML private Label info;
+    @FXML private ComboBox pickTime;
+    @FXML private ComboBox pickMovie;
 
-    //Getters
-    /*
-    public String getCustomer(int id){
-        return CustomerService.getCustomer();
+    //Get movie+time+date and display on info-label
+    public void getInfo(){
+        info.setText("'" + pickMovie.getValue().toString() + "' ["
+                    + pickTime.getValue().toString() + "] - "
+                    + pickDate.getValue().toString());
     }
-
-    public List<OrderEntity> getOrders(CustomerEntity customer){
-
-        return CustomerService.getOrders();
+    public void login(){
+        showID.setText(customerID.getText());
     }
-*/
-    //This will be changed to public Movie getMovies()
-    public void getMovies(){
-        System.out.println();
-        //ShowService.getMovie();
+    //Things to initialize
+    private ObservableList<String> movies = FXCollections.observableArrayList("John Hitler", "John Hitler 2");
+    private ObservableList<String> time = FXCollections.observableArrayList("8", "12");
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        pickMovie.setItems(movies);
+        pickTime.setItems(time);
     }
-
-    public int getAmountOfSeats(){
-        return 5;
-        // return OrderService.getAmountOfSeats();
-    }
-    /*
-    public Order getOrder(){
-        Order.getOrder();
-    }
-    */
-
-    public void getOrder(){
-        System.out.println("This is your order:");
-    }
-
-    //Setters
-    public void addOrder(){
-        System.out.println("New order");
-        // OrderService.addOrder();
-    }
-
-    public void setAmountOfSeats(){
-        System.out.println("You chose seats");
-        //OrderService.setAmountOfSeats(amount);
-    }
-
-    public void isChecked(){
-        System.out.println("Checked");
-    }
-    /*public boolean setIndividualSeat(){
-        boolean isChecked;
-        if(seatsChecked.isSelected()){
-
-        }
-    } */
-
-    public void chooseTimeSlot(){
-        System.out.println("Choose timeslot");
-        // /ShowService.chooseTimeSlot();
-    }
-
-    //Choose
-    public void chooseMovie(){
-        System.out.println("Choose movie");
-        //ShowService.chooseMovie();
-    }
-
-    public void chooseDate(){
-        System.out.println("Choose date");
-        //ShowService.chooseDate();
-    }
-
-    public void chooseSeat(){
-        System.out.println("Here you choose seats");
-        //OrderService.chooseSeat();
-    }
-
-    public void saveSettings(){
-        System.out.println("Save");
-        //OrderService.saveSettings();
-    }
-
-    public void cancelSettings(){
-        System.out.println("Cancel");
-        //OrderService.cancelSettings();
-    }
-
-    public void test(){
-        System.out.println("Hey, se det virker");
-    }
-
-
-
-
 }
