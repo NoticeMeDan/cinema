@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class UIController implements Initializable {
@@ -81,5 +80,5 @@ public class UIController implements Initializable {
 
     //Extra features
     //TODO create tutorial
-
+    
 }
