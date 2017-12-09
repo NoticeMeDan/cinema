@@ -64,8 +64,8 @@ public class UIController implements Initializable {
         //Initialize TableView with data
         tableView.setItems(list);
     }
-    //TODO create new order method
     public void newOrder(){
+        //OrderController.createNewOrder();
 
     }
     //TODO create save method
