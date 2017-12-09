@@ -12,7 +12,7 @@ public class OrderController {
     public OrderController() {
         this.orderService = new OrderService();
     }
-    
+
     public List<OrderEntity> getCostumerOrders(String phoneNumber, int orderId) {
         return orderService.getCostumerOrders(orderId, phoneNumber);
     }
