@@ -10,10 +10,6 @@ import javafx.scene.control.*;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDate;
-<<<<<<< HEAD
-=======
-import java.util.List;
->>>>>>> commit through IntelliJ
 import java.util.ResourceBundle;
 
 public class UIController implements Initializable {
