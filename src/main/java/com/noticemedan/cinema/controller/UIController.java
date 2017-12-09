@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 
 import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -33,11 +34,27 @@ public class UIController implements Initializable {
     }
     //Things to initialize
     private ObservableList<String> movies = FXCollections.observableArrayList("John Hitler", "John Hitler 2");
-    private ObservableList<String> time = FXCollections.observableArrayList("8", "12");
+    private ObservableList<String> time = FXCollections.observableArrayList("8:00", "12:00");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Initialize movies with default value
         pickMovie.setItems(movies);
+        pickMovie.getSelectionModel().selectFirst();
+        //Initialize time with default value
         pickTime.setItems(time);
+        pickTime.getSelectionModel().selectFirst();
+        //Initialize date with default value
+        pickDate.setValue(LocalDate.now());
+        getInfo();
     }
+    //TODO TableView receive data
+
+    //TODO create new order method
+
+    //TODO create save method
+
+    //TODO create delete method
+
+    //TODO create tutorial
 }

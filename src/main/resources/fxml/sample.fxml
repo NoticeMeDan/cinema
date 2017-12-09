@@ -11,24 +11,28 @@
             fx:controller="com.noticemedan.cinema.controller.UIController"
 >
     <top>
-        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="150.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="180.0" prefWidth="1280" BorderPane.alignment="CENTER">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="85.0" prefWidth="598.0">
+                <AnchorPane minHeight="80.0" maxHeight="80" minWidth="0.0" prefHeight="50.0" prefWidth="1280.0">
                     <children>
-                        <Button fx:id="login" onAction="#login" layoutX="614.0" layoutY="35.0" mnemonicParsing="false" text="Enter" />
-                        <TextField fx:id="customerID" layoutX="556.0" layoutY="1.0" promptText="Phonenumber" />
-                        <Label layoutX="853.0" layoutY="26.0" text="Customer:" />
-                        <Label fx:id="showID" layoutX="925.0" layoutY="26.0" text="" />
+                        <Label text="Enter phone number" layoutX="580.0" layoutY="5.0"/>
+                        <Button fx:id="login" onAction="#login" layoutX="700.0" layoutY="35.0" text="Enter" />
+                        <TextField fx:id="customerID" layoutX="530.0" layoutY="35.0" promptText="Phone number" />
+                        <Label layoutX="853.0" layoutY="35.0" text="Customer:" />
+                        <Label fx:id="showID" layoutX="925.0" layoutY="35.0" />
                     </children>
                 </AnchorPane>
-                <AnchorPane minHeight="70.0" prefWidth="160.0" maxHeight="70.0" >
+                <AnchorPane minHeight="80.0" prefWidth="1280" maxHeight="80.0" >
                     <children>
-                        <DatePicker fx:id="pickDate" onAction="#getInfo" layoutX="665.0" layoutY="8.0" prefHeight="50.0" prefWidth="224.0" promptText="Date" />
-                        <ComboBox fx:id="pickTime" layoutX="411.0" layoutY="12.0" prefHeight="45.0" prefWidth="177.0" promptText="Time" />
-                        <ComboBox fx:id="pickMovie" layoutX="166.0" layoutY="12.0" prefHeight="45.0" prefWidth="185.0" promptText="Movie" />
-                        <Label fx:id="info" alignment="CENTER" layoutX="935.0" layoutY="12.0" prefHeight="48.0" prefWidth="276.0" text="">
+                        <Label text="Pick a date" layoutX="166.0" layoutY="12.0"/>
+                        <DatePicker fx:id="pickDate" onAction="#getInfo" layoutX="166.0" layoutY="35.0" prefHeight="30.0" prefWidth="180.0" promptText="Date" />
+                        <Label text="Pick a movie" layoutX="411.0" layoutY="12.0"/>
+                        <ComboBox fx:id="pickMovie" onAction="#getInfo" layoutX="411.0" layoutY="35.0" prefHeight="30.0" prefWidth="180.0" promptText="Movie" />
+                        <Label text="Pick a time" layoutX="665.0" layoutY="12.0"/>
+                        <ComboBox fx:id="pickTime" onAction="#getInfo" layoutX="665.0" layoutY="35.0" prefHeight="30.0" prefWidth="180.0" promptText="Time" />
+                        <Label fx:id="info" alignment="CENTER" layoutX="935.0" layoutY="25.0" prefHeight="48.0" prefWidth="276.0" >
                             <font>
-                                <Font size="17.0" />
+                                <Font size="15.0" />
                             </font>
                         </Label>
                     </children>
@@ -70,7 +74,7 @@
         </GridPane>
     </center>
     <left>
-        <SplitPane dividerPositions="0.15492957746478872" orientation="VERTICAL" prefHeight="200.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.14" orientation="VERTICAL" prefHeight="200.0" prefWidth="250.0" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
@@ -81,7 +85,7 @@
                     <children>
                         <TableView layoutX="3.0" prefHeight="480.0" prefWidth="246.0">
                             <columns>
-                                <TableColumn id="OrderName" prefWidth="75.0" text="Movie" />
+                                <TableColumn id="OrderName" prefWidth="75.0" text="Movie"/>
                                 <TableColumn id="OrderTime" prefWidth="75.0" text="Time" />
                                 <TableColumn id="OrderDate" prefWidth="75.0" text="Date" />
                             </columns>
