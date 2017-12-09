@@ -78,7 +78,6 @@
                 <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.rowIndex="7" />
             </children>
         </GridPane>
-
     </center>
     <left>
         <SplitPane dividerPositions="0.14" orientation="VERTICAL" prefHeight="200.0" prefWidth="250.0" BorderPane.alignment="CENTER">
