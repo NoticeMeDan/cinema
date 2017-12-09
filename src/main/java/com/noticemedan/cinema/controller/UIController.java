@@ -15,6 +15,8 @@ import java.util.ResourceBundle;
 
 public class UIController implements Initializable {
     //Customer ID and Login
+    //TopPane
+    @FXML private DatePicker pickDate;
     @FXML private Button login;
     @FXML private TextField customerID;
     @FXML private Label showID;
@@ -80,5 +82,5 @@ public class UIController implements Initializable {
 
     //Extra features
     //TODO create tutorial
-
+    
 }
