@@ -45,6 +45,7 @@ public class UIController implements Initializable {
     //Data for Movies and Time
     private ObservableList<String> movies = FXCollections.observableArrayList("John Hitler", "John Hitler 2");
     private ObservableList<String> time = FXCollections.observableArrayList("8:00", "12:00");
+<<<<<<< HEAD
     //Data for TableView
     private ObservableList<ShowDummy> list = FXCollections.observableArrayList(
             new ShowDummy("John Hitler", "8:00", "8/4/2017"),
@@ -52,6 +53,9 @@ public class UIController implements Initializable {
             new ShowDummy("John Hitler", "12:00", "9/4/2017"),
             new ShowDummy("Finding Nemo", "12:00", "9/4/2017")
     );
+=======
+
+>>>>>>> commit through IntelliJ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Initialize movies with default value
@@ -82,5 +86,4 @@ public class UIController implements Initializable {
 
     //Extra features
     //TODO create tutorial
-    
 }
