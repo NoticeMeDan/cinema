@@ -82,5 +82,4 @@ public class UIController implements Initializable {
 
     //Extra features
     //TODO create tutorial
-    
 }
