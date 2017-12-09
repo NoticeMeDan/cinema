@@ -1,10 +1,15 @@
 package com.noticemedan.cinema.entity;
 
-import java.util.List;
-
 public class OrderEntity {
     private int id;
-    private List<SeatEntity> seats;
+    private String customerId;
+
+    public OrderEntity() {}
+
+    public OrderEntity(int id, String customerId) {
+        setId(id);
+        setCustomerId(customerId);
+    }
 
     public int getId() {
         return id;
@@ -14,11 +19,11 @@ public class OrderEntity {
         this.id = id;
     }
 
-    public List<SeatEntity> getSeats() {
-        return seats;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setSeats(List<SeatEntity> seats) {
-        this.seats = seats;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 }

@@ -277,3 +277,24 @@ databaseChangeLog:
             - column:
                 name: column_amount
                 type: NUMERIC
+  - changeSet:
+      id: 8
+      author: Mathias Egekvist
+      changes:
+        - addColumn:
+            tableName: seats
+            columns:
+              - column:
+                  name: seat_number
+                  type: int
+                  constraints:
+                    nullable: false
+        - dropUniqueConstraint:
+            constraintName: orders_seats_fk
+            tableName: orders
+        - addForeignKeyConstraint:
+            baseColumnNames: customer_fk
+            baseTableName: orders
+            constraintName: orders_customer_fk
+            referencedColumnNames: phone_number
+            referencedTableName: customers
