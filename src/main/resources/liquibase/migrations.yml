@@ -324,3 +324,32 @@ databaseChangeLog:
             - column:
                 name: end_time
                 type: DATETIME
+  - changeSet:
+      id: before-show-default-data
+      author: Elias Jørgensen
+      changes:
+        - sql:
+            sql: SET REFERENTIAL_INTEGRITY FALSE
+  - changeSet:
+      id: show-default-data
+      author: Elias Jørgensen
+      changes:
+        - loadData:
+           tableName: shows
+           file: src/main/resources/liquibase/shows.csv
+           columns:
+            - column:
+                name: room_fk
+                type: NUMERIC
+            - column:
+                name: movie_fk
+                type: NUMERIC
+            - column:
+                name: timeslot_fk
+                type: NUMERIC
+  - changeSet:
+      id: after-show-default-data
+      author: Elias Jørgensen
+      changes:
+        - sql:
+            sql: SET REFERENTIAL_INTEGRITY TRUE
