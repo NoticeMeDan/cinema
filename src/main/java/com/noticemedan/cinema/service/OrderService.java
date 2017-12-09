@@ -12,18 +12,6 @@ public class OrderService extends BaseService {
 
     public void saveCustomerOrder (int orderId, String customerId) {
         OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-<<<<<<< HEAD
-        orderDao.saveOrder(orderEntity.getId(), orderEntity.getCustomerId());
-    }
-
-    public void deleteCustomerOrder(int orderId, String customerId) {
-        OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-        orderDao.deleteCustomerOrder(orderEntity.getId(), orderEntity.getCustomerId());
-    }
-
-    public List<OrderEntity> getCostumerOrders(int orderId, String customerId) {
-        OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-=======
 
         orderDao.saveOrder(orderEntity.getId(), orderEntity.getCustomerId());
     }
@@ -36,8 +24,6 @@ public class OrderService extends BaseService {
 
     public List<OrderEntity> getCostumerOrders(int orderId, String customerId) {
         OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-
->>>>>>> SHIT!
         return orderDao.getCustomerOrders(orderEntity.getCustomerId());
     }
 }

@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface OrderDao {
     @SqlUpdate("INSERT INTO orders(id, customer_fk) " +
-<<<<<<< HEAD
                "VALUES (:order_id, :customer_id)")
     void saveOrder(@Bind("order_id") int order_id,
                    @Bind("customer_id") String customer_id);
@@ -27,19 +26,5 @@ public interface OrderDao {
                "AND :order_id = orders.id")
     void deleteCustomerOrder(@Bind("order_id") int order_id,
                              @Bind("customer_id") String customer_id);
-=======
-               "VALUES (:orderID, :customerId)")
-    void saveOrder(@Bind("orderId") int orderId, @Bind("customerId") String customerId);
 
-    @SqlQuery("SELECT * " +
-              "FROM orders " +
-              "WHERE :customerId = orders.customer_fk")
-    @RegisterBeanMapper(OrderEntity.class)
-    List<OrderEntity> getCustomerOrders(@Bind("customerId") String customerId);
-
-    @SqlUpdate("DELETE FROM orders " +
-               "WHERE :customerId = orders.customer_fk " +
-               "AND :orderId = orders.id")
-    void deleteCustomerOrder(@Bind("orderId") int orderId, @Bind("customerId") String customerId);
->>>>>>> SHIT!
 }

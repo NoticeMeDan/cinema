@@ -237,7 +237,6 @@ databaseChangeLog:
             tableName: seats
         - dropColumn:
             columnName: seat_amount
-<<<<<<< HEAD
             tableName: rooms
   - changeSet:
       id: 7
@@ -260,6 +259,3 @@ databaseChangeLog:
             constraintName: orders_customer_fk
             referencedColumnNames: phone_number
             referencedTableName: customers
-=======
-            tableName: rooms
->>>>>>> SHIT!
