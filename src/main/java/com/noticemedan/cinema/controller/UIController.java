@@ -21,7 +21,6 @@ public class UIController implements Initializable {
     @FXML private Label showID;
     @FXML private Label ld;
     //Pick info
-    @FXML private DatePicker pickDate;
     @FXML private ComboBox pickTime;
     @FXML private ComboBox pickMovie;
     @FXML private Label info;
