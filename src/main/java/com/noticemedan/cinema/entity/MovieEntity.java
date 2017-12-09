@@ -28,4 +28,10 @@ public class MovieEntity {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    public MovieEntity(int id, String name, int duration) {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+    }
 }

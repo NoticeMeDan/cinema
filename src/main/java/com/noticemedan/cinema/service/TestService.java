@@ -1,5 +1,6 @@
 package com.noticemedan.cinema.service;
 
+import com.noticemedan.cinema.entity.ShowEntity;
 import com.noticemedan.cinema.entity.TestEntity;
 
 import java.util.List;
@@ -21,5 +22,9 @@ public class TestService extends BaseService {
                     return testEntity;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public final List<ShowEntity> getShows() {
+        return this.testDao.listShows();
     }
 }

@@ -1,12 +1,10 @@
 package com.noticemedan.cinema.entity;
 
-import java.util.List;
-
 public class ShowEntity {
     private int id;
-    private List<RoomEntity> rooms;
-    private List<MovieEntity> movies;
-    private List<TimeSlotEntity> timeslots;
+    private RoomEntity room;
+    private MovieEntity movie;
+    private TimeSlotEntity timeslot;
 
     public int getId() {
         return id;
@@ -16,27 +14,34 @@ public class ShowEntity {
         this.id = id;
     }
 
-    public List<RoomEntity> getRooms() {
-        return rooms;
+    public RoomEntity getRoom() {
+        return room;
     }
 
-    public void setRooms(List<RoomEntity> rooms) {
-        this.rooms = rooms;
+    public void setRoom(RoomEntity room) {
+        this.room = room;
     }
 
-    public List<MovieEntity> getMovies() {
-        return movies;
+    public MovieEntity getMovie() {
+        return movie;
     }
 
-    public void setMovies(List<MovieEntity> movies) {
-        this.movies = movies;
+    public void setMovie(MovieEntity movie) {
+        this.movie = movie;
     }
 
-    public List<TimeSlotEntity> getTimeslots() {
-        return timeslots;
+    public TimeSlotEntity getTimeslot() {
+        return timeslot;
     }
 
-    public void setTimeslots(List<TimeSlotEntity> timeslots) {
-        this.timeslots = timeslots;
+    public void setTimeslot(TimeSlotEntity timeslot) {
+        this.timeslot = timeslot;
+    }
+
+    public ShowEntity(int id, RoomEntity room, MovieEntity movie, TimeSlotEntity timeslot) {
+        this.id = id;
+        this.room = room;
+        this.movie = movie;
+        this.timeslot = timeslot;
     }
 }

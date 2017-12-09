@@ -2,8 +2,8 @@ package com.noticemedan.cinema.entity;
 
 public class RoomEntity {
     private int id;
-    private int amountOfRows;
-    private int amountOfSeats;
+    private int rowAmount;
+    private int columnAmount;
 
     public int getId() {
         return id;
@@ -13,19 +13,25 @@ public class RoomEntity {
         this.id = id;
     }
 
-    public int getAmountOfRows() {
-        return amountOfRows;
+    public int getRowAmount() {
+        return rowAmount;
     }
 
-    public void setAmountOfRows(int amountOfRows) {
-        this.amountOfRows = amountOfRows;
+    public void setRowAmount(int rowAmount) {
+        this.rowAmount = rowAmount;
     }
 
-    public int getAmountOfSeats() {
-        return amountOfSeats;
+    public int getColumnAmount() {
+        return columnAmount;
     }
 
-    public void setAmountOfSeats(int amountOfSeats) {
-        this.amountOfSeats = amountOfSeats;
+    public void setColumnAmount(int columnAmount) {
+        this.columnAmount = columnAmount;
+    }
+
+    public RoomEntity(int id, int rowAmount, int columnAmount) {
+        this.id = id;
+        this.rowAmount = rowAmount;
+        this.columnAmount = columnAmount;
     }
 }
