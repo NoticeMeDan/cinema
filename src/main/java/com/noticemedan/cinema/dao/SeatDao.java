@@ -10,10 +10,4 @@ public interface SeatDao {
     void bookSeat(@Bind("seat_number") int seat_number,
                   @Bind("show_id") int show_id,
                   @Bind("order_id") int order_id);
-
-    @SqlQuery("DELETE FROM seats " +
-              "WHERE :seat_number = seat_number " +
-              "AND :order_id = order_fk")
-    void deleteSeatBooking(@Bind("seat_number") int seat_number,
-                           @Bind("order_id") int order_id);
 }
