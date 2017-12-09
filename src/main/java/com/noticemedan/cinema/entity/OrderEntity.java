@@ -6,8 +6,11 @@ public class OrderEntity {
 
     public OrderEntity() {}
 
-    public OrderEntity(int id, String customerId) {
+    public OrderEntity(int id) {
         setId(id);
+    }
+
+    public OrderEntity(String customerId) {
         setCustomerId(customerId);
     }
 
