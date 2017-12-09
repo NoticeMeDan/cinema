@@ -8,6 +8,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import com.noticemedan.cinema.controller.ShowDummy?>
 <?import javafx.collections.FXCollections?>
+
 <BorderPane minHeight="720.0" minWidth="1280.0"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.noticemedan.cinema.controller.UIController"
