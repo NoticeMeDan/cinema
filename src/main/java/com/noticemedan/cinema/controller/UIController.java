@@ -70,7 +70,15 @@ public class UIController implements Initializable {
     }
     //TODO create save method
 
+    //TODO update movie
+    //Happens when you pick a date
+
+    //TODO update time
+    //Hapens when you pick a movie
+
     //TODO create delete method
 
+    //Extra features
     //TODO create tutorial
+
 }
