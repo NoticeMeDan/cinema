@@ -253,25 +253,27 @@ databaseChangeLog:
             - column:
                 name: duration
                 type: NUMERIC
-    - changeSet:
-        id: room-default-data
-        author: Elias Jørgensen
-        changes:
-          - loadData:
-             tableName: rooms
-             file: src/main/resources/liquibase/rooms.csv
-             columns:
-              - column:
-                  name: row_amount
-                  type: NUMERIC
-    - changeSet:
-        id: room-default-data
-        author: Elias Jørgensen
-        changes:
-          - loadData:
-             tableName: rooms
-             file: src/main/resources/liquibase/rooms.csv
-             columns:
-              - column:
-                  name: row_amount
-                  type: NUMERIC
+  - changeSet:
+      id: 7
+      author: Elias Jørgensen
+      changes:
+        - addColumn:
+            columns:
+            - column:
+                name: column_amount
+                type: int(10)
+            tableName: rooms
+  - changeSet:
+      id: room-default-data
+      author: Elias Jørgensen
+      changes:
+        - loadData:
+           tableName: rooms
+           file: src/main/resources/liquibase/rooms.csv
+           columns:
+            - column:
+                name: row_amount
+                type: NUMERIC
+            - column:
+                name: column_amount
+                type: NUMERIC
