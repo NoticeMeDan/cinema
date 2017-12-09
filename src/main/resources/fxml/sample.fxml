@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import com.noticemedan.cinema.controller.ShowDummy?>
 <?import javafx.collections.FXCollections?>
@@ -87,6 +86,7 @@
                 </AnchorPane>
                 <AnchorPane minHeight="200.0" minWidth="0.0" prefHeight="200.0" prefWidth="160.0">
                     <children>
+<<<<<<< HEAD
                         <TableView fx:id="tableView" layoutX="3.0" prefHeight="480.0" prefWidth="246.0">
                             <columns>
                                 <TableColumn text="Movie">
