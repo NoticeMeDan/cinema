@@ -17,7 +17,4 @@ public class SeatTest extends BaseService {
     public void testSeatBooking() throws Exception {
     }
 
-    @Test
-    public void testDeleteBooking() throws Exception {
-    }
 }

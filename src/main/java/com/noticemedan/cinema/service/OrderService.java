@@ -1,7 +1,6 @@
 package com.noticemedan.cinema.service;
 
 import com.noticemedan.cinema.entity.OrderEntity;
-import com.noticemedan.cinema.entity.SeatEntity;
 
 import java.util.List;
 
@@ -10,18 +9,18 @@ public class OrderService extends BaseService {
         super();
     }
 
-    public void saveCustomerOrder (int orderId, String customerId) {
-        OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-        orderDao.saveOrder(orderEntity.getId(), orderEntity.getCustomerId());
+    public void saveOrder(String customerId) {
+        OrderEntity orderEntity = new OrderEntity(customerId);
+        orderDao.saveOrder(orderEntity.getCustomerId());
     }
 
-    public void deleteCustomerOrder(int orderId, String customerId) {
-        OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-        orderDao.deleteCustomerOrder(orderEntity.getId(), orderEntity.getCustomerId());
+    public void deleteOrder(int orderId) {
+        OrderEntity orderEntity = new OrderEntity(orderId);
+        orderDao.deleteOrder(orderEntity.getId());
     }
 
-    public List<OrderEntity> getCostumerOrders(int orderId, String customerId) {
-        OrderEntity orderEntity = new OrderEntity(orderId, customerId);
-        return orderDao.getCustomerOrders(orderEntity.getCustomerId());
+    public List<OrderEntity> getOrders(String customerId) {
+        OrderEntity orderEntity = new OrderEntity(customerId);
+        return orderDao.getOrders(orderEntity.getCustomerId());
     }
 }
