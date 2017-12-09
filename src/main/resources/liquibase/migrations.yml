@@ -298,3 +298,29 @@ databaseChangeLog:
             constraintName: orders_customer_fk
             referencedColumnNames: phone_number
             referencedTableName: customers
+  - changeSet:
+      id: 9
+      author: Elias Jørgensen
+      changes:
+        - modifyDataType:
+            columnName: start_time
+            tableName: timeslots
+            newDataType: timestamp
+        - modifyDataType:
+            columnName: end_time
+            tableName: timeslots
+            newDataType: timestamp
+  - changeSet:
+      id: timeslot-default-data
+      author: Elias Jørgensen
+      changes:
+        - loadData:
+           tableName: timeslots
+           file: src/main/resources/liquibase/timeslots.csv
+           columns:
+            - column:
+                name: start_time
+                type: DATETIME
+            - column:
+                name: end_time
+                type: DATETIME
