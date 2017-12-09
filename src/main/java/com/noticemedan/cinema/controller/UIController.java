@@ -10,6 +10,10 @@ import javafx.scene.control.*;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDate;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> commit through IntelliJ
 import java.util.ResourceBundle;
 
 public class UIController implements Initializable {
@@ -51,6 +55,7 @@ public class UIController implements Initializable {
             new ShowDummy("John Hitler", "12:00", "9/4/2017"),
             new ShowDummy("Finding Nemo", "12:00", "9/4/2017")
     );
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Initialize movies with default value
