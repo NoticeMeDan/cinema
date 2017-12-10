@@ -6,17 +6,21 @@ public class SeatEntity {
     private int orderId;
     private int seatNumber;
 
-    public SeatEntity() {}
+    public SeatEntity(int id, int showId, int orderId, int seatNumber) {
+        this.id = id;
+        this.showId = showId;
+        this.orderId = orderId;
+        this.seatNumber = seatNumber;
+    }
 
-    public SeatEntity(int orderId, int seatNumber) {
-        setOrderId(orderId);
-        setSeatNumber(seatNumber);
+    public SeatEntity(int orderId) {
+        this.orderId = orderId;
     }
 
     public SeatEntity(int showId, int orderId, int seatNumber) {
-        setShowId(showId);
-        setOrderId(orderId);
-        setSeatNumber(seatNumber);
+        this.showId = showId;
+        this.orderId = orderId;
+        this.seatNumber = seatNumber;
     }
 
     public int getId() {

@@ -5,6 +5,7 @@ import com.noticemedan.cinema.entity.SeatEntity;
 import com.noticemedan.cinema.service.OrderService;
 
 import java.util.List;
+import java.util.Optional;
 
 public class OrderController {
     private OrderService orderService;
@@ -13,7 +14,7 @@ public class OrderController {
         this.orderService = new OrderService();
     }
 
-    public List<OrderEntity> getOrders(String phoneNumber) {
+    public Optional<List<OrderEntity>> getOrders(String phoneNumber) {
         return orderService.getOrders(phoneNumber);
     }
 
@@ -24,7 +25,5 @@ public class OrderController {
     public void saveOrder(String phoneNumber) {
         orderService.saveOrder(phoneNumber);
     }
-
-    public void findOrders(String phoneNumber) { orderService.getOrders(phoneNumber); }
 
 }

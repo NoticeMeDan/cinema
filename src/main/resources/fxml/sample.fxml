@@ -5,11 +5,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import com.noticemedan.cinema.controller.ShowDummy?>
+<?import com.noticemedan.cinema.view.OrderView?>
 <?import javafx.collections.FXCollections?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import com.noticemedan.cinema.controller.ShowDummy?>
+<?import com.noticemedan.cinema.view.OrderView?>
 <?import javafx.collections.FXCollections?>
 
 <BorderPane minHeight="720.0" minWidth="1280.0"
@@ -91,6 +91,11 @@
                     <children>
                         <TableView fx:id="tableView" layoutX="3.0" prefHeight="480.0" prefWidth="246.0">
                             <columns>
+                                <TableColumn text="Room">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="room" />
+                                    </cellValueFactory>
+                                </TableColumn>
                                 <TableColumn text="Movie">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="movie" />

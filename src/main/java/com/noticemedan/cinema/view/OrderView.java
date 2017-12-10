@@ -1,18 +1,20 @@
-package com.noticemedan.cinema.controller;
+package com.noticemedan.cinema.view;
 
 import com.noticemedan.cinema.service.BaseService;
 import javafx.beans.property.SimpleStringProperty;
 
-public class ShowDummy extends BaseService {
+public class OrderView {
+    private  final SimpleStringProperty room = new SimpleStringProperty("");
     private final SimpleStringProperty movie = new SimpleStringProperty("");
     private final SimpleStringProperty time = new SimpleStringProperty("");
     private final SimpleStringProperty date = new SimpleStringProperty("");
 
-    public ShowDummy() {
-        this("", "", "");
+    public OrderView() {
+        this("", "", "", "");
     }
 
-    public ShowDummy(String movie, String time, String date) {
+    public OrderView(String room, String movie, String time, String date) {
+        setRoom(room);
         setMovie(movie);
         setTime(time);
         setDate(date);
@@ -40,5 +42,13 @@ public class ShowDummy extends BaseService {
 
     public void setDate(String fDate) {
         date.set(fDate);
+    }
+
+    public String getRoom() {
+        return room.get();
+    }
+
+    public void setRoom(String fRoom) {
+        room.set(fRoom);
     }
 }
