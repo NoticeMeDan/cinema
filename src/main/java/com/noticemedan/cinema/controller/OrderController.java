@@ -25,8 +25,6 @@ public class OrderController {
         orderService.saveOrder(phoneNumber);
     }
 
-    public void createNewOrder(){
-
-    }
+    public void findOrders(String phoneNumber) { orderService.getOrders(phoneNumber); }
 
 }

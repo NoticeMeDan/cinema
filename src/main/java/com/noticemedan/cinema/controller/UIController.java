@@ -1,13 +1,11 @@
 package com.noticemedan.cinema.controller;
 
-import com.noticemedan.cinema.entity.ShowEntity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -16,14 +14,14 @@ public class UIController implements Initializable {
     //Customer ID and Login
     //TopPane
     @FXML private DatePicker pickDate;
-    @FXML private Button login;
     @FXML private TextField customerID;
-    @FXML private Label showID;
-    @FXML private Label ld;
-    //Pick info
+    @FXML private Label showCurrentUser;
+
+    //TODO better comment: Pick info
     @FXML private ComboBox pickTime;
     @FXML private ComboBox pickMovie;
     @FXML private Label info;
+
     //TableView
     @FXML private TableView<ShowDummy> tableView;
     @FXML private TableColumn<ShowDummy, String> movieCol;
@@ -36,9 +34,28 @@ public class UIController implements Initializable {
                     + pickTime.getValue().toString() + "] - "
                     + pickDate.getValue().toString());
     }
-    public void login(){
-        showID.setText(customerID.getText());
+
+    public void findCustomer(){
+        OrderController orderController = new OrderController();
+        String phoneNumber = customerID.getText();
+
+        try {
+            if( !phoneNumber.isEmpty() ) {
+                orderController.findOrders(phoneNumber);
+            } else {
+                throw new IllegalArgumentException("Remember to write a phone number or else I can't help you find the customer's orders");
+            }
+        } catch (Exception e) {
+            this.alertBox(
+                e.getMessage(),
+                "No input",
+                "Nothing?"
+            );
+        }
+
+        showCurrentUser.setText(customerID.getText());
     }
+
     //Things to initialize
     //Data for Movies and Time
     private ObservableList<String> movies = FXCollections.observableArrayList("John Hitler", "John Hitler 2");
@@ -68,6 +85,15 @@ public class UIController implements Initializable {
     //TODO create new order
     public void newOrder(){
         //OrderController.createNewOrder();
+    }
+
+    public static void alertBox(String infoMessage, String titleBar, String headerMessage)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.setContentText(infoMessage);
+        alert.showAndWait();
     }
     //TODO create save method
 
