@@ -4,6 +4,7 @@ import com.noticemedan.cinema.entity.MovieEntity;
 import com.noticemedan.cinema.entity.RoomEntity;
 import com.noticemedan.cinema.entity.ShowEntity;
 import com.noticemedan.cinema.entity.TimeSlotEntity;
+
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
