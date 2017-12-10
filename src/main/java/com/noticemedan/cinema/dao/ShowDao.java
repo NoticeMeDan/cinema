@@ -19,9 +19,10 @@ public interface ShowDao {
 
     @SqlQuery("SELECT *, S.ID as show_id, R.ID as room_id, M.ID as movie_id, T.ID as timeslot_id " +
             "FROM shows S " +
-            "WHERE :show_id = S.ID" +
             "JOIN rooms R ON S.room_fk = R.id " +
             "JOIN movies M ON S.movie_fk = M.id " +
-            "JOIN timeslots T ON S.timeslot_fk = T.id")
-    ShowEntity getSeatShow(@Bind("seat_id") int seat_id);
+            "JOIN timeslots T ON S.timeslot_fk = T.id " +
+            "WHERE :show_id = S.ID")
+    @RegisterRowMapper(ShowMapper.class)
+    ShowEntity getSeatShow(@Bind("show_id") int show_id);
 }

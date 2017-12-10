@@ -371,3 +371,11 @@ databaseChangeLog:
             - column:
                 name: phone_number
                 type: STRING
+  - changeSet:
+      id: 11
+      author: Elias Jørgensen
+      changes:
+        - modifyDataType:
+            columnName: customer_fk
+            tableName: orders
+            newDataType: varchar(20)

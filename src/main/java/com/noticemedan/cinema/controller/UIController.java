@@ -33,29 +33,21 @@ public class UIController implements Initializable {
         OrderController orderController = new OrderController();
         String phoneNumber = customerID.getText();
 
-        try {
-            if( !phoneNumber.isEmpty() ) {
-                this.showOrders(orderController.getOrders(phoneNumber));
-            } else {
-                throw new IllegalArgumentException("Remember to write a phone number or else I can't help you find the customer's orders");
-            }
-        } catch (Exception e) {
-            this.alertBox(
-                    e.getMessage(),
-                    "No input",
-                    "Nothing?"
-            );
+        if( !phoneNumber.isEmpty() ) {
+            this.showOrders(orderController.getOrders(phoneNumber));
+        } else {
+            throw new IllegalArgumentException("Remember to write a phone number or else I can't help you find the customer's orders");
         }
 
         showCurrentUser.setText(customerID.getText());
     }
 
-    private void showOrders(Optional<List<OrderEntity>> orders) {
+    private void showOrders(List<OrderEntity> orders) {
         ShowController showController = new ShowController();
         SeatController seatController = new SeatController();
         List<OrderView> showOrders = new ArrayList<>();
 
-        orders.ifPresent(presentOrders -> presentOrders.forEach(order -> {
+        orders.forEach(order -> {
             List<SeatEntity> orderSeats = seatController.getOrderSeats(order.getId());
             Integer seatAmount = orderSeats.size();
             ShowEntity show = showController.getSeatShow(orderSeats.get(0).getShowId());
@@ -67,7 +59,7 @@ public class UIController implements Initializable {
             String movieTitle = show.getMovie().getName();
             Integer roomNumber = show.getRoom().getId();
             showOrders.add(new OrderView(roomNumber.toString(), movieTitle, date.toString(), startHour.toString()));
-        }));
+        });
 
         //Data for TableView
         ObservableList<OrderView> list = FXCollections.observableArrayList(showOrders);

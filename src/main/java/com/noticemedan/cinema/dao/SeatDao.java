@@ -1,6 +1,7 @@
 package com.noticemedan.cinema.dao;
 
 import com.noticemedan.cinema.entity.SeatEntity;
+import org.jdbi.v3.sqlobject.config.RegisterConstructorMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
@@ -16,6 +17,7 @@ public interface SeatDao {
 
     @SqlQuery("SELECT * " +
               "FROM seats " +
-              "WHERE :order_id = seats_orders_fk")
+              "WHERE :order_id = seats.order_fk")
+    @RegisterConstructorMapper(SeatEntity.class)
     List<SeatEntity> getOrderSeats(@Bind("order_id") int order_id);
 }

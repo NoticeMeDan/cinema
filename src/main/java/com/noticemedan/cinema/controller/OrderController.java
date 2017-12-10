@@ -10,11 +10,11 @@ import java.util.Optional;
 public class OrderController {
     private OrderService orderService;
 
-    public OrderController() {
+    OrderController() {
         this.orderService = new OrderService();
     }
 
-    public Optional<List<OrderEntity>> getOrders(String phoneNumber) {
+    List<OrderEntity> getOrders(String phoneNumber) {
         return orderService.getOrders(phoneNumber);
     }
 

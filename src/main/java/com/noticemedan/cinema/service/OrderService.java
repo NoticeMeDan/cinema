@@ -12,17 +12,14 @@ public class OrderService extends BaseService {
     }
 
     public void saveOrder(String customerId) {
-        OrderEntity orderEntity = new OrderEntity(customerId);
-        orderDao.saveOrder(orderEntity.getCustomerId());
+        orderDao.saveOrder(customerId);
     }
 
     public void deleteOrder(int orderId) {
-        OrderEntity orderEntity = new OrderEntity(orderId);
-        orderDao.deleteOrder(orderEntity.getId());
+        orderDao.deleteOrder(orderId);
     }
 
-    public Optional<List<OrderEntity>> getOrders(String customerId) {
-        OrderEntity orderEntity = new OrderEntity(customerId);
-        return orderDao.getOrders(orderEntity.getCustomerId());
+    public List<OrderEntity> getOrders(String customerId) {
+        return orderDao.getOrders(customerId);
     }
 }

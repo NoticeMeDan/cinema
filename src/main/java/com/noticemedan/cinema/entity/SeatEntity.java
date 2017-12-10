@@ -1,27 +1,12 @@
 package com.noticemedan.cinema.entity;
 
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
+
 public class SeatEntity {
     private int id;
     private int showId;
     private int orderId;
     private int seatNumber;
-
-    public SeatEntity(int id, int showId, int orderId, int seatNumber) {
-        this.id = id;
-        this.showId = showId;
-        this.orderId = orderId;
-        this.seatNumber = seatNumber;
-    }
-
-    public SeatEntity(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public SeatEntity(int showId, int orderId, int seatNumber) {
-        this.showId = showId;
-        this.orderId = orderId;
-        this.seatNumber = seatNumber;
-    }
 
     public int getId() {
         return id;
@@ -52,6 +37,16 @@ public class SeatEntity {
     }
 
     public void setSeatNumber(int seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
+    public SeatEntity(@ColumnName("ID") int id,
+                      @ColumnName("show_fk") int showId,
+                      @ColumnName("order_fk") int orderId,
+                      @ColumnName("seat_number") int seatNumber) {
+        this.id = id;
+        this.showId = showId;
+        this.orderId = orderId;
         this.seatNumber = seatNumber;
     }
 }

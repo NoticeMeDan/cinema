@@ -1,21 +1,10 @@
 package com.noticemedan.cinema.entity;
 
+import org.jdbi.v3.core.mapper.reflect.ColumnName;
+
 public class OrderEntity {
     private int id;
     private String customerId;
-
-    public OrderEntity(int id, String customerId) {
-        this.id = id;
-        this.customerId = customerId;
-    }
-
-    public OrderEntity(int id) {
-        this.id = id;
-    }
-
-    public OrderEntity(String customerId) {
-        this.customerId = customerId;
-    }
 
     public int getId() {
         return id;
@@ -30,6 +19,11 @@ public class OrderEntity {
     }
 
     public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public OrderEntity(int id, @ColumnName("customer_fk") String customerId) {
+        this.id = id;
         this.customerId = customerId;
     }
 }
