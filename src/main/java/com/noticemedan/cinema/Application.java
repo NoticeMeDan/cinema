@@ -1,17 +1,16 @@
 package com.noticemedan.cinema;
 
-import com.noticemedan.cinema.service.CustomerService;
-import com.noticemedan.cinema.service.TestService;
+import com.noticemedan.cinema.entity.ShowEntity;
+import com.noticemedan.cinema.service.ShowService;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
 
-        TestService testService = new TestService();
+        ShowService showService = new ShowService();
+        List<ShowEntity> shows = showService.getShows();
 
         System.out.println("Hey");
-        System.out.println(Arrays.deepToString(testService.getTestsWithEasterEgg().toArray()));
-        //System.out.println(Arrays.deepToString(customerService.getTestsWithEasterEgg().toArray()));
     }
 }

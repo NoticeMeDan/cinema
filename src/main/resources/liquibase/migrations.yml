@@ -353,3 +353,10 @@ databaseChangeLog:
       changes:
         - sql:
             sql: SET REFERENTIAL_INTEGRITY TRUE
+  - changeSet:
+      id: 10
+      author: Elias Jørgensen
+      changes:
+        - dropTable:
+            tableName: test
+
