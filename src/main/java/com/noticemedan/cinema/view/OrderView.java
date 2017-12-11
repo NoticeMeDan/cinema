@@ -4,7 +4,7 @@ import com.noticemedan.cinema.service.BaseService;
 import javafx.beans.property.SimpleStringProperty;
 
 public class OrderView {
-    private  final SimpleStringProperty room = new SimpleStringProperty("");
+    private final SimpleStringProperty room = new SimpleStringProperty("");
     private final SimpleStringProperty movie = new SimpleStringProperty("");
     private final SimpleStringProperty time = new SimpleStringProperty("");
     private final SimpleStringProperty date = new SimpleStringProperty("");
