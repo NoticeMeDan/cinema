@@ -12,4 +12,8 @@ public class ShowService extends BaseService {
     public ShowEntity getSeatShow(int seatId) {
         return this.showDao.getSeatShow(seatId);
     }
+
+    public List<ShowEntity> getShowsById(String date) {
+        return this.showDao.getShowsByDate(date);
+    }
 }
