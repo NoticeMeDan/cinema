@@ -24,7 +24,6 @@
                         <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="700.0" layoutY="35.0" text="Enter" />
                         <TextField fx:id="customerID" layoutX="530.0" layoutY="35.0" promptText="Phone number" />
                         <Label fx:id="customerLabel" layoutX="853.0" layoutY="35.0" text="Customer:" />
-                        <Label fx:id="showID" layoutX="925.0" layoutY="35.0" />
                         <Label fx:id="showCurrentUser" layoutX="925.0" layoutY="35.0" />
                     </children>
                 </AnchorPane>
@@ -100,6 +99,11 @@
                                 <TableColumn fx:id="colDate" text="Date" resizable="false">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="date" />
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="colRoom" text="Room" resizable="false">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="room" />
                                     </cellValueFactory>
                                 </TableColumn>
                             </columns>

@@ -47,7 +47,6 @@ public class UIController implements Initializable {
                     "Nothing?"
             );
         }
-
         showCurrentUser.setText(customerID.getText());
     }
 
@@ -69,23 +68,19 @@ public class UIController implements Initializable {
             Integer roomNumber = show.getRoom().getId();
             showOrders.add(new OrderView(roomNumber.toString(), movieTitle, date.toString(), startHour.toString()));
         });
-
         //Data for TableView
         ObservableList<OrderView> list = FXCollections.observableArrayList(showOrders);
         tableView.setItems(list);
     }
-
     //Get movie+time+date and display on info-label
     public void getInfo(){
         info.setText("'" + pickMovie.getValue().toString() + "' ["
                     + pickTime.getValue().toString() + "] - "
                     + pickDate.getValue().toString());
     }
-
     public void newOrder() {
 
     }
-
     //Things to initialize
     //Data for Movies and Time
     private ObservableList<String> movies = FXCollections.observableArrayList("John Hitler", "John Hitler 2");
