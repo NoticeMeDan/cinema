@@ -8,4 +8,8 @@ public class ShowService extends BaseService {
     public final List<ShowEntity> getShows() {
         return this.showDao.getShows();
     }
+
+    public ShowEntity getSeatShow(int seatId) {
+        return this.showDao.getSeatShow(seatId);
+    }
 }

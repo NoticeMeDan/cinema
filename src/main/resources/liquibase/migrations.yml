@@ -359,4 +359,23 @@ databaseChangeLog:
       changes:
         - dropTable:
             tableName: test
-
+  - changeSet:
+      id: customer-default-data
+      author: Mathias Egekvist
+      changes:
+        - loadData:
+           tableName: customers
+           file: src/main/resources/liquibase/customers.csv
+           quotchar: '"' # String with commas will break if you do not include this
+           columns:
+            - column:
+                name: phone_number
+                type: STRING
+  - changeSet:
+      id: 11
+      author: Elias Jørgensen
+      changes:
+        - modifyDataType:
+            columnName: customer_fk
+            tableName: orders
+            newDataType: varchar(20)

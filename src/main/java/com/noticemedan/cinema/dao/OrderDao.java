@@ -1,7 +1,7 @@
 package com.noticemedan.cinema.dao;
 
 import com.noticemedan.cinema.entity.OrderEntity;
-import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
+import org.jdbi.v3.sqlobject.config.RegisterConstructorMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
@@ -16,7 +16,7 @@ public interface OrderDao {
     @SqlQuery("SELECT * " +
               "FROM orders " +
               "WHERE :customer_id = orders.customer_fk")
-    @RegisterBeanMapper(OrderEntity.class)
+    @RegisterConstructorMapper(OrderEntity.class)
     List<OrderEntity> getOrders(@Bind("customer_id") String customer_id);
 
     @SqlUpdate("DELETE FROM orders " +

@@ -3,8 +3,6 @@ package com.noticemedan.cinema.entity;
 public class CustomerEntity {
     private String phoneNumber;
 
-    public CustomerEntity() {}
-
     public CustomerEntity(String phoneNumber) {
         setPhoneNumber(phoneNumber);
     }
