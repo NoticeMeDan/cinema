@@ -10,7 +10,7 @@
     -fx-min-width: "1280";
 }
 /* Top Pane */
-#LoginAnchor{
+.LoginAnchor{
     -fx-min-height: 80px;
     -fx-max-height: 80px;
     -fx-font-style: inherit;
@@ -18,43 +18,99 @@
 #login{
     -fx-min-height: 30px;
 }
+#login:hover{
+    -fx-background-color: cornflowerblue;
+}
 #customerID{
     -fx-min-height: 30px;
 }
+#customerLabel{
+    -fx-min-height: 30px;
+}
+#showID {
+    -fx-font-size: 16px;
+    -fx-min-height: 30px;
+}
 
-#PickInfo{
+.PickInfo{
     -fx-min-height: 80px;
     -fx-max-height: 80px;
-    -fx-font-style: inherit;
+    -fx-pref-height: 30px;
+    -fx-pref-width: 180px;
+    -fx-font-size: 12px;
+}
+
+/*
+    Center Pane
+
+ */
+.CenterPane {
+    -fx-max-height: 450px;
+    -fx-max-width: 884px;
 }
 
 
 /*
-    Styling for containers
+    Left Pane
  */
-#centerTopPane{
+
+.LeftPane {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 400px;
 
 }
-
-#topPane{
+#leftTopPane{
+    -fx-pref-width: 300px;
     -fx-alignment: center;
-    -fx-hgap: 10px;
-    -fx-vgap: 10px;
-    -fx-min-height: 50px;
+}
+#newOrder{
+    -fx-pref-width: 100px;
+    -fx-pref-height: 30px;
+}
+#newOrder:hover{
+    -fx-background-color: cornflowerblue;
+}
+#leftBottomPane{
+    -fx-min-width: 310px;
+}
+#tableView{
+    -fx-min-width: 310px;
+}
+#colMovie{
+    -fx-alignment: center-left;
+    -fx-pref-width: 150px;
+}
+#colDate{
+    -fx-min-width: 70px;
+}
+#colTime{
+
 }
 
 /*
-    Styling for specific id's
+    Bottom Pane
+
+
  */
-#seatSettings{
-    -fx-alignment: baseline-center;
-    -fx-hgap: 2;
-    -fx-vgap: 2;
+.BottomePane {
+    -fx-pref-height: 100px;
+    -fx-pref-width: 200px;
 }
-
-#numberOffSeats{
-
+#saveOrder{
+    -fx-pref-height: 50px;
+    -fx-pref-width: 100px;
 }
-
-
-
+#saveOrder:hover{
+    -fx-pref-width: 110px;
+    -fx-pref-height: 60px;
+    -fx-background-color: forestgreen;
+}
+#deleteOrder{
+    -fx-pref-height: 50px;
+    -fx-pref-width: 100px;
+}
+#deleteOrder:hover{
+    -fx-pref-width: 110px;
+    -fx-pref-height: 60px;
+    -fx-background-color: red;
+}
