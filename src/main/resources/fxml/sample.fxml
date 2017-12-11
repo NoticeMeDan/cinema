@@ -5,12 +5,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import com.noticemedan.cinema.controller.ShowDummy?>
+<?import com.noticemedan.cinema.view.OrderView?>
 <?import javafx.collections.FXCollections?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import com.noticemedan.cinema.controller.ShowDummy?>
-<?import javafx.collections.FXCollections?>
 
 <BorderPane minHeight="720.0" minWidth="1280.0"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
@@ -22,10 +20,10 @@
                 <AnchorPane minHeight="80.0" maxHeight="80" minWidth="0.0" prefHeight="50.0" prefWidth="1280.0">
                     <children>
                         <Label text="Enter phone number" layoutX="580.0" layoutY="5.0"/>
-                        <Button fx:id="login" onAction="#login" layoutX="700.0" layoutY="35.0" text="Enter" />
+                        <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="700.0" layoutY="35.0" text="Enter" />
                         <TextField fx:id="customerID" layoutX="530.0" layoutY="35.0" promptText="Phone number" />
                         <Label layoutX="853.0" layoutY="35.0" text="Customer:" />
-                        <Label fx:id="showID" layoutX="925.0" layoutY="35.0" />
+                        <Label fx:id="showCurrentUser" layoutX="925.0" layoutY="35.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="80.0" prefWidth="1280" maxHeight="80.0" >
@@ -91,6 +89,11 @@
                     <children>
                         <TableView fx:id="tableView" layoutX="3.0" prefHeight="480.0" prefWidth="246.0">
                             <columns>
+                                <TableColumn text="Room">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="room" />
+                                    </cellValueFactory>
+                                </TableColumn>
                                 <TableColumn text="Movie">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="movie" />
