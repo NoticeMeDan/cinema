@@ -1,11 +1,9 @@
 package com.noticemedan.cinema.controller;
 
 import com.noticemedan.cinema.entity.OrderEntity;
-import com.noticemedan.cinema.entity.SeatEntity;
 import com.noticemedan.cinema.service.OrderService;
 
 import java.util.List;
-import java.util.Optional;
 
 public class OrderController {
     private OrderService orderService;
