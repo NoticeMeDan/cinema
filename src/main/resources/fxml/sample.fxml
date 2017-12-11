@@ -2,11 +2,8 @@
 
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import com.noticemedan.cinema.view.OrderView?>
-<?import javafx.collections.FXCollections?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
@@ -29,14 +26,14 @@
                 <AnchorPane minHeight="80.0" prefWidth="1280" maxHeight="80.0" >
                     <children>
                         <Label text="Pick a date" layoutX="166.0" layoutY="12.0"/>
-                        <DatePicker fx:id="pickDate" onAction="#getInfo" layoutX="166.0" layoutY="35.0" prefHeight="30.0" prefWidth="180.0" promptText="Date" />
+                        <DatePicker fx:id="pickDate" onAction="#updateSelectionByDate" layoutX="166.0" layoutY="35.0" prefHeight="30.0" prefWidth="180.0" promptText="Date" />
                         <Label text="Pick a movie" layoutX="411.0" layoutY="12.0"/>
-                        <ComboBox fx:id="pickMovie" onAction="#getInfo" layoutX="411.0" layoutY="35.0" prefHeight="30.0" prefWidth="180.0" promptText="Movie" />
+                        <ComboBox fx:id="pickMovie" onAction="#updateSelectionByMovie" layoutX="411.0" layoutY="35.0" prefHeight="30.0" prefWidth="180.0" promptText="Movie" />
                         <Label text="Pick a time" layoutX="665.0" layoutY="12.0"/>
                         <ComboBox fx:id="pickTime" onAction="#getInfo" layoutX="665.0" layoutY="35.0" prefHeight="30.0" prefWidth="180.0" promptText="Time" />
                         <Label fx:id="info" alignment="CENTER" layoutX="935.0" layoutY="25.0" prefHeight="48.0" prefWidth="276.0" >
                             <font>
-                                <Font size="15.0" />
+                                <Font size="12.0" />
                             </font>
                         </Label>
                     </children>

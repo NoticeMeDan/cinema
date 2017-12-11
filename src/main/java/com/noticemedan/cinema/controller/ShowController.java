@@ -4,6 +4,8 @@ import com.noticemedan.cinema.entity.ShowEntity;
 import com.noticemedan.cinema.service.BaseService;
 import com.noticemedan.cinema.service.ShowService;
 
+import java.util.List;
+
 public class ShowController extends BaseService {
     private ShowService showService;
 
@@ -13,5 +15,13 @@ public class ShowController extends BaseService {
 
     public ShowEntity getSeatShow(int seatId) {
         return this.showService.getSeatShow(seatId);
+    }
+
+    public List<ShowEntity> getAvailableShows() {
+        return this.showService.getShows();
+    }
+
+    public List<ShowEntity> getAvailableShowsByDate(String date) {
+        return this.showService.getShowsById(date);
     }
 }
