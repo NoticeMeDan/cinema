@@ -92,7 +92,6 @@ public class UIController implements Initializable {
         } else {
             info.setText("Please select a valid date, movie and time.");
         }
-
     }
 
     public void newOrder() {
@@ -124,6 +123,7 @@ public class UIController implements Initializable {
 
         this.movies = FXCollections.observableList(movieTitles);
 
+        // Update date input fields
         this.updateSelectionByMovie();
 
         this.pickMovie.setItems(this.movies);
