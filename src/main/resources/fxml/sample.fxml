@@ -23,10 +23,8 @@
                         <Label text="Enter phone number" layoutX="580.0" layoutY="5.0"/>
                         <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="700.0" layoutY="35.0" text="Enter" />
                         <TextField fx:id="customerID" layoutX="530.0" layoutY="35.0" promptText="Phone number" />
-                        <Label layoutX="853.0" layoutY="35.0" text="Customer:" />
-                        <Label fx:id="showCurrentUser" layoutX="925.0" layoutY="35.0" />
                         <Label fx:id="customerLabel" layoutX="853.0" layoutY="35.0" text="Customer:" />
-                        <Label fx:id="showID" layoutX="925.0" layoutY="35.0" />
+                        <Label fx:id="showCurrentUser" layoutX="925.0" layoutY="35.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane styleClass="PickInfo">
@@ -88,16 +86,6 @@
                     <children>
                         <TableView fx:id="tableView" layoutX="3.0" >
                             <columns>
-                                <TableColumn text="Room">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="room" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn text="Movie">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="movie" />
-                                    </cellValueFactory>
-                                </TableColumn>
                                 <TableColumn fx:id="colMovie" text="Movie" resizable="false" >
                                     <cellValueFactory >
                                         <PropertyValueFactory  property="movie" />
