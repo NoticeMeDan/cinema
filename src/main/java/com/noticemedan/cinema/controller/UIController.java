@@ -33,10 +33,18 @@ public class UIController implements Initializable {
         OrderController orderController = new OrderController();
         String phoneNumber = customerID.getText();
 
-        if( !phoneNumber.isEmpty() ) {
-            this.showOrders(orderController.getOrders(phoneNumber));
-        } else {
-            throw new IllegalArgumentException("Remember to write a phone number or else I can't help you find the customer's orders");
+        try {
+            if( !phoneNumber.isEmpty() ) {
+                this.showOrders(orderController.getOrders(phoneNumber));
+            } else {
+                throw new IllegalArgumentException("Remember to write a phone number or else I can't help you find the customer's orders");
+            }
+        } catch (Exception e) {
+            this.alertBox(
+                    e.getMessage(),
+                    "No input",
+                    "Nothing?"
+            );
         }
 
         showCurrentUser.setText(customerID.getText());
