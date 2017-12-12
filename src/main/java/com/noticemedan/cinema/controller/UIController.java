@@ -1,9 +1,6 @@
 package com.noticemedan.cinema.controller;
 
-import com.noticemedan.cinema.entity.MovieEntity;
-import com.noticemedan.cinema.entity.OrderEntity;
-import com.noticemedan.cinema.entity.SeatEntity;
-import com.noticemedan.cinema.entity.ShowEntity;
+import com.noticemedan.cinema.entity.*;
 import com.noticemedan.cinema.view.OrderView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,6 +43,8 @@ public class UIController implements Initializable {
     // Data for input fields (or whatever you call it)
     private ObservableList<String> movies;
     private ObservableList<String> times;
+
+    private List<ShowEntity> availableShows;
 
     public void findCustomer(){
         OrderController orderController = new OrderController();
@@ -120,8 +119,6 @@ public class UIController implements Initializable {
         // Do first update of selection UI
         this.updateSelectionByDate();
 
-        this.drawSeats();
-
         getInfo();
     }
 
@@ -154,6 +151,9 @@ public class UIController implements Initializable {
         // Get shows for chosen date
         List<ShowEntity> shows = this.getShowsByDate(date);
 
+        // Save shows
+        this.availableShows = shows;
+
         List<String> movieTimes;
         // If any movies for chosen date
         if (!this.movies.isEmpty()) {
@@ -175,27 +175,53 @@ public class UIController implements Initializable {
 
         this.pickTime.setItems(times);
         this.pickTime.getSelectionModel().selectFirst();
+
+        // Draw Seats
+        this.drawSeats();
     }
 
     private void drawSeats() {
-        List<Rectangle> seats = new ArrayList<>();
-        int row = 10;
-        int col = 10;
+        // Find show matching picked movie and date
+        List<ShowEntity> chosenShowList = this.availableShows.stream()
+                .filter(show -> {
+                    String showTitle = show.getMovie().getName();
+                    LocalDateTime showStartTime = show.getTimeslot().getStartTime().toLocalDateTime();
+                    String pickedTitle = this.pickMovie.getValue();
+                    String pickedTime = this.pickTime.getValue();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
+                    return showTitle.equals(pickedTitle) &&
+                            showStartTime.format(formatter).equals(pickedTime);
+                })
+                .collect(Collectors.toList());
+
+        RoomEntity room;
+        // Get room from the first (and only) element of the list
+        if (chosenShowList.size() > 0) {
+            room = chosenShowList.get(0).getRoom();
+        } else {
+            return;
+        }
+
+        // Store seats in array
+        List<Rectangle> seats = new ArrayList<>();
+        // Static distances
         int distanceX = 10;
         int distanceY = 10;
 
-        for(int x = 1; x <= row; x++){
-            for (int y = 1; y <= col; y++){
+        // Remove current seats from display
+        this.seat_group.getChildren().clear();
+
+        for(int x = 1; x <= room.getRowAmount(); x++){
+            for (int y = 1; y <= room.getColumnAmount(); y++){
                 Rectangle rectangle = new Rectangle(distanceX, distanceY,15, 15);
                 rectangle.setStroke(Color.GREEN);
                 rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
                 //rectangle.relocate(10, 10);
                 distanceX += 20;
 
-
                 // ID: seat:seatNumber (counted from left to right, up to down)
-                rectangle.setId("seat:" + (x*row - (col - y)));
+                rectangle.setId("seat:" + (x*room.getRowAmount() - (room.getColumnAmount() - y)));
 
                 rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                     // Get id
