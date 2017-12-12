@@ -125,13 +125,14 @@ public class UIController implements Initializable {
         rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
         rectangle.relocate(10, 10);
 
-        rectangle.setId("seat:1");
+        // ID: seat:row:column
+        rectangle.setId("seat-1:1");
 
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             // Get id
             String eventSourceId = e.getPickResult().getIntersectedNode().getId();
-            int seat = Integer.valueOf(eventSourceId.split(":")[1]);
-            System.out.println("Seat id: " + seat);
+            String seatPosition = eventSourceId.split("-")[1];
+            System.out.println("Seat position: " + seatPosition);
         });
 
         this.seat_group.getChildren().addAll(rectangle);
