@@ -179,14 +179,29 @@ public class UIController implements Initializable {
 
     private void drawSeats() {
         List<Rectangle> seats = new ArrayList<>();
+        int row = 7;
+        int col = 10;
 
-        Rectangle rectangle = new Rectangle(10, 10);
-        rectangle.setStroke(Color.GREEN);
-        rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
-        rectangle.relocate(10, 10);
+        int distanceX = 10;
+        int distanceY = 10;
+
+        for(int y = 1; y<=row;y++){
+            for (int x = 1; x<=col; x++){
+                Rectangle rectangle = new Rectangle(distanceX, distanceY,15, 15);
+                rectangle.setStroke(Color.GREEN);
+                rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
+                //rectangle.relocate(10, 10);
+                distanceX += 20;
+
+                seats.add(rectangle);
+            }
+            distanceX = 10;
+            distanceY += 20;
+        }
+
 
         // ID: seat:row:column
-        rectangle.setId("seat-1:1");
+        /*rectangle.setId("seat-1:1");
 
         rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             // Get id
@@ -194,9 +209,7 @@ public class UIController implements Initializable {
             // Get seat position from id
             String seatPosition = eventSourceId.split("-")[1];
             System.out.println("Seat position: " + seatPosition);
-        });
-
-        seats.add(rectangle);
+        }); */
 
         this.seat_group.getChildren().addAll(seats);
     }
