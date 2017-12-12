@@ -178,6 +178,8 @@ public class UIController implements Initializable {
     }
 
     private void drawSeats() {
+        List<Rectangle> seats = new ArrayList<>();
+
         Rectangle rectangle = new Rectangle(10, 10);
         rectangle.setStroke(Color.GREEN);
         rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
@@ -194,7 +196,9 @@ public class UIController implements Initializable {
             System.out.println("Seat position: " + seatPosition);
         });
 
-        this.seat_group.getChildren().addAll(rectangle);
+        seats.add(rectangle);
+
+        this.seat_group.getChildren().addAll(seats);
     }
 
     static void alertBox(String infoMessage, String titleBar, String headerMessage) {
