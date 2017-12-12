@@ -19,8 +19,8 @@
                         <Label text="Enter phone number" layoutX="580.0" layoutY="5.0"/>
                         <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="700.0" layoutY="35.0" text="Enter" />
                         <TextField fx:id="customerId" layoutX="530.0" layoutY="35.0" promptText="Phone number" />
-                        <Label fx:id="customerLabel" layoutX="853.0" layoutY="35.0" text="Customer:" />
-                        <Label fx:id="showCurrentUser" layoutX="925.0" layoutY="35.0" />
+                        <Label fx:id="customerLabel" layoutX="800.0" layoutY="35.0" text="Customer:" />
+                        <Label fx:id="showCurrentUser" layoutX="890.0" layoutY="35.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane styleClass="PickInfo">
@@ -48,19 +48,19 @@
             <items>
                 <AnchorPane fx:id="leftTopPane" >
                     <children>
-                        <Button id="newOrder" onAction="#newOrder" layoutX="100.0" layoutY="8.0" text="New Order" />
+                        <Button id="newOrder" onAction="#newOrder" layoutX="200.0" layoutY="8.0" text="New Order" />
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="leftBottomPane" >
                     <children>
                         <TableView fx:id="tableView" layoutX="3.0" >
                             <columns>
-                                <TableColumn fx:id="colMovie" text="Movie" resizable="false" >
+                                <TableColumn fx:id="colMovie" text="Movie" resizable="true" >
                                     <cellValueFactory >
                                         <PropertyValueFactory  property="movie" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn fx:id="colTime" text="Time" resizable="false">
+                                <TableColumn fx:id="colTime" text="Time" resizable="true">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="time" />
                                     </cellValueFactory>
