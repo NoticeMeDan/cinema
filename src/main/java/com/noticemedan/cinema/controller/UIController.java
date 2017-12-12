@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -123,6 +124,15 @@ public class UIController implements Initializable {
         rectangle.setStroke(Color.GREEN);
         rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
         rectangle.relocate(10, 10);
+
+        rectangle.setId("seat:1");
+
+        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            // Get id
+            String eventSourceId = e.getPickResult().getIntersectedNode().getId();
+            int seat = Integer.valueOf(eventSourceId.split(":")[1]);
+            System.out.println("Seat id: " + seat);
+        });
 
         this.seat_group.getChildren().addAll(rectangle);
 
