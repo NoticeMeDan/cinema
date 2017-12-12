@@ -44,6 +44,9 @@ public class UIController implements Initializable {
     private ObservableList<String> movies;
     private ObservableList<String> times;
 
+    private List<String> chosenSeats;
+    private List<String> bookedSeats;
+
     private List<ShowEntity> availableShows;
 
     public void findCustomer(){
@@ -172,7 +175,6 @@ public class UIController implements Initializable {
         }
 
         this.times = FXCollections.observableList(movieTimes);
-
         this.pickTime.setItems(times);
         this.pickTime.getSelectionModel().selectFirst();
 
@@ -202,9 +204,15 @@ public class UIController implements Initializable {
         } else {
             return;
         }
+        //TODO draw booked seats
+
+        //TODO on click even change color to yellow for chosenSeats
 
         // Store seats in array
         List<Rectangle> seats = new ArrayList<>();
+        List<String> chosenSeats = new ArrayList<>();
+        List<String> bookedSeats = new ArrayList<>();
+        
         // Static distances
         int distanceX = 10;
         int distanceY = 10;
@@ -221,14 +229,17 @@ public class UIController implements Initializable {
                 distanceX += 20;
 
                 // ID: seat:seatNumber (counted from left to right, up to down)
-                rectangle.setId("seat:" + (x*room.getRowAmount() - (room.getColumnAmount() - y)));
+                rectangle.setId("seat:" + x + ":" + y);
 
                 rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                     // Get id
                     String eventSourceId = e.getPickResult().getIntersectedNode().getId();
+
                     // Get seat position from id
-                    String seatNumber = eventSourceId.split(":")[1];
-                    System.out.println("Seat number: " + seatNumber);
+                    String seatRow = eventSourceId.split(":")[1];
+                    String seatColumn = eventSourceId.split(":")[2];
+                    System.out.println("Seat row: " + seatRow);
+                    System.out.println("Seat column: " + seatColumn);
                 });
 
                 seats.add(rectangle);

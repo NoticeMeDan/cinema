@@ -6,7 +6,7 @@ public class SeatEntity {
     private int id;
     private int showId;
     private int orderId;
-    private int seatNumber;
+    private String seatNumber;
 
     public int getId() {
         return id;
@@ -32,18 +32,18 @@ public class SeatEntity {
         this.orderId = orderId;
     }
 
-    public int getSeatNumber() {
+    public String getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }
 
     public SeatEntity(@ColumnName("ID") int id,
                       @ColumnName("show_fk") int showId,
                       @ColumnName("order_fk") int orderId,
-                      @ColumnName("seat_number") int seatNumber) {
+                      @ColumnName("seat_number") String seatNumber) {
         this.id = id;
         this.showId = showId;
         this.orderId = orderId;
