@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -66,14 +67,21 @@ public class UIController implements Initializable {
             List<SeatEntity> orderSeats = seatController.getOrderSeats(order.getId());
             Integer seatAmount = orderSeats.size();
             ShowEntity show = showController.getSeatShow(orderSeats.get(0).getShowId());
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(show.getTimeslot().getStartTime());
+            LocalDateTime timeslot_start = show.getTimeslot().getStartTime().toLocalDateTime();
 
-            Integer startHour = cal.get(Calendar.HOUR_OF_DAY);
-            Integer date = cal.get(Calendar.DATE);
+            // Leftpad starTime with 0 if minute is less than 10
+            String startTime = String.format("%s:%02d",
+                    timeslot_start.getHour(),
+                    timeslot_start.getMinute()
+                );
+            String date = String.format("%s/%s/%s",
+                   timeslot_start.getDayOfMonth(),
+                   timeslot_start.getMonthValue(),
+                   timeslot_start.getYear()
+                );
             String movieTitle = show.getMovie().getName();
             Integer roomNumber = show.getRoom().getId();
-            showOrders.add(new OrderView(roomNumber.toString(), movieTitle, date.toString(), startHour.toString()));
+            showOrders.add(new OrderView(roomNumber.toString(), movieTitle, startTime, date));
         });
         //Data for TableView
         ObservableList<OrderView> list = FXCollections.observableArrayList(showOrders);
