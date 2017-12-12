@@ -40,18 +40,24 @@
 .CenterPane {
     -fx-max-height: 450px;
     -fx-max-width: 884px;
+    -fx-background-color: lightgray;
+}
+
+#seat_group {
+    -fx-max-width: 300px;
+    -fx-max-height: 300px;
 }
 /*
     Left Pane
  */
 .LeftPane {
-    -fx-min-width: 300px;
+    -fx-min-width: 500px;
     -fx-min-height: 400px;
     -fx-max-height: 500px;
 
 }
 #leftTopPane{
-    -fx-min-width: 300px;
+    -fx-min-width: 500px;
     -fx-alignment: center;
     -fx-min-height: 45px;
     -fx-max-height: 45px;
@@ -64,26 +70,28 @@
     -fx-background-color: cornflowerblue;
 }
 #leftBottomPane{
-    -fx-min-width: 310px;
+    -fx-min-width: 500px;
     -fx-min-height: 400px;
     -fx-max-height: 400px;
 }
 #tableView{
-    -fx-min-width: 310px;
+    -fx-min-width: 500px;
     -fx-min-height: 400px;
     -fx-max-height: 400px;
 }
 #colMovie{
     -fx-alignment: center-left;
-    -fx-min-width: 150px;
+    -fx-pref-width: 260px;
 }
 #colDate{
-    -fx-min-width: 70px;
+    -fx-alignment: center;
 }
 #colTime{
-    -fx-min-width: 70px;
+    -fx-alignment: center;
 }
-
+#colRoom{
+    -fx-alignment: center;
+}
 /*
     Bottom Pane
  */
@@ -109,6 +117,4 @@
     -fx-min-height: 60px;
     -fx-background-color: red;
 }
-#seat_group {
-    -fx-background-color: lightgray;
-}
+
