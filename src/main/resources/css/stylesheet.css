@@ -19,7 +19,7 @@
 #login:hover{
     -fx-background-color: cornflowerblue;
 }
-#customerID{
+#customerId{
     -fx-min-height: 30px;
 }
 #customerLabel{
