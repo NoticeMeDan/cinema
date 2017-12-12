@@ -19,7 +19,7 @@
                     <children >
                         <Label text="Enter phone number" layoutX="580.0" layoutY="5.0"/>
                         <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="700.0" layoutY="35.0" text="Enter" />
-                        <TextField fx:id="customerID" layoutX="530.0" layoutY="35.0" promptText="Phone number" />
+                        <TextField fx:id="customerId" layoutX="530.0" layoutY="35.0" promptText="Phone number" />
                         <Label fx:id="customerLabel" layoutX="853.0" layoutY="35.0" text="Customer:" />
                         <Label fx:id="showCurrentUser" layoutX="925.0" layoutY="35.0" />
                     </children>
@@ -30,8 +30,8 @@
                         <DatePicker fx:id="pickDate" onAction="#updateSelectionByDate" layoutX="166.0" layoutY="35.0" promptText="Date" />
                         <Label text="Pick a movie" layoutX="411.0" layoutY="12.0"/>
                         <ComboBox fx:id="pickMovie" onAction="#updateSelectionByMovie" layoutX="411.0" layoutY="35.0"  promptText="Movie" />
-                        <Label text="Pick a time" layoutX="665.0" layoutY="12.0"/>
-                        <ComboBox fx:id="pickTime" onAction="#getInfo" layoutX="665.0" layoutY="35.0" promptText="Time" />
+                        <Label text="Pick a time" layoutX="765.0" layoutY="12.0"/>
+                        <ComboBox fx:id="pickTime" onAction="#getInfo" layoutX="765.0" layoutY="35.0" promptText="Time" />
                         <Label fx:id="info" alignment="CENTER" layoutX="935.0" layoutY="35.0"/>
                     </children>
                 </AnchorPane>
