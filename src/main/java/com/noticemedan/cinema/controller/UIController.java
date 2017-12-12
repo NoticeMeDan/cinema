@@ -29,7 +29,7 @@ public class UIController implements Initializable {
     //Customer ID and Login
     //TopPane
     @FXML private DatePicker pickDate;
-    @FXML private TextField customerID;
+    @FXML private TextField customerId;
     @FXML private Label showCurrentUser;
 
     //TODO better comment: Pick info
@@ -49,7 +49,7 @@ public class UIController implements Initializable {
 
     public void findCustomer(){
         OrderController orderController = new OrderController();
-        String phoneNumber = customerID.getText();
+        String phoneNumber = customerId.getText();
 
         try {
             if( !phoneNumber.isEmpty() ) {
@@ -64,7 +64,7 @@ public class UIController implements Initializable {
                 "Nothing?"
             );
         }
-        showCurrentUser.setText(customerID.getText());
+        showCurrentUser.setText(customerId.getText());
     }
 
     private void showOrders(List<OrderEntity> orders) {
@@ -179,37 +179,37 @@ public class UIController implements Initializable {
 
     private void drawSeats() {
         List<Rectangle> seats = new ArrayList<>();
-        int row = 7;
+        int row = 10;
         int col = 10;
 
         int distanceX = 10;
         int distanceY = 10;
 
-        for(int y = 1; y<=row;y++){
-            for (int x = 1; x<=col; x++){
+        for(int x = 1; x <= row; x++){
+            for (int y = 1; y <= col; y++){
                 Rectangle rectangle = new Rectangle(distanceX, distanceY,15, 15);
                 rectangle.setStroke(Color.GREEN);
                 rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
                 //rectangle.relocate(10, 10);
                 distanceX += 20;
 
+
+                // ID: seat:seatNumber (counted from left to right, up to down)
+                rectangle.setId("seat:" + (x*row - (col - y)));
+
+                rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                    // Get id
+                    String eventSourceId = e.getPickResult().getIntersectedNode().getId();
+                    // Get seat position from id
+                    String seatNumber = eventSourceId.split(":")[1];
+                    System.out.println("Seat number: " + seatNumber);
+                });
+
                 seats.add(rectangle);
             }
             distanceX = 10;
             distanceY += 20;
         }
-
-
-        // ID: seat:row:column
-        /*rectangle.setId("seat-1:1");
-
-        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            // Get id
-            String eventSourceId = e.getPickResult().getIntersectedNode().getId();
-            // Get seat position from id
-            String seatPosition = eventSourceId.split("-")[1];
-            System.out.println("Seat position: " + seatPosition);
-        }); */
 
         this.seat_group.getChildren().addAll(seats);
     }
