@@ -76,7 +76,6 @@ public class UIController implements Initializable {
 
         orders.forEach(order -> {
             List<SeatEntity> orderSeats = seatController.getOrderSeats(order.getId());
-            Integer seatAmount = orderSeats.size();
             ShowEntity show = showController.getSeatShow(orderSeats.get(0).getShowId());
             LocalDateTime timeslot_start = show.getTimeslot().getStartTime().toLocalDateTime();
 
@@ -98,6 +97,7 @@ public class UIController implements Initializable {
         ObservableList<OrderView> list = FXCollections.observableArrayList(showOrders);
         tableView.setItems(list);
     }
+
     //Get movie+time+date and display on info-label
     public void getInfo(){
         if (this.pickMovie.getValue() != null &&
@@ -110,12 +110,13 @@ public class UIController implements Initializable {
             info.setText("Please select a valid date, movie and time.");
         }
     }
-    public void newOrder() {
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Initialize seat arrays
+        this.chosenSeats = new ArrayList<>();
+        this.bookedSeats = new ArrayList<>();
+
         // Set datepicker to today
         this.pickDate.setValue(LocalDate.now());
 
@@ -178,41 +179,38 @@ public class UIController implements Initializable {
         this.pickTime.setItems(times);
         this.pickTime.getSelectionModel().selectFirst();
 
+        // Get booked seats for currently selected show
+        this.bookedSeats = this.getBookedSeats();
+
+        // Remove chosen seats
+        this.chosenSeats.clear();
+
         // Draw Seats
         this.drawSeats();
     }
 
+    public void newOrder() {
+
+    }
+
     private void drawSeats() {
-        // Find show matching picked movie and date
-        List<ShowEntity> chosenShowList = this.availableShows.stream()
-                .filter(show -> {
-                    String showTitle = show.getMovie().getName();
-                    LocalDateTime showStartTime = show.getTimeslot().getStartTime().toLocalDateTime();
-                    String pickedTitle = this.pickMovie.getValue();
-                    String pickedTime = this.pickTime.getValue();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-
-                    return showTitle.equals(pickedTitle) &&
-                            showStartTime.format(formatter).equals(pickedTime);
-                })
-                .collect(Collectors.toList());
-
-        RoomEntity room;
-        // Get room from the first (and only) element of the list
-        if (chosenShowList.size() > 0) {
-            room = chosenShowList.get(0).getRoom();
-        } else {
-            return;
-        }
         //TODO draw booked seats
 
         //TODO on click even change color to yellow for chosenSeats
 
+        // Get room of chosen show
+        Optional<ShowEntity> show = this.getSelectedShow();
+        RoomEntity room;
+
+        if (show.isPresent()) {
+            room = show.get().getRoom();
+        } else {
+            return;
+        }
+
         // Store seats in array
         List<Rectangle> seats = new ArrayList<>();
-        List<String> chosenSeats = new ArrayList<>();
-        List<String> bookedSeats = new ArrayList<>();
-        
+
         // Static distances
         int distanceX = 10;
         int distanceY = 10;
@@ -223,23 +221,43 @@ public class UIController implements Initializable {
         for(int x = 1; x <= room.getRowAmount(); x++){
             for (int y = 1; y <= room.getColumnAmount(); y++){
                 Rectangle rectangle = new Rectangle(distanceX, distanceY,15, 15);
-                rectangle.setStroke(Color.GREEN);
-                rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
+
+                // ID: seat:seatNumber (counted from left to right, up to down)
+                String seatNumber = x + ":" + y;
+                rectangle.setId("seat-" + seatNumber);
+
+                // Is seat booked?
+                if (this.isSeatBooked(seatNumber)) {
+                    // If yes, then make it red
+                    rectangle.setStroke(Color.RED);
+                    rectangle.setFill(Color.RED.deriveColor(1, 1, 1, 0.7));
+                } else if (this.isSeatChosen(seatNumber)) {
+                    // If yes, then make it yellow
+                    rectangle.setStroke(Color.YELLOW);
+                    rectangle.setFill(Color.YELLOW.deriveColor(1, 1, 1, 0.7));
+                } else {
+                    // If not, then make it green
+                    rectangle.setStroke(Color.GREEN);
+                    rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
+                }
+
+
                 //rectangle.relocate(10, 10);
                 distanceX += 20;
 
-                // ID: seat:seatNumber (counted from left to right, up to down)
-                rectangle.setId("seat:" + x + ":" + y);
 
                 rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                    // Get id
+                    // Get seatId
                     String eventSourceId = e.getPickResult().getIntersectedNode().getId();
 
                     // Get seat position from id
-                    String seatRow = eventSourceId.split(":")[1];
-                    String seatColumn = eventSourceId.split(":")[2];
-                    System.out.println("Seat row: " + seatRow);
-                    System.out.println("Seat column: " + seatColumn);
+                    String number = eventSourceId.split("-")[1];
+                    System.out.println("Seat: " + number + " has been clicked.");
+
+                    this.chooseSeat(number);
+
+                    // Redraw seats
+                    this.drawSeats();
                 });
 
                 seats.add(rectangle);
@@ -279,6 +297,53 @@ public class UIController implements Initializable {
         } else {
             return Collections.emptyList();
         }
+    }
+
+    private Optional<ShowEntity> getSelectedShow() {
+        // Find show matching picked movie and date
+        List<ShowEntity> chosenShowList = this.availableShows.stream()
+                .filter(show -> {
+                    String showTitle = show.getMovie().getName();
+                    LocalDateTime showStartTime = show.getTimeslot().getStartTime().toLocalDateTime();
+                    String pickedTitle = this.pickMovie.getValue();
+                    String pickedTime = this.pickTime.getValue();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+                    return showTitle.equals(pickedTitle) &&
+                            showStartTime.format(formatter).equals(pickedTime);
+                })
+                .collect(Collectors.toList());
+
+        if (chosenShowList.size() > 0) {
+            return Optional.of(chosenShowList.get(0));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private List<String> getBookedSeats() {
+        SeatController seatController = new SeatController();
+        Optional<ShowEntity> show = this.getSelectedShow();
+
+        if (show.isPresent()) {
+            return seatController.getBookedSeatsByShowId(show.get().getId()).stream()
+                    .map(SeatEntity::getSeatNumber)
+                    .collect(Collectors.toList());
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    private boolean isSeatBooked(String seatNumber) {
+        return this.bookedSeats.contains(seatNumber);
+    }
+
+    private boolean isSeatChosen(String seatNumber) {
+        return this.chosenSeats.contains(seatNumber);
+    }
+
+    private void chooseSeat(String seatNumber) {
+        this.chosenSeats.add(seatNumber);
     }
     //TODO create save method
 

@@ -20,4 +20,10 @@ public interface SeatDao {
               "WHERE :order_id = seats.order_fk")
     @RegisterConstructorMapper(SeatEntity.class)
     List<SeatEntity> getOrderSeats(@Bind("order_id") int order_id);
+
+    @SqlQuery("SELECT * " +
+              "FROM seats " +
+              "WHERE show_fk = :show_id")
+    @RegisterConstructorMapper(SeatEntity.class)
+    List<SeatEntity> getBookedSeatsByShowId(@Bind("show_id") int show_id);
 }

@@ -18,4 +18,8 @@ public class SeatController {
     public List<SeatEntity> getOrderSeats(int orderId) {
         return seatService.getOrderSeats(orderId);
     }
+
+    public List<SeatEntity> getBookedSeatsByShowId(int seatId) {
+        return seatService.getBookedSeatsByShowId(seatId);
+    }
 }

@@ -17,7 +17,7 @@ public class BaseService {
         jdbi.installPlugin(new H2DatabasePlugin());
         jdbi.installPlugin(new SqlObjectPlugin());
 
-        // Add more Dao's here as needed (kill me i'm so ugly)
+        // Add more Dao's here as needed
         this.customerDao = jdbi.onDemand(CustomerDao.class);
         this.orderDao = jdbi.onDemand(OrderDao.class);
         this.seatDao = jdbi.onDemand(SeatDao.class);
