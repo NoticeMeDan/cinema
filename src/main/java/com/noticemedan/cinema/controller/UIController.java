@@ -10,13 +10,18 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class UIController implements Initializable {
@@ -33,6 +38,9 @@ public class UIController implements Initializable {
 
     //TableView
     @FXML private TableView<OrderView> tableView;
+
+    // Seats
+    @FXML private Pane seat_group;
 
     // Data for input fields (or whatever you call it)
     private ObservableList<String> movies;
@@ -110,6 +118,13 @@ public class UIController implements Initializable {
 
         // Do first update of selection UI
         this.updateSelectionByDate();
+
+        Rectangle rectangle = new Rectangle(10, 10);
+        rectangle.setStroke(Color.GREEN);
+        rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
+        rectangle.relocate(10, 10);
+
+        this.seat_group.getChildren().addAll(rectangle);
 
         getInfo();
     }

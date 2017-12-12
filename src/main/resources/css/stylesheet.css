@@ -109,3 +109,6 @@
     -fx-min-height: 60px;
     -fx-background-color: red;
 }
+#seat_group {
+    -fx-background-color: lightgray;
+}
