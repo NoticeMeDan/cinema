@@ -120,22 +120,7 @@ public class UIController implements Initializable {
         // Do first update of selection UI
         this.updateSelectionByDate();
 
-        Rectangle rectangle = new Rectangle(10, 10);
-        rectangle.setStroke(Color.GREEN);
-        rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
-        rectangle.relocate(10, 10);
-
-        // ID: seat:row:column
-        rectangle.setId("seat-1:1");
-
-        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            // Get id
-            String eventSourceId = e.getPickResult().getIntersectedNode().getId();
-            String seatPosition = eventSourceId.split("-")[1];
-            System.out.println("Seat position: " + seatPosition);
-        });
-
-        this.seat_group.getChildren().addAll(rectangle);
+        this.drawSeats();
 
         getInfo();
     }
@@ -190,6 +175,26 @@ public class UIController implements Initializable {
 
         this.pickTime.setItems(times);
         this.pickTime.getSelectionModel().selectFirst();
+    }
+
+    private void drawSeats() {
+        Rectangle rectangle = new Rectangle(10, 10);
+        rectangle.setStroke(Color.GREEN);
+        rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
+        rectangle.relocate(10, 10);
+
+        // ID: seat:row:column
+        rectangle.setId("seat-1:1");
+
+        rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            // Get id
+            String eventSourceId = e.getPickResult().getIntersectedNode().getId();
+            // Get seat position from id
+            String seatPosition = eventSourceId.split("-")[1];
+            System.out.println("Seat position: " + seatPosition);
+        });
+
+        this.seat_group.getChildren().addAll(rectangle);
     }
 
     static void alertBox(String infoMessage, String titleBar, String headerMessage) {
