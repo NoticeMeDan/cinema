@@ -14,4 +14,8 @@ public class SeatService extends BaseService {
     public List<SeatEntity> getOrderSeats(int orderId) {
         return seatDao.getOrderSeats(orderId);
     }
+
+    public List<SeatEntity> getBookedSeatsByShowId(int orderId) {
+        return this.seatDao.getBookedSeatsByShowId(orderId);
+    }
 }

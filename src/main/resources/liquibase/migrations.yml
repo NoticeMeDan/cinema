@@ -379,3 +379,11 @@ databaseChangeLog:
             columnName: customer_fk
             tableName: orders
             newDataType: varchar(20)
+  - changeSet:
+      id: 12
+      author: Vilfred Sikker Dreijer
+      changes:
+        - modifyDataType:
+            columnName: seat_number
+            tableName: seats
+            newDataType: varchar(20)

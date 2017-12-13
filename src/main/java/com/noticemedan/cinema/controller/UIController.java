@@ -1,29 +1,32 @@
 package com.noticemedan.cinema.controller;
 
-import com.noticemedan.cinema.entity.MovieEntity;
-import com.noticemedan.cinema.entity.OrderEntity;
-import com.noticemedan.cinema.entity.SeatEntity;
-import com.noticemedan.cinema.entity.ShowEntity;
+import com.noticemedan.cinema.entity.*;
 import com.noticemedan.cinema.view.OrderView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class UIController implements Initializable {
     //Customer ID and Login
     //TopPane
     @FXML private DatePicker pickDate;
-    @FXML private TextField customerID;
+    @FXML private TextField customerId;
     @FXML private Label showCurrentUser;
 
     //TODO better comment: Pick info
@@ -34,13 +37,21 @@ public class UIController implements Initializable {
     //TableView
     @FXML private TableView<OrderView> tableView;
 
+    // Seats
+    @FXML private Pane seat_group;
+
     // Data for input fields (or whatever you call it)
     private ObservableList<String> movies;
     private ObservableList<String> times;
 
+    private List<String> chosenSeats;
+    private List<String> bookedSeats;
+
+    private List<ShowEntity> availableShows;
+
     public void findCustomer(){
         OrderController orderController = new OrderController();
-        String phoneNumber = customerID.getText();
+        String phoneNumber = customerId.getText();
 
         try {
             if( !phoneNumber.isEmpty() ) {
@@ -55,7 +66,7 @@ public class UIController implements Initializable {
                 "Nothing?"
             );
         }
-        showCurrentUser.setText(customerID.getText());
+        showCurrentUser.setText(customerId.getText());
     }
 
     private void showOrders(List<OrderEntity> orders) {
@@ -65,7 +76,6 @@ public class UIController implements Initializable {
 
         orders.forEach(order -> {
             List<SeatEntity> orderSeats = seatController.getOrderSeats(order.getId());
-            Integer seatAmount = orderSeats.size();
             ShowEntity show = showController.getSeatShow(orderSeats.get(0).getShowId());
             LocalDateTime timeslot_start = show.getTimeslot().getStartTime().toLocalDateTime();
 
@@ -87,6 +97,7 @@ public class UIController implements Initializable {
         ObservableList<OrderView> list = FXCollections.observableArrayList(showOrders);
         tableView.setItems(list);
     }
+
     //Get movie+time+date and display on info-label
     public void getInfo(){
         if (this.pickMovie.getValue() != null &&
@@ -99,12 +110,13 @@ public class UIController implements Initializable {
             info.setText("Please select a valid date, movie and time.");
         }
     }
-    public void newOrder() {
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Initialize seat arrays
+        this.chosenSeats = new ArrayList<>();
+        this.bookedSeats = new ArrayList<>();
+
         // Set datepicker to today
         this.pickDate.setValue(LocalDate.now());
 
@@ -143,6 +155,9 @@ public class UIController implements Initializable {
         // Get shows for chosen date
         List<ShowEntity> shows = this.getShowsByDate(date);
 
+        // Save shows
+        this.availableShows = shows;
+
         List<String> movieTimes;
         // If any movies for chosen date
         if (!this.movies.isEmpty()) {
@@ -161,9 +176,97 @@ public class UIController implements Initializable {
         }
 
         this.times = FXCollections.observableList(movieTimes);
-
         this.pickTime.setItems(times);
         this.pickTime.getSelectionModel().selectFirst();
+
+        // Get booked seats for currently selected show
+        this.bookedSeats = this.getBookedSeats();
+
+        // Remove chosen seats
+        this.chosenSeats.clear();
+
+        // Draw Seats
+        this.drawSeats();
+    }
+
+    public void newOrder() {
+
+    }
+
+    private void drawSeats() {
+        //TODO draw booked seats
+
+        //TODO on click even change color to yellow for chosenSeats
+
+        // Get room of chosen show
+        Optional<ShowEntity> show = this.getSelectedShow();
+        RoomEntity room;
+
+        if (show.isPresent()) {
+            room = show.get().getRoom();
+        } else {
+            return;
+        }
+
+        // Store seats in array
+        List<Rectangle> seats = new ArrayList<>();
+
+        // Static distances
+        int distanceX = 10;
+        int distanceY = 10;
+
+        // Remove current seats from display
+        this.seat_group.getChildren().clear();
+
+        for(int x = 1; x <= room.getRowAmount(); x++){
+            for (int y = 1; y <= room.getColumnAmount(); y++){
+                Rectangle rectangle = new Rectangle(distanceX, distanceY,15, 15);
+
+                // ID: seat:seatNumber (counted from left to right, up to down)
+                String seatNumber = x + ":" + y;
+                rectangle.setId("seat-" + seatNumber);
+
+                // Is seat booked?
+                if (this.isSeatBooked(seatNumber)) {
+                    // If yes, then make it red
+                    rectangle.setStroke(Color.RED);
+                    rectangle.setFill(Color.RED.deriveColor(1, 1, 1, 0.7));
+                } else if (this.isSeatChosen(seatNumber)) {
+                    // If yes, then make it yellow
+                    rectangle.setStroke(Color.YELLOW);
+                    rectangle.setFill(Color.YELLOW.deriveColor(1, 1, 1, 0.7));
+                } else {
+                    // If not, then make it green
+                    rectangle.setStroke(Color.GREEN);
+                    rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
+                }
+
+
+                //rectangle.relocate(10, 10);
+                distanceX += 20;
+
+
+                rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                    // Get seatId
+                    String eventSourceId = e.getPickResult().getIntersectedNode().getId();
+
+                    // Get seat position from id
+                    String number = eventSourceId.split("-")[1];
+                    System.out.println("Seat: " + number + " has been clicked.");
+
+                    this.chooseSeat(number);
+
+                    // Redraw seats
+                    this.drawSeats();
+                });
+
+                seats.add(rectangle);
+            }
+            distanceX = 10;
+            distanceY += 20;
+        }
+
+        this.seat_group.getChildren().addAll(seats);
     }
 
     static void alertBox(String infoMessage, String titleBar, String headerMessage) {
@@ -194,6 +297,53 @@ public class UIController implements Initializable {
         } else {
             return Collections.emptyList();
         }
+    }
+
+    private Optional<ShowEntity> getSelectedShow() {
+        // Find show matching picked movie and date
+        List<ShowEntity> chosenShowList = this.availableShows.stream()
+                .filter(show -> {
+                    String showTitle = show.getMovie().getName();
+                    LocalDateTime showStartTime = show.getTimeslot().getStartTime().toLocalDateTime();
+                    String pickedTitle = this.pickMovie.getValue();
+                    String pickedTime = this.pickTime.getValue();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+                    return showTitle.equals(pickedTitle) &&
+                            showStartTime.format(formatter).equals(pickedTime);
+                })
+                .collect(Collectors.toList());
+
+        if (chosenShowList.size() > 0) {
+            return Optional.of(chosenShowList.get(0));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private List<String> getBookedSeats() {
+        SeatController seatController = new SeatController();
+        Optional<ShowEntity> show = this.getSelectedShow();
+
+        if (show.isPresent()) {
+            return seatController.getBookedSeatsByShowId(show.get().getId()).stream()
+                    .map(SeatEntity::getSeatNumber)
+                    .collect(Collectors.toList());
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    private boolean isSeatBooked(String seatNumber) {
+        return this.bookedSeats.contains(seatNumber);
+    }
+
+    private boolean isSeatChosen(String seatNumber) {
+        return this.chosenSeats.contains(seatNumber);
+    }
+
+    private void chooseSeat(String seatNumber) {
+        this.chosenSeats.add(seatNumber);
     }
     //TODO create save method
 

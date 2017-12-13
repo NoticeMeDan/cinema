@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
@@ -20,8 +19,8 @@
                         <Label text="Enter phone number" layoutX="580.0" layoutY="5.0"/>
                         <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="700.0" layoutY="35.0" text="Enter" />
                         <TextField fx:id="customerId" layoutX="530.0" layoutY="35.0" promptText="Phone number" />
-                        <Label fx:id="customerLabel" layoutX="853.0" layoutY="35.0" text="Customer:" />
-                        <Label fx:id="showCurrentUser" layoutX="925.0" layoutY="35.0" />
+                        <Label fx:id="customerLabel" layoutX="800.0" layoutY="35.0" text="Customer:" />
+                        <Label fx:id="showCurrentUser" layoutX="890.0" layoutY="35.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane styleClass="PickInfo">
@@ -39,56 +38,29 @@
         </SplitPane>
     </top>
     <center>
-        <GridPane styleClass="CenterPane" BorderPane.alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-                <CheckBox  text="CheckBox" />
-                <CheckBox  text="CheckBox" GridPane.rowIndex="1" />
-                <CheckBox  text="CheckBox" GridPane.columnIndex="9" />
-                <CheckBox  text="CheckBox" GridPane.columnIndex="9" GridPane.rowIndex="7" />
-                <CheckBox  text="CheckBox" GridPane.rowIndex="7" />
-            </children>
-        </GridPane>
+        <Pane fx:id="seat_group"
+              layoutX="500" layoutY="400"
+        >
+        </Pane>
     </center>
     <left>
         <SplitPane styleClass="LeftPane" dividerPositions="0.14" orientation="VERTICAL" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane fx:id="leftTopPane" >
                     <children>
-                        <Button id="newOrder" onAction="#newOrder" layoutX="100.0" layoutY="8.0" text="New Order" />
+                        <Button id="newOrder" onAction="#newOrder" layoutX="200.0" layoutY="8.0" text="New Order" />
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="leftBottomPane" >
                     <children>
                         <TableView fx:id="tableView" layoutX="3.0" >
                             <columns>
-                                <TableColumn fx:id="colMovie" text="Movie" resizable="false" >
+                                <TableColumn fx:id="colMovie" text="Movie" resizable="true" >
                                     <cellValueFactory >
                                         <PropertyValueFactory  property="movie" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn fx:id="colTime" text="Time" resizable="false">
+                                <TableColumn fx:id="colTime" text="Time" resizable="true">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="time" />
                                     </cellValueFactory>
