@@ -11,7 +11,7 @@ public class SeatController {
         this.seatService = new SeatService();
     }
 
-    public void bookSeat(int seatNumber, int showId, int orderId) {
+    public void bookSeat(List<String> seatNumber, int showId, int orderId) {
         seatService.bookSeat(seatNumber, showId, orderId);
     }
 
