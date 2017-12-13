@@ -19,7 +19,7 @@ public class SeatController {
         return seatService.getOrderSeats(orderId);
     }
 
-    public List<SeatEntity> getBookedSeatsByShowId(int seatId) {
-        return seatService.getBookedSeatsByShowId(seatId);
+    public List<SeatEntity> getBookedSeatsByShowId(int orderId) {
+        return seatService.getBookedSeatsByShowId(orderId);
     }
 }

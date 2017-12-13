@@ -8,8 +8,6 @@ public class SeatService extends BaseService {
     public SeatService() { super(); }
 
     public void bookSeat(List<String> seatNumber, int showId, int orderId) {
-        seatDao.bookSeat(seatNumber, showId, orderId);
-    }
 
     public List<SeatEntity> getOrderSeats(int orderId) {
         return seatDao.getOrderSeats(orderId);
