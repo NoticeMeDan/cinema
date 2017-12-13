@@ -325,7 +325,6 @@ public class UIController implements Initializable {
             return shows.stream()
                     .map(ShowEntity::getMovie)
                     .distinct()
-                    .sorted()
                     .collect(Collectors.toList());
         } else {
             return Collections.emptyList();
