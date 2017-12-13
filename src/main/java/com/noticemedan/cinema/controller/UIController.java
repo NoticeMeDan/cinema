@@ -231,11 +231,9 @@ public class UIController implements Initializable {
         SeatController seatController = new SeatController();
 
         orderController.saveOrder(customerId.getText());
-        /*chosenSeats.forEach(seat ->
-            seatController.bookSeat(seat, getSelectedShow(),this.ActiveOrder);
-        );*/
-        //Info
-
+        this.chosenSeats.forEach((String seat) -> {
+            seatController.bookSeat(seat, getSelectedShow().get().getId(), this.ActiveOrder);
+        });
     }
 
     private void drawSeats() {
