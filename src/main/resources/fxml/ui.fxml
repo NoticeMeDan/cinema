@@ -46,9 +46,7 @@
         </AnchorPane>
     </top>
     <center>
-        <Pane fx:id="seat_group"
-              layoutX="300" layoutY="400"
-        >
+        <Pane fx:id="seat_group">
         </Pane>
     </center>
     <left>

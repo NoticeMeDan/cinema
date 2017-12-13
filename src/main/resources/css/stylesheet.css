@@ -65,14 +65,15 @@
     Center Pane
  */
 .CenterPane {
-    -fx-max-height: 450px;
-    -fx-max-width: 884px;
+    -fx-max-width: 900px;
+    -fx-max-width: 900px;
     -fx-background-color: lightgray;
 }
 
 #seat_group {
-    -fx-max-width: 300px;
-    -fx-max-height: 300px;
+    -fx-max-width: 400px;
+    -fx-max-height: 340px;
+    -fx-alignment: center;
 }
 /*
     Left Pane

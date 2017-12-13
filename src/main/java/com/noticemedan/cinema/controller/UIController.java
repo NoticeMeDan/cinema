@@ -240,10 +240,8 @@ public class UIController implements Initializable {
                     rectangle.setFill(Color.GREEN.deriveColor(1, 1, 1, 0.7));
                 }
 
-
                 //rectangle.relocate(10, 10);
                 startDistanceX += relocate;
-
 
                 rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                     // Get seatId
