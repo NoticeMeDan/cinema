@@ -32,7 +32,7 @@ public class UIController implements Initializable {
     //TODO better comment: Pick info
     @FXML private ComboBox<String> pickTime;
     @FXML private ComboBox<String> pickMovie;
-    //@FXML private Label info;
+    @FXML private Label info;
 
     //TableView
     @FXML private TableView<OrderView> tableView;
@@ -99,7 +99,7 @@ public class UIController implements Initializable {
     }
 
     //Get movie+time+date and display on info-label
-    /*public void getInfo(){
+    public void getInfo(){
         if (this.pickMovie.getValue() != null &&
             this.pickDate.getValue() != null &&
             this.pickTime.getValue() != null) {
@@ -109,7 +109,7 @@ public class UIController implements Initializable {
         } else {
             info.setText("Please select a valid date, movie and time.");
         }
-    }*/
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -117,13 +117,13 @@ public class UIController implements Initializable {
         this.chosenSeats = new ArrayList<>();
         this.bookedSeats = new ArrayList<>();
 
-        // Set datepicker to today
+        // Set date-picker to today
         this.pickDate.setValue(LocalDate.now());
 
         // Do first update of selection UI
         this.updateSelectionByDate();
 
-        //getInfo();
+        getInfo();
     }
 
     public void updateSelectionByDate() {
