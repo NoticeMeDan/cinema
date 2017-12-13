@@ -21,6 +21,9 @@
 # IntelliJ
 .idea/
 
+# DB data
+cinemadb
+
 # target folder
 target/
 
