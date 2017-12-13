@@ -145,6 +145,7 @@ public class UIController implements Initializable {
         // Get the titles
         List<String> movieTitles = movies.stream()
                 .map(MovieEntity::getName)
+                .distinct()
                 .collect(Collectors.toList());
 
         this.movies = FXCollections.observableList(movieTitles);
@@ -179,6 +180,8 @@ public class UIController implements Initializable {
             movieTimes = shows.stream()
                     .filter(show -> show.getMovie().getName().equals(movieName))
                     .map(show -> show.getTimeslot().getStartTime().toLocalDateTime().format(formatter))
+                    .distinct()
+                    .sorted()
                     .collect(Collectors.toList());
         } else {
             movieTimes = Collections.emptyList();
@@ -298,6 +301,7 @@ public class UIController implements Initializable {
             return shows.stream()
                     .map(ShowEntity::getMovie)
                     .distinct()
+                    .sorted()
                     .collect(Collectors.toList());
         } else {
             return Collections.emptyList();
