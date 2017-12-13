@@ -16,6 +16,9 @@
     -fx-min-height: 150px;
     -fx-max-height: 150px;
     -fx-font-style: inherit;
+    -fx-border-width: 1px;
+    -fx-border-color: #cccccc;
+    -fx-border-style: solid;
 }
 
 #findCustomer {
@@ -74,10 +77,12 @@
 /*
     Left Pane
  */
-.LeftPane {
-    -fx-min-width: 200px;
-    -fx-min-height: 400px;
-    -fx-max-height: 500px;
+#LeftAnchor {
+    -fx-min-width: 300px;
+    -fx-min-height: 570px;
+    -fx-border-width: 1px;
+    -fx-border-color: #cccccc;
+    -fx-border-style: solid;
 }
 .PickInfo{
     -fx-min-height: 80px;

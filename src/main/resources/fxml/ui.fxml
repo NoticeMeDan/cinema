@@ -47,19 +47,18 @@
     </top>
     <center>
         <Pane fx:id="seat_group"
-              layoutX="500" layoutY="400"
+              layoutX="300" layoutY="400"
         >
         </Pane>
     </center>
     <left>
-        <AnchorPane styleClass="PickInfo">
-            <Label text="Pick a date" layoutX="35.0" layoutY="12.0"/>
-            <DatePicker styleClass="input" fx:id="pickDate" onAction="#updateSelectionByDate" layoutX="35.0" layoutY="35.0" promptText="Date" />
-            <Label text="Pick a movie" layoutX="411.0" layoutY="12.0"/>
-            <ComboBox styleClass="input" fx:id="pickMovie" onAction="#updateSelectionByMovie" layoutX="411.0" layoutY="35.0"  promptText="Movie" />
-            <Label text="Pick a time" layoutX="765.0" layoutY="12.0"/>
-            <ComboBox styleClass="input" fx:id="pickTime" onAction="#getInfo" layoutX="765.0" layoutY="35.0" promptText="Time" />
-            <Label fx:id="info" alignment="CENTER" layoutX="935.0" layoutY="35.0"/>
+        <AnchorPane fx:id="LeftAnchor" styleClass="PickInfo">
+            <Label text="Pick a date" layoutX="35.0" layoutY="35.0"/>
+            <DatePicker styleClass="input" fx:id="pickDate" onAction="#updateSelectionByDate" layoutX="35.0" layoutY="55.0" promptText="Date" />
+            <Label text="Pick a movie" layoutX="35.0" layoutY="135.0"/>
+            <ComboBox styleClass="input" fx:id="pickMovie" onAction="#updateSelectionByMovie" layoutX="35.0" layoutY="155.0"  promptText="Movie" />
+            <Label text="Pick a time" layoutX="35.0" layoutY="255.0"/>
+            <ComboBox styleClass="input" fx:id="pickTime" layoutX="35.0" layoutY="255.0" promptText="Time" />
         </AnchorPane>
     </left>
     <bottom>

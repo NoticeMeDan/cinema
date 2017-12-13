@@ -32,7 +32,7 @@ public class UIController implements Initializable {
     //TODO better comment: Pick info
     @FXML private ComboBox<String> pickTime;
     @FXML private ComboBox<String> pickMovie;
-    @FXML private Label info;
+    //@FXML private Label info;
 
     //TableView
     @FXML private TableView<OrderView> tableView;
@@ -99,7 +99,7 @@ public class UIController implements Initializable {
     }
 
     //Get movie+time+date and display on info-label
-    public void getInfo(){
+    /*public void getInfo(){
         if (this.pickMovie.getValue() != null &&
             this.pickDate.getValue() != null &&
             this.pickTime.getValue() != null) {
@@ -109,7 +109,7 @@ public class UIController implements Initializable {
         } else {
             info.setText("Please select a valid date, movie and time.");
         }
-    }
+    }*/
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -123,7 +123,7 @@ public class UIController implements Initializable {
         // Do first update of selection UI
         this.updateSelectionByDate();
 
-        getInfo();
+        //getInfo();
     }
 
     public void updateSelectionByDate() {
@@ -194,10 +194,6 @@ public class UIController implements Initializable {
     }
 
     private void drawSeats() {
-        //TODO draw booked seats
-
-        //TODO on click even change color to yellow for chosenSeats
-
         // Get room of chosen show
         Optional<ShowEntity> show = this.getSelectedShow();
         RoomEntity room;
@@ -212,15 +208,18 @@ public class UIController implements Initializable {
         List<Rectangle> seats = new ArrayList<>();
 
         // Static distances
-        int distanceX = 10;
-        int distanceY = 10;
+        int startDistanceX = 25;
+        int startDistanceY = 10;
+        int addDistanceX = 25;
+        int addDistanceY = 40;
+        int relocate = 30;
 
         // Remove current seats from display
         this.seat_group.getChildren().clear();
 
         for(int x = 1; x <= room.getRowAmount(); x++){
             for (int y = 1; y <= room.getColumnAmount(); y++){
-                Rectangle rectangle = new Rectangle(distanceX, distanceY,15, 15);
+                Rectangle rectangle = new Rectangle(startDistanceX, startDistanceY,25, 25);
 
                 // ID: seat:seatNumber (counted from left to right, up to down)
                 String seatNumber = x + ":" + y;
@@ -233,8 +232,8 @@ public class UIController implements Initializable {
                     rectangle.setFill(Color.RED.deriveColor(1, 1, 1, 0.7));
                 } else if (this.isSeatChosen(seatNumber)) {
                     // If yes, then make it yellow
-                    rectangle.setStroke(Color.YELLOW);
-                    rectangle.setFill(Color.YELLOW.deriveColor(1, 1, 1, 0.7));
+                    rectangle.setStroke(Color.PURPLE);
+                    rectangle.setFill(Color.PURPLE.deriveColor(1, 1, 1, 0.7));
                 } else {
                     // If not, then make it green
                     rectangle.setStroke(Color.GREEN);
@@ -243,7 +242,7 @@ public class UIController implements Initializable {
 
 
                 //rectangle.relocate(10, 10);
-                distanceX += 20;
+                startDistanceX += relocate;
 
 
                 rectangle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
@@ -262,8 +261,8 @@ public class UIController implements Initializable {
 
                 seats.add(rectangle);
             }
-            distanceX = 10;
-            distanceY += 20;
+            startDistanceX = addDistanceX;
+            startDistanceY += addDistanceY;
         }
 
         this.seat_group.getChildren().addAll(seats);
