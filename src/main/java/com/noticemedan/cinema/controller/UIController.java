@@ -196,7 +196,12 @@ public class UIController implements Initializable {
         String phoneNumber = customerId.getText();
 
         this.ActiveOrder = orderController.saveOrder(phoneNumber);
-        this.updateView();
+        //this.updateView();
+    }
+
+    public void deleteOrder() {
+        OrderController orderController = new OrderController();
+        orderController.deleteOrder(this.ActiveOrder);
     }
 
     private void drawSeats() {
