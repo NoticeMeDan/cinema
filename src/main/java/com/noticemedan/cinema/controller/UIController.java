@@ -59,7 +59,8 @@ public class UIController implements Initializable {
 
         try {
             if( !phoneNumber.isEmpty() ) {
-                List<OrderEntity> orders = orderController.getOrders(phoneNumber);
+                List<OrderEntity> orders = new ArrayList<>(orderController.getOrders(phoneNumber));
+
                 if (orders.size() == 0) {
                     customerController.saveCustomerOrder(phoneNumber);
                 } else {
@@ -82,25 +83,26 @@ public class UIController implements Initializable {
         ShowController showController = new ShowController();
         SeatController seatController = new SeatController();
 
-
         orders.forEach(order -> {
             List<SeatEntity> orderSeats = seatController.getOrderSeats(order.getId());
-            ShowEntity show = showController.getSeatShow(orderSeats.get(0).getShowId());
-            LocalDateTime timeslot_start = show.getTimeslot().getStartTime().toLocalDateTime();
+            if (orderSeats.size() != 0) {
+                ShowEntity show = showController.getSeatShow(orderSeats.get(0).getShowId());
+                LocalDateTime timeslot_start = show.getTimeslot().getStartTime().toLocalDateTime();
 
-            // Leftpad starTime with 0 if minute is less than 10
-            String startTime = String.format("%s:%02d",
-                    timeslot_start.getHour(),
-                    timeslot_start.getMinute()
+                // Leftpad starTime with 0 if minute is less than 10
+                String startTime = String.format("%s:%02d",
+                        timeslot_start.getHour(),
+                        timeslot_start.getMinute()
                 );
-            String date = String.format("%s/%s/%s",
-                   timeslot_start.getDayOfMonth(),
-                   timeslot_start.getMonthValue(),
-                   timeslot_start.getYear()
+                String date = String.format("%s/%s/%s",
+                        timeslot_start.getDayOfMonth(),
+                        timeslot_start.getMonthValue(),
+                        timeslot_start.getYear()
                 );
-            String movieTitle = show.getMovie().getName();
-            Integer roomNumber = show.getRoom().getId();
-            showOrders.add(new OrderView(roomNumber.toString(), movieTitle, startTime, date));
+                String movieTitle = show.getMovie().getName();
+                Integer roomNumber = show.getRoom().getId();
+                showOrders.add(new OrderView(roomNumber.toString(), movieTitle, startTime, date));
+            }
         });
         //Data for TableView
         ObservableList<OrderView> list = FXCollections.observableArrayList(showOrders);
@@ -229,7 +231,9 @@ public class UIController implements Initializable {
         SeatController seatController = new SeatController();
 
         orderController.saveOrder(customerId.getText());
-        seatController.bookSeat(chosenSeats, getSelectedShow().get().getId(),this.ActiveOrder);
+        /*chosenSeats.forEach(seat ->
+            seatController.bookSeat(seat, getSelectedShow(),this.ActiveOrder);
+        );*/
         //Info
 
     }
