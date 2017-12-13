@@ -71,7 +71,7 @@
                         ${basedir}/src/main/resources/liquibase/migrations.yml
                     </changeLogFile>
                     <driver>org.h2.Driver</driver>
-                    <url>jdbc:h2:./cinemadb/cinema;AUTO_SERVER=true</url>
+                    <url>jdbc:h2:~/cinemadb/cinema;AUTO_SERVER=true</url>
                     <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
                 </configuration>
                 <executions>
