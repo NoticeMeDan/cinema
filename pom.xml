@@ -63,6 +63,27 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.5.3</version>
+                <configuration>
+                    <changeLogFile>
+                        ${basedir}/src/main/resources/liquibase/migrations.yml
+                    </changeLogFile>
+                    <driver>org.h2.Driver</driver>
+                    <url>jdbc:h2:./cinemadb/cinema;AUTO_SERVER=true</url>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
@@ -92,31 +113,11 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.5.3</version>
-                <configuration>
-                    <changeLogFile>
-                        ${basedir}/src/main/resources/liquibase/migrations.yml
-                    </changeLogFile>
-                    <driver>org.h2.Driver</driver>
-                    <url>jdbc:h2:./cinemadb/cinema;AUTO_SERVER=true</url>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptor>src/assembly/bin.xml</descriptor>
-                    <finalName>cinema-project-bundle-${pom.version}</finalName>
+                    <finalName>cinema-project-bundle-${project.version}</finalName>
                 </configuration>
                 <executions>
                     <execution>
