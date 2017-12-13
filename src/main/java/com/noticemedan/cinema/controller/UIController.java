@@ -50,6 +50,7 @@ public class UIController implements Initializable {
     private List<ShowEntity> availableShows;
 
     private int ActiveOrder = 0;
+    List<OrderView> showOrders = new ArrayList<>();
 
     public void findCustomer(){
         OrderController orderController = new OrderController();
@@ -80,7 +81,7 @@ public class UIController implements Initializable {
     private void showOrders(List<OrderEntity> orders) {
         ShowController showController = new ShowController();
         SeatController seatController = new SeatController();
-        List<OrderView> showOrders = new ArrayList<>();
+
 
         orders.forEach(order -> {
             List<SeatEntity> orderSeats = seatController.getOrderSeats(order.getId());
@@ -203,11 +204,24 @@ public class UIController implements Initializable {
 
         this.ActiveOrder = orderController.saveOrder(phoneNumber);
         //this.updateView();
+        System.out.println(this.ActiveOrder);
     }
 
     public void deleteOrder() {
         OrderController orderController = new OrderController();
         orderController.deleteOrder(this.ActiveOrder);
+
+        System.out.println(this.ActiveOrder);
+    }
+
+    public void saveOrder(){
+        OrderController orderController = new OrderController();
+        SeatController seatController = new SeatController();
+
+        orderController.saveOrder(customerId.getText());
+        seatController.bookSeat(chosenSeats, getSelectedShow().get().getId(),this.ActiveOrder);
+        //Info
+
     }
 
     private void drawSeats() {

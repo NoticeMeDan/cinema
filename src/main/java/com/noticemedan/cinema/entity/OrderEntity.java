@@ -22,7 +22,7 @@ public class OrderEntity {
         this.customerId = customerId;
     }
 
-    public OrderEntity(int id, @ColumnName("customer_fk") String customerId) {
+    public OrderEntity(@ColumnName("id") int id, @ColumnName("customer_fk") String customerId) {
         this.id = id;
         this.customerId = customerId;
     }
