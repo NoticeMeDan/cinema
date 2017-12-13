@@ -387,3 +387,33 @@ databaseChangeLog:
             columnName: seat_number
             tableName: seats
             newDataType: varchar(20)
+  - changeSet:
+      id: orders-default-data
+      author: Mathias Egekvist
+      changes:
+        - loadData:
+           tableName: orders
+           file: src/main/resources/liquibase/orders.csv
+           quotchar: '"' # String with commas will break if you do not include this
+           columns:
+            - column:
+                name: customer_fk
+                type: STRING
+  - changeSet:
+      id: seats-default-data
+      author: Mathias Egekvist
+      changes:
+        - loadData:
+           tableName: seats
+           file: src/main/resources/liquibase/seats.csv
+           quotchar: '"' # String with commas will break if you do not include this
+           columns:
+            - column:
+                name: show_fk
+                type: NUMERIC
+            - column:
+                name: order_fk
+                type: NUMERIC
+            - column:
+                name: seat_number
+                type: STRING
