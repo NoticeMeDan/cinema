@@ -12,78 +12,58 @@
             stylesheets="/css/stylesheet.css"
 >
     <top>
-        <SplitPane dividerPositions="0.5" orientation="VERTICAL"  >
-            <items>
-                <AnchorPane styleClass="LoginAnchor">
-                    <children >
-                        <Label text="Enter phone number" layoutX="580.0" layoutY="5.0"/>
-                        <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="700.0" layoutY="35.0" text="Enter" />
-                        <TextField fx:id="customerId" layoutX="530.0" layoutY="35.0" promptText="Phone number" />
-                        <Label fx:id="customerLabel" layoutX="800.0" layoutY="35.0" text="Customer:" />
-                        <Label fx:id="showCurrentUser" layoutX="890.0" layoutY="35.0" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane styleClass="PickInfo">
-                    <children>
-                        <Label text="Pick a date" layoutX="166.0" layoutY="12.0"/>
-                        <DatePicker fx:id="pickDate" onAction="#updateSelectionByDate" layoutX="166.0" layoutY="35.0" promptText="Date" />
-                        <Label text="Pick a movie" layoutX="411.0" layoutY="12.0"/>
-                        <ComboBox fx:id="pickMovie" onAction="#updateSelectionByMovie" layoutX="411.0" layoutY="35.0"  promptText="Movie" />
-                        <Label text="Pick a time" layoutX="765.0" layoutY="12.0"/>
-                        <ComboBox fx:id="pickTime" onAction="#getInfo" layoutX="765.0" layoutY="35.0" promptText="Time" />
-                        <Label fx:id="info" alignment="CENTER" layoutX="935.0" layoutY="35.0"/>
-                    </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
+        <AnchorPane styleClass="TopAnchor">
+            <Label text="Enter phone number" layoutX="225.0" layoutY="35.0"/>
+            <TextField styleClass="input" fx:id="customerId" layoutX="225.0" layoutY="65.0" promptText="Phone number" />
+            <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="415.0" layoutY="65.0" text="Search" />
+            <Label fx:id="customerLabel" layoutX="800.0" layoutY="35.0" text="Customer:" />
+            <Label fx:id="showCurrentUser" layoutX="890.0" layoutY="35.0" />
+            <TableView fx:id="tableView" layoutX="705.0" layoutY="15.0" >
+                <columns>
+                    <TableColumn fx:id="colMovie" text="Movie" resizable="true" >
+                        <cellValueFactory >
+                            <PropertyValueFactory  property="movie" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colTime" text="Time" resizable="true">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="time" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colDate" text="Date" resizable="false">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="date" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colRoom" text="Room" resizable="false">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="room" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+            <Button id="newOrder" onAction="#newOrder" layoutX="520.0" layoutY="65.0" text="New Order" />
+        </AnchorPane>
     </top>
     <center>
-        <Pane fx:id="seat_group"
-              layoutX="500" layoutY="400"
-        >
-        </Pane>
+        <AnchorPane>
+            <Label fx:id="info" text="Suppe" alignment="CENTER" layoutX="30.0" layoutY="30.0"/>
+            <Pane fx:id="seat_group" layoutX="300" layoutY="60">
+            </Pane>
+        </AnchorPane>
     </center>
     <left>
-        <SplitPane styleClass="LeftPane" dividerPositions="0.14" orientation="VERTICAL" BorderPane.alignment="CENTER">
-            <items>
-                <AnchorPane fx:id="leftTopPane" >
-                    <children>
-                        <Button id="newOrder" onAction="#newOrder" layoutX="200.0" layoutY="8.0" text="New Order" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="leftBottomPane" >
-                    <children>
-                        <TableView fx:id="tableView" layoutX="3.0" >
-                            <columns>
-                                <TableColumn fx:id="colMovie" text="Movie" resizable="true" >
-                                    <cellValueFactory >
-                                        <PropertyValueFactory  property="movie" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn fx:id="colTime" text="Time" resizable="true">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="time" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn fx:id="colDate" text="Date" resizable="false">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="date" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn fx:id="colRoom" text="Room" resizable="false">
-                                    <cellValueFactory>
-                                        <PropertyValueFactory property="room" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                            </columns>
-                        </TableView>
-                    </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
+        <AnchorPane fx:id="LeftAnchor" styleClass="PickInfo">
+            <Label text="Pick a date" layoutX="35.0" layoutY="35.0"/>
+            <DatePicker styleClass="input" fx:id="pickDate" onAction="#updateSelectionByDate" layoutX="35.0" layoutY="55.0" promptText="Date" />
+            <Label text="Pick a movie" layoutX="35.0" layoutY="135.0"/>
+            <ComboBox styleClass="input" fx:id="pickMovie" onAction="#updateSelectionByMovie" layoutX="35.0" layoutY="155.0"  promptText="Movie" />
+            <Label text="Pick a time" layoutX="35.0" layoutY="235.0"/>
+            <ComboBox styleClass="input" fx:id="pickTime" layoutX="35.0" layoutY="255.0" promptText="Time" />
+        </AnchorPane>
     </left>
     <bottom>
-        <Pane styleClass="BottomePane" BorderPane.alignment="CENTER">
+        <Pane styleClass="BottomPane" BorderPane.alignment="CENTER">
             <children>
                 <Button id="deleteOrder" layoutX="1152.0" layoutY="26.0" text="Delete" />
                 <Button id="saveOrder" layoutX="1021.0" layoutY="26.0" text="Save" />

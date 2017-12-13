@@ -1,5 +1,5 @@
 .root{
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-font-family: "Courier New";
     -fx-alignment: center;
 }
@@ -7,20 +7,23 @@
     -fx-min-height: "720" ;
     -fx-min-width: "1280";
 }
+.input {
+    -fx-min-height: 45px;
+    -fx-pref-width: 180px;
+}
 /* Top Pane */
-.LoginAnchor{
-    -fx-min-height: 80px;
-    -fx-max-height: 80px;
+.TopAnchor{
+    -fx-min-height: 150px;
+    -fx-max-height: 150px;
     -fx-font-style: inherit;
+    -fx-border-width: 1px;
+    -fx-border-color: #cccccc;
+    -fx-border-style: solid;
 }
-#login{
-    -fx-min-height: 30px;
-}
-#login:hover{
-    -fx-background-color: cornflowerblue;
-}
-#customerId{
-    -fx-min-height: 30px;
+
+#findCustomer {
+    -fx-pref-height: 45px;
+    -fx-pref-width: 80px;
 }
 #customerLabel{
     -fx-min-height: 30px;
@@ -28,74 +31,69 @@
 #showCurrentUser{
     -fx-min-height: 30px;
 }
-
-.PickInfo{
-    -fx-min-height: 80px;
-    -fx-max-height: 80px;
-
-}
-/*
-    Center Pane
- */
-.CenterPane {
-    -fx-max-height: 450px;
-    -fx-max-width: 884px;
-    -fx-background-color: lightgray;
-}
-
-#seat_group {
-    -fx-max-width: 300px;
-    -fx-max-height: 300px;
-}
-/*
-    Left Pane
- */
-.LeftPane {
-    -fx-min-width: 500px;
-    -fx-min-height: 400px;
-    -fx-max-height: 500px;
-
-}
-#leftTopPane{
-    -fx-min-width: 500px;
-    -fx-alignment: center;
-    -fx-min-height: 45px;
-    -fx-max-height: 45px;
-}
 #newOrder{
     -fx-min-width: 100px;
-    -fx-min-height: 30px;
+    -fx-min-height: 45px;
 }
 #newOrder:hover{
     -fx-background-color: cornflowerblue;
 }
-#leftBottomPane{
-    -fx-min-width: 500px;
-    -fx-min-height: 400px;
-    -fx-max-height: 400px;
-}
 #tableView{
     -fx-min-width: 500px;
-    -fx-min-height: 400px;
-    -fx-max-height: 400px;
+    -fx-max-width: 500px;
+    -fx-min-height: 120px;
+    -fx-max-height: 120px;
 }
 #colMovie{
     -fx-alignment: center-left;
-    -fx-pref-width: 260px;
+    -fx-pref-width: 250px;
 }
 #colDate{
     -fx-alignment: center;
+    -fx-pref-width: 110px;
 }
 #colTime{
     -fx-alignment: center;
+    -fx-pref-width: 80px;
 }
 #colRoom{
     -fx-alignment: center;
+    -fx-pref-width: 50px;
 }
+
+/*
+    Center Pane
+ */
+.CenterPane {
+    -fx-max-width: 900px;
+    -fx-max-width: 900px;
+    -fx-background-color: lightgray;
+}
+
+#seat_group {
+    -fx-max-width: 400px;
+    -fx-max-height: 340px;
+    -fx-alignment: center;
+}
+/*
+    Left Pane
+ */
+#LeftAnchor {
+    -fx-min-width: 300px;
+    -fx-min-height: 570px;
+    -fx-border-width: 1px;
+    -fx-border-color: #cccccc;
+    -fx-border-style: solid;
+}
+.PickInfo{
+    -fx-min-height: 80px;
+    -fx-max-height: 80px;
+}
+
 /*
     Bottom Pane
  */
-.BottomePane {
+.BottomPane {
     -fx-min-height: 100px;
     -fx-min-width: 200px;
 }
@@ -104,8 +102,6 @@
     -fx-min-width: 100px;
 }
 #saveOrder:hover{
-    -fx-min-width: 110px;
-    -fx-min-height: 60px;
     -fx-background-color: forestgreen;
 }
 #deleteOrder{
@@ -113,8 +109,6 @@
     -fx-min-width: 100px;
 }
 #deleteOrder:hover{
-    -fx-min-width: 110px;
-    -fx-min-height: 60px;
     -fx-background-color: red;
 }
 
