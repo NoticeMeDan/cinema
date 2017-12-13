@@ -46,8 +46,11 @@
         </AnchorPane>
     </top>
     <center>
-        <Pane fx:id="seat_group">
-        </Pane>
+        <AnchorPane>
+            <Label fx:id="info" text="Suppe" alignment="CENTER" layoutX="30.0" layoutY="30.0"/>
+            <Pane fx:id="seat_group" layoutX="300" layoutY="60">
+            </Pane>
+        </AnchorPane>
     </center>
     <left>
         <AnchorPane fx:id="LeftAnchor" styleClass="PickInfo">
@@ -55,7 +58,7 @@
             <DatePicker styleClass="input" fx:id="pickDate" onAction="#updateSelectionByDate" layoutX="35.0" layoutY="55.0" promptText="Date" />
             <Label text="Pick a movie" layoutX="35.0" layoutY="135.0"/>
             <ComboBox styleClass="input" fx:id="pickMovie" onAction="#updateSelectionByMovie" layoutX="35.0" layoutY="155.0"  promptText="Movie" />
-            <Label text="Pick a time" layoutX="35.0" layoutY="255.0"/>
+            <Label text="Pick a time" layoutX="35.0" layoutY="235.0"/>
             <ComboBox styleClass="input" fx:id="pickTime" layoutX="35.0" layoutY="255.0" promptText="Time" />
         </AnchorPane>
     </left>
