@@ -128,6 +128,13 @@ public class UIController implements Initializable {
 
         // Set date-picker to today
         this.pickDate.setValue(LocalDate.now());
+        this.pickDate.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.getDayOfYear() < LocalDate.now().getDayOfYear());
+            }
+        });
 
         // Do first update of selection UI
         this.updateSelectionByDate();
