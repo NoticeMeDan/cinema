@@ -268,7 +268,11 @@ public class UIController implements Initializable {
                     String number = eventSourceId.split("-")[1];
                     System.out.println("Seat: " + number + " has been clicked.");
 
-                    this.chooseSeat(number);
+                    if (this.isSeatChosen(number)) {
+                        this.removeSeat(number);
+                    } else {
+                        this.chooseSeat(number);
+                    }
 
                     // Redraw seats
                     this.drawSeats();
@@ -359,16 +363,8 @@ public class UIController implements Initializable {
     private void chooseSeat(String seatNumber) {
         this.chosenSeats.add(seatNumber);
     }
-    //TODO create save method
 
-    //TODO update movie
-    //Happens when you pick a date
-
-    //TODO update time
-    //Hapens when you pick a movie
-
-    //TODO create delete method
-
-    //Extra features
-    //TODO create tutorial
+    private void removeSeat(String seatNumber) {
+        this.chosenSeats.remove(seatNumber);
+    }
 }
