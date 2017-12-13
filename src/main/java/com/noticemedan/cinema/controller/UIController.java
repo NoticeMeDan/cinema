@@ -53,11 +53,17 @@ public class UIController implements Initializable {
 
     public void findCustomer(){
         OrderController orderController = new OrderController();
+        CustomerController customerController = new CustomerController();
         String phoneNumber = customerId.getText();
 
         try {
             if( !phoneNumber.isEmpty() ) {
-                this.showOrders(orderController.getOrders(phoneNumber));
+                List<OrderEntity> orders = orderController.getOrders(phoneNumber);
+                if (orders.size() == 0) {
+                    customerController.saveCustomerOrder(phoneNumber);
+                } else {
+                    this.showOrders(orders);
+                }
             } else {
                 throw new IllegalArgumentException("Remember to write a phone number or else I can't help you find the customer's orders");
             }
