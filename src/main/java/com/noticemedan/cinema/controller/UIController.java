@@ -29,7 +29,7 @@ public class UIController implements Initializable {
     @FXML private TextField customerId;
     @FXML private Label showCurrentUser;
 
-    //TODO better comment: Pick info
+    //Show information
     @FXML private ComboBox<String> pickTime;
     @FXML private ComboBox<String> pickMovie;
     @FXML private Label info;
@@ -190,7 +190,10 @@ public class UIController implements Initializable {
     }
 
     public void newOrder() {
+        OrderController orderController = new OrderController();
+        String phoneNumber = customerId.getText();
 
+        orderController.saveOrder(phoneNumber);
     }
 
     private void drawSeats() {
