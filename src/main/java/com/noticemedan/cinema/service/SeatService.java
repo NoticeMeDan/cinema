@@ -7,7 +7,9 @@ import java.util.List;
 public class SeatService extends BaseService {
     public SeatService() { super(); }
 
-    public void bookSeat(String seatNumber, int showId, int orderId) {}
+    public void bookSeat(String seatNumber, int showId, int orderId) {
+        seatDao.bookSeat(seatNumber, showId, orderId);
+    }
 
     public List<SeatEntity> getOrderSeats(int orderId) {
         return seatDao.getOrderSeats(orderId);
