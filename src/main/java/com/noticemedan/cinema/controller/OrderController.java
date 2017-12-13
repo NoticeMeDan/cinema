@@ -20,8 +20,8 @@ public class OrderController {
         orderService.deleteOrder(orderId);
     }
 
-    public void saveOrder(String phoneNumber) {
-        orderService.saveOrder(phoneNumber);
+    public int saveOrder(String phoneNumber) {
+        return orderService.saveOrder(phoneNumber);
     }
 
 }

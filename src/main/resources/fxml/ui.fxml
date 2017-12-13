@@ -66,7 +66,7 @@
         <Pane styleClass="BottomPane" BorderPane.alignment="CENTER">
             <children>
                 <Button id="deleteOrder" layoutX="1152.0" layoutY="26.0" text="Delete" />
-                <Button id="saveOrder" layoutX="1021.0" layoutY="26.0" text="Save" />
+                <Button id="saveOrder" onAction="#deleteOrder" layoutX="1021.0" layoutY="26.0" text="Save" />
             </children>
         </Pane>
     </bottom>

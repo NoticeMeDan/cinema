@@ -9,8 +9,8 @@ public class OrderService extends BaseService {
         super();
     }
 
-    public void saveOrder(String customerId) {
-        orderDao.saveOrder(customerId);
+    public int saveOrder(String customerId) {
+       return orderDao.saveOrder(customerId);
     }
 
     public void deleteOrder(int orderId) {
