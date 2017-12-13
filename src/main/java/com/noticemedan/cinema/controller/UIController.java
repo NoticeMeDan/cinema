@@ -49,6 +49,8 @@ public class UIController implements Initializable {
 
     private List<ShowEntity> availableShows;
 
+    private int ActiveOrder = 0;
+
     public void findCustomer(){
         OrderController orderController = new OrderController();
         String phoneNumber = customerId.getText();
@@ -193,7 +195,8 @@ public class UIController implements Initializable {
         OrderController orderController = new OrderController();
         String phoneNumber = customerId.getText();
 
-        orderController.saveOrder(phoneNumber);
+        this.ActiveOrder = orderController.saveOrder(phoneNumber);
+        this.updateView();
     }
 
     private void drawSeats() {
