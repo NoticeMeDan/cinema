@@ -42,7 +42,7 @@
                     </TableColumn>
                 </columns>
             </TableView>
-            <Button id="newOrder" onAction="#newOrder" layoutX="520.0" layoutY="65.0" text="New Order" />
+            <Button fx:id="newOrderButton" onAction="#createOrder" layoutX="520.0" layoutY="65.0" text="New Order" disable="true" />
         </AnchorPane>
     </top>
     <center>
@@ -65,8 +65,8 @@
     <bottom>
         <Pane styleClass="BottomPane" BorderPane.alignment="CENTER">
             <children>
-                <Button id="deleteOrder" onAction="#deleteOrder" layoutX="1152.0" layoutY="26.0" text="Delete" />
-                <Button id="saveOrder" onAction="#saveOrder" layoutX="1021.0" layoutY="26.0" text="Save" />
+                <Button fx:id="deleteOrderButton" onAction="#deleteOrder" layoutX="1152.0" layoutY="26.0" text="Delete" disable="true" />
+                <Button fx:id="saveOrderButton" onAction="#saveOrder" layoutX="1021.0" layoutY="26.0" text="Save" disable="true" />
             </children>
         </Pane>
     </bottom>

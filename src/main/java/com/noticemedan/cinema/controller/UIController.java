@@ -17,9 +17,7 @@ import javafx.scene.shape.Rectangle;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,25 +40,37 @@ public class UIController implements Initializable {
     // Seats
     @FXML private Pane seat_group;
 
+    // Buttons
+    @FXML private Button newOrderButton;
+    @FXML private Button saveOrderButton;
+    @FXML private Button deleteOrderButton;
+
     // Data for input fields (or whatever you call it)
     private ObservableList<String> movies;
     private ObservableList<String> times;
 
+    // UI State
     private List<String> chosenSeats;
     private List<String> bookedSeats;
-
     private List<ShowEntity> availableShows;
-
+    private List<OrderView> showOrders = new ArrayList<>();
     private int ActiveOrder = 0;
-    List<OrderView> showOrders = new ArrayList<>();
+    private boolean validCustomer = false;
 
     public void findCustomer(){
         OrderController orderController = new OrderController();
         CustomerController customerController = new CustomerController();
         String phoneNumber = this.customerId.getText();
 
+        // Remove activeorder if changing customer
+        this.ActiveOrder = 0;
+
         try {
             if( !phoneNumber.isEmpty() ) {
+                // Check if phonenumber is valid
+                if (!phoneNumber.matches("^\\d{8}$")) {
+                    throw new IllegalArgumentException("Phone number is not valid.");
+                }
                 List<OrderEntity> orders = new ArrayList<>(orderController.getOrders(phoneNumber));
 
                 if (orders.size() == 0) {
@@ -68,17 +78,43 @@ public class UIController implements Initializable {
                 } else {
                     this.showOrders(orders);
                 }
+
+                this.validCustomer = true;
+
+                this.handleNewOrderButtonState();
             } else {
-                throw new IllegalArgumentException("Remember to write a phone number or else I can't help you find the customer's orders");
+                throw new IllegalArgumentException("Please type a phone number.");
             }
         } catch (Exception e) {
+            this.validCustomer = false;
+            this.handleNewOrderButtonState();
             alertBox(
                 e.getMessage(),
-                "No input",
-                "Nothing?"
+                "Bad input",
+                "Huh?"
             );
         }
         showCurrentUser.setText(this.customerId.getText());
+    }
+
+    private void handleNewOrderButtonState() {
+        if (this.validCustomer  &&
+                this.pickDate.getValue() != null &&
+                this.pickMovie.getValue() != null &&
+                this.pickTime.getValue() != null) {
+
+            this.newOrderButton.setDisable(false);
+        } else {
+            this.newOrderButton.setDisable(true);
+        }
+    }
+
+    private void handleSaveOrderButtonState() {
+        if (this.validCustomer && this.ActiveOrder != 0) {
+            this.saveOrderButton.setDisable(false);
+        } else {
+            this.saveOrderButton.setDisable(true);
+        }
     }
 
     private void showOrders(List<OrderEntity> orders) {
@@ -125,11 +161,22 @@ public class UIController implements Initializable {
             this.pickMovie.setValue(orderView.getMovie());
             this.pickTime.setValue(orderView.getTime());
             this.ActiveOrder = orderView.getOrderId();
+
+            this.updateSelectionByMovie();
             
             seats.forEach(seat -> {
                 this.bookedSeats.remove(seat.getSeatNumber());
                 this.chosenSeats.add(seat.getSeatNumber());
             });
+
+            // Enable delete button
+            this.deleteOrderButton.setDisable(false);
+
+            // Set active order to selected order
+            this.ActiveOrder = orderView.getOrderId();
+
+            // Enable save button
+            this.handleSaveOrderButtonState();
 
             this.drawSeats();
         });
@@ -201,6 +248,15 @@ public class UIController implements Initializable {
         // Save shows
         this.availableShows = shows;
 
+        // Remove ActiveOrder when movie changes
+        this.ActiveOrder = 0;
+
+        // Disable delete button
+        this.deleteOrderButton.setDisable(true);
+
+        this.handleNewOrderButtonState();
+        this.handleSaveOrderButtonState();
+
         List<String> movieTimes;
         // If any movies for chosen date
         if (!this.movies.isEmpty()) {
@@ -242,12 +298,17 @@ public class UIController implements Initializable {
         this.drawSeats();
     }
 
-    public void newOrder() {
+    public void createOrder() {
+        // Remove chosen seats and update view
+        this.chosenSeats.clear();
+        this.updateSelectionByMovie();
+
         OrderController orderController = new OrderController();
         String phoneNumber = this.customerId.getText();
 
         this.ActiveOrder = orderController.saveOrder(phoneNumber);
-        //this.updateView();
+        this.handleSaveOrderButtonState();
+
         System.out.println(this.ActiveOrder);
     }
 
@@ -280,6 +341,9 @@ public class UIController implements Initializable {
         this.chosenSeats.forEach((String seat) -> {
             seatController.bookSeat(seat, getSelectedShow().get().getId(), this.ActiveOrder);
         });
+
+        // Update order table
+        this.findCustomer();
 
         // Update seats
         this.updateSeats();
@@ -343,14 +407,24 @@ public class UIController implements Initializable {
                     String number = eventSourceId.split("-")[1];
                     System.out.println("Seat: " + number + " has been clicked.");
 
-                    if (this.isSeatChosen(number)) {
-                        this.removeSeat(number);
-                    } else {
-                        this.chooseSeat(number);
-                    }
+                    // Only select seats on an active order
 
-                    // Redraw seats
-                    this.drawSeats();
+                    if (this.ActiveOrder != 0) {
+                        if (this.isSeatChosen(number)) {
+                            this.removeSeat(number);
+                        } else {
+                            this.chooseSeat(number);
+                        }
+
+                        // Redraw seats
+                        this.drawSeats();
+                    } else {
+                        alertBox(
+                                "You can only edit seats on an Active Order",
+                                "Info",
+                                "Invalid input"
+                        );
+                    }
                 });
 
                 seats.add(rectangle);
