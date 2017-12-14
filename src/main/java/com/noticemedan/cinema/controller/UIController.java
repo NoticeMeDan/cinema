@@ -210,11 +210,16 @@ public class UIController implements Initializable {
         this.pickDate.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(empty || date.getDayOfYear() < now.getDayOfYear() && now.getYear() >= date.getYear());
+            super.updateItem(date, empty);
+            setDisable(empty || date.getDayOfYear() < now.getDayOfYear() && now.getYear() >= date.getYear());
             }
         });
 
+        // Empty tableView placeholder text
+        Label placeholderText = new Label();
+        placeholderText.setText("No orders for a customer to show");
+        this.tableView.setPlaceholder(placeholderText);
+        
         // Do first update of selection UI
         this.updateSelectionByDate();
     }
