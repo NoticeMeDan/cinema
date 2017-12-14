@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
@@ -388,7 +389,7 @@ public class UIController implements Initializable {
 
         // Static distances
         int startDistanceX = 25;
-        int startDistanceY = 10;
+        int startDistanceY = 40;
         int addDistanceX = 25;
         int addDistanceY = 40;
         int relocate = 30;
@@ -455,8 +456,11 @@ public class UIController implements Initializable {
             startDistanceX = addDistanceX;
             startDistanceY += addDistanceY;
         }
-
+        Line screen = new Line(startDistanceX, 0, 320, 0);
+        Label screenLabel = new Label("Screen");
+        screenLabel.setLayoutX(startDistanceX);
         this.seat_group.getChildren().addAll(seats);
+        this.seat_group.getChildren().addAll(screen, screenLabel);
     }
 
     static void alertBox(String infoMessage, String titleBar, String headerMessage) {
