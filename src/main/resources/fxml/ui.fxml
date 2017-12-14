@@ -6,6 +6,7 @@
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
+<?import javafx.scene.shape.Line?>
 <BorderPane minHeight="720.0" minWidth="1280.0"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.noticemedan.cinema.controller.UIController"
@@ -50,6 +51,7 @@
             <Label fx:id="info" text="Suppe" alignment="CENTER" layoutX="30.0" layoutY="30.0"/>
             <Pane fx:id="seat_group" layoutX="300" layoutY="60">
             </Pane>
+            <Line layoutX="300" layoutY="400" />
         </AnchorPane>
     </center>
     <left>

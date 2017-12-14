@@ -1,18 +1,16 @@
 package com.noticemedan.cinema;
 
-import com.noticemedan.cinema.controller.CustomerController;
 import com.noticemedan.cinema.service.BaseService;
 import com.noticemedan.cinema.service.CustomerService;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class CustomerTest extends BaseService {
-    private CustomerController customerController;
+    private CustomerService customerService;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        this.customerController = new CustomerController();
+        this.customerService = new CustomerService();
     }
 
     @Test

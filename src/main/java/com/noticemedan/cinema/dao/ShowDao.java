@@ -15,7 +15,7 @@ public interface ShowDao {
             "JOIN movies M ON S.movie_fk = M.id " +
             "JOIN timeslots T ON S.timeslot_fk = T.id")
     @RegisterRowMapper(ShowMapper.class)
-    List<ShowEntity> getShows();
+    List<ShowEntity> getAllShows();
 
     @SqlQuery("SELECT *, S.ID as show_id, R.ID as room_id, M.ID as movie_id, T.ID as timeslot_id " +
             "FROM shows S " +
@@ -24,7 +24,7 @@ public interface ShowDao {
             "JOIN timeslots T ON S.timeslot_fk = T.id " +
             "WHERE :show_id = S.ID")
     @RegisterRowMapper(ShowMapper.class)
-    ShowEntity getSeatShow(@Bind("show_id") int show_id);
+    ShowEntity getShowById(@Bind("show_id") int show_id);
 
     @SqlQuery("SELECT *, S.ID as show_id, R.ID as room_id, M.ID as movie_id, T.ID as timeslot_id " +
             "FROM shows S " +
