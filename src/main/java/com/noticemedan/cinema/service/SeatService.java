@@ -19,8 +19,8 @@ public class SeatService extends BaseService {
         return seatDao.getOrderSeats(orderId);
     }
 
-    public List<SeatEntity> getBookedSeatsByShowId(int orderId) {
-        return this.seatDao.getBookedSeatsByShowId(orderId);
+    public List<SeatEntity> getBookedSeatsByShowId(int showId) {
+        return this.seatDao.getBookedSeatsByShowId(showId);
     }
 
     public boolean doesOrderAlreadyExist(int orderId) {
