@@ -254,9 +254,6 @@ public class UIController implements Initializable {
         // Disable delete button
         this.deleteOrderButton.setDisable(true);
 
-        this.handleNewOrderButtonState();
-        this.handleSaveOrderButtonState();
-
         List<String> movieTimes;
         // If any movies for chosen date
         if (!this.movies.isEmpty()) {
@@ -283,6 +280,9 @@ public class UIController implements Initializable {
         // Update info
         this.getInfo();
 
+        this.handleNewOrderButtonState();
+        this.handleSaveOrderButtonState();
+
         // Update seats
         this.updateSeats();
     }
@@ -308,6 +308,7 @@ public class UIController implements Initializable {
 
         this.ActiveOrder = orderController.saveOrder(phoneNumber);
         this.handleSaveOrderButtonState();
+        this.deleteOrderButton.setDisable(false);
 
         System.out.println(this.ActiveOrder);
     }
@@ -322,7 +323,7 @@ public class UIController implements Initializable {
         this.findCustomer();
 
         // Update seats
-        this.updateSeats();
+        this.updateSelectionByMovie();
     }
 
     public void saveOrder(){
