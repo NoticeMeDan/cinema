@@ -13,7 +13,7 @@ public class BaseService {
     final ShowDao showDao;
 
     public BaseService() {
-        Jdbi jdbi = Jdbi.create("jdbc:h2:./cinemadb/cinema;AUTO_SERVER=true;DB_CLOSE_DELAY=3600");
+        Jdbi jdbi = Jdbi.create("jdbc:h2:./cinemadb/cinema;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=3600");
         jdbi.installPlugin(new H2DatabasePlugin());
         jdbi.installPlugin(new SqlObjectPlugin());
 

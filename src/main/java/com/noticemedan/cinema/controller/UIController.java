@@ -82,6 +82,9 @@ public class UIController implements Initializable {
     }
 
     private void showOrders(List<OrderEntity> orders) {
+        // Remove already existing orders in table
+        this.showOrders.clear();
+
         ShowController showController = new ShowController();
         SeatController seatController = new SeatController();
 
@@ -109,6 +112,7 @@ public class UIController implements Initializable {
         });
         //Data for TableView
         ObservableList<OrderView> list = FXCollections.observableArrayList(showOrders);
+
         tableView.setItems(list);
         tableView.setOnMousePressed(event -> {
             OrderView orderView = tableView.getSelectionModel().getSelectedItem();
@@ -117,14 +121,16 @@ public class UIController implements Initializable {
             LocalDate date = LocalDate.parse(orderView.getDate(), formatter);
             List<SeatEntity> seats = seatController1.getOrderSeats(orderView.getOrderId());
 
-            seats.forEach(seat -> {
-                this.bookedSeats.remove(seat.getSeatNumber());
-                this.chosenSeats.add(seat.getSeatNumber());
-            });
             pickDate.setValue(date);
             pickMovie.setValue(orderView.getMovie());
             pickTime.setValue(orderView.getTime());
             this.ActiveOrder = orderView.getOrderId();
+            
+            seats.forEach(seat -> {
+                this.bookedSeats.remove(seat.getSeatNumber());
+                this.chosenSeats.add(seat.getSeatNumber());
+            });
+
             this.drawSeats();
         });
     }
@@ -401,8 +407,10 @@ public class UIController implements Initializable {
         Optional<ShowEntity> show = this.getSelectedShow();
 
         if (show.isPresent()) {
-            return seatController.getBookedSeatsByShowId(show.get().getId()).stream()
+            List<SeatEntity> seats = seatController.getBookedSeatsByShowId(show.get().getId());
+            return seats.stream()
                     .map(SeatEntity::getSeatNumber)
+                    .distinct()
                     .collect(Collectors.toList());
         } else {
             return Collections.emptyList();
