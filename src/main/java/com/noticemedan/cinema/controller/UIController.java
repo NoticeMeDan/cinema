@@ -4,8 +4,10 @@ import com.noticemedan.cinema.entity.*;
 import com.noticemedan.cinema.view.OrderView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -82,7 +84,7 @@ public class UIController implements Initializable {
 
                 this.validCustomer = true;
 
-                this.updateSelectionByMovie();
+                this.updateSelectionByMovie(null);
             } else {
                 throw new IllegalArgumentException("Please type a phone number.");
             }
@@ -163,7 +165,7 @@ public class UIController implements Initializable {
             this.pickTime.setValue(orderView.getTime());
             this.ActiveOrder = orderView.getOrderId();
 
-            this.updateSelectionByMovie();
+            this.updateSelectionByMovie(null);
             
             seats.forEach(seat -> {
                 this.bookedSeats.remove(seat.getSeatNumber());
@@ -203,12 +205,13 @@ public class UIController implements Initializable {
         this.bookedSeats = new ArrayList<>();
 
         // Set date-picker to today
-        this.pickDate.setValue(LocalDate.now());
+        LocalDate now = LocalDate.now();
+        this.pickDate.setValue(now);
         this.pickDate.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                setDisable(empty || date.getDayOfYear() < LocalDate.now().getDayOfYear());
+                setDisable(empty || date.getDayOfYear() < now.getDayOfYear() && now.getYear() > date.getYear());
             }
         });
 
@@ -232,14 +235,14 @@ public class UIController implements Initializable {
         this.movies = FXCollections.observableList(movieTitles);
 
         // Update date input fields
-        this.updateSelectionByMovie();
+        this.updateSelectionByMovie(null);
 
         this.pickMovie.setItems(this.movies);
         // Mark first movie as selected
         this.pickMovie.getSelectionModel().selectFirst();
     }
 
-    public void updateSelectionByMovie() {
+    public void updateSelectionByMovie(ActionEvent actionEvent) {
         // Date
         String date = this.pickDate.getValue().toString();
 
@@ -274,9 +277,22 @@ public class UIController implements Initializable {
             movieTimes = Collections.emptyList();
         }
 
-        this.times = FXCollections.observableList(movieTimes);
-        this.pickTime.setItems(times);
-        this.pickTime.getSelectionModel().selectFirst();
+        // Only update timePicker, if the function was not called by the timepicker
+        Node source;
+        if (actionEvent != null) {
+            source = (Node) actionEvent.getSource();
+
+            if (!source.getId().equals("pickTime")) {
+                this.times = FXCollections.observableList(movieTimes);
+                this.pickTime.setItems(times);
+                this.pickTime.getSelectionModel().selectFirst();
+            }
+        } else {
+            this.times = FXCollections.observableList(movieTimes);
+            this.pickTime.setItems(times);
+            this.pickTime.getSelectionModel().selectFirst();
+        }
+
 
         // Update info
         this.getInfo();
@@ -302,7 +318,7 @@ public class UIController implements Initializable {
     public void createOrder() {
         // Remove chosen seats and update view
         this.chosenSeats.clear();
-        this.updateSelectionByMovie();
+        this.updateSelectionByMovie(null);
 
         OrderController orderController = new OrderController();
         String phoneNumber = this.customerId.getText();
@@ -324,7 +340,7 @@ public class UIController implements Initializable {
         this.findCustomer();
 
         // Update seats
-        this.updateSelectionByMovie();
+        this.updateSelectionByMovie(null);
     }
 
     public void saveOrder(){
