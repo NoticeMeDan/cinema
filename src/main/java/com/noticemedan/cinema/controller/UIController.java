@@ -211,7 +211,7 @@ public class UIController implements Initializable {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                setDisable(empty || date.getDayOfYear() < now.getDayOfYear() && now.getYear() > date.getYear());
+                setDisable(empty || date.getDayOfYear() < now.getDayOfYear() && now.getYear() >= date.getYear());
             }
         });
 
