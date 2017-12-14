@@ -249,6 +249,9 @@ public class UIController implements Initializable {
         SeatController seatController = new SeatController();
         seatController.deleteSeatBookings(this.ActiveOrder);
         orderController.deleteOrder(this.ActiveOrder);
+
+        // Update seats
+        this.updateSeats();
     }
 
     public void saveOrder(){
