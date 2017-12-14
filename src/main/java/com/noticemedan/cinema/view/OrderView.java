@@ -8,16 +8,18 @@ public class OrderView {
     private final SimpleStringProperty movie = new SimpleStringProperty("");
     private final SimpleStringProperty time = new SimpleStringProperty("");
     private final SimpleStringProperty date = new SimpleStringProperty("");
+    private int orderId = 0;
 
     public OrderView() {
-        this("", "", "", "");
+        this("", "", "", "", 0);
     }
 
-    public OrderView(String room, String movie, String time, String date) {
+    public OrderView(String room, String movie, String time, String date, int orderId) {
         setRoom(room);
         setMovie(movie);
         setTime(time);
         setDate(date);
+        setOrderId(orderId);
     }
 
     public String getMovie() {
@@ -50,5 +52,13 @@ public class OrderView {
 
     public void setRoom(String fRoom) {
         room.set(fRoom);
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 }

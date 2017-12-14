@@ -4,8 +4,10 @@ import com.noticemedan.cinema.entity.*;
 import com.noticemedan.cinema.view.OrderView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -40,74 +42,157 @@ public class UIController implements Initializable {
     // Seats
     @FXML private Pane seat_group;
 
+    // Buttons
+    @FXML private Button newOrderButton;
+    @FXML private Button saveOrderButton;
+    @FXML private Button deleteOrderButton;
+
     // Data for input fields (or whatever you call it)
     private ObservableList<String> movies;
     private ObservableList<String> times;
 
+    // UI State
     private List<String> chosenSeats;
     private List<String> bookedSeats;
-
     private List<ShowEntity> availableShows;
-
+    private List<OrderView> showOrders = new ArrayList<>();
     private int ActiveOrder = 0;
+    private boolean validCustomer = false;
 
     public void findCustomer(){
         OrderController orderController = new OrderController();
-        String phoneNumber = customerId.getText();
+        CustomerController customerController = new CustomerController();
+        String phoneNumber = this.customerId.getText();
+
+        // Remove activeorder if changing customer
+        this.ActiveOrder = 0;
 
         try {
             if( !phoneNumber.isEmpty() ) {
-                this.showOrders(orderController.getOrders(phoneNumber));
+                // Check if phonenumber is valid
+                if (!phoneNumber.matches("^\\d{8}$")) {
+                    throw new IllegalArgumentException("Phone number is not valid.");
+                }
+                List<OrderEntity> orders = new ArrayList<>(orderController.getOrders(phoneNumber));
+
+                if (orders.size() == 0) {
+                    customerController.saveCustomerOrder(phoneNumber);
+                    this.tableView.setItems(FXCollections.emptyObservableList());
+                } else {
+                    this.showOrders(orders);
+                }
+
+                this.validCustomer = true;
+
+                this.updateSelectionByMovie(null);
             } else {
-                throw new IllegalArgumentException("Remember to write a phone number or else I can't help you find the customer's orders");
+                throw new IllegalArgumentException("Please type a phone number.");
             }
         } catch (Exception e) {
+            this.validCustomer = false;
+            this.handleNewOrderButtonState();
             alertBox(
                 e.getMessage(),
-                "No input",
-                "Nothing?"
+                "Bad input",
+                "Huh?"
             );
         }
-        showCurrentUser.setText(customerId.getText());
+        showCurrentUser.setText(this.customerId.getText());
+    }
+
+    private void handleNewOrderButtonState() {
+        if (this.validCustomer  &&
+                this.pickDate.getValue() != null &&
+                this.pickMovie.getValue() != null &&
+                this.pickTime.getValue() != null) {
+
+            this.newOrderButton.setDisable(false);
+        } else {
+            this.newOrderButton.setDisable(true);
+        }
+    }
+
+    private void handleSaveOrderButtonState() {
+        if (this.validCustomer && this.ActiveOrder != 0) {
+            this.saveOrderButton.setDisable(false);
+        } else {
+            this.saveOrderButton.setDisable(true);
+        }
     }
 
     private void showOrders(List<OrderEntity> orders) {
+        // Remove already existing orders in table
+        this.showOrders.clear();
+
         ShowController showController = new ShowController();
         SeatController seatController = new SeatController();
-        List<OrderView> showOrders = new ArrayList<>();
 
         orders.forEach(order -> {
             List<SeatEntity> orderSeats = seatController.getOrderSeats(order.getId());
-            ShowEntity show = showController.getSeatShow(orderSeats.get(0).getShowId());
-            LocalDateTime timeslot_start = show.getTimeslot().getStartTime().toLocalDateTime();
+            if (orderSeats.size() != 0) {
+                ShowEntity show = showController.getSeatShow(orderSeats.get(0).getShowId());
+                LocalDateTime timeslot_start = show.getTimeslot().getStartTime().toLocalDateTime();
 
-            // Leftpad starTime with 0 if minute is less than 10
-            String startTime = String.format("%s:%02d",
-                    timeslot_start.getHour(),
-                    timeslot_start.getMinute()
+                // Leftpad starTime with 0 if minute is less than 10
+                String startTime = String.format("%02d:%02d",
+                        timeslot_start.getHour(),
+                        timeslot_start.getMinute()
                 );
-            String date = String.format("%s/%s/%s",
-                   timeslot_start.getDayOfMonth(),
-                   timeslot_start.getMonthValue(),
-                   timeslot_start.getYear()
+                String date = String.format("%s/%s/%s",
+                        timeslot_start.getDayOfMonth(),
+                        timeslot_start.getMonthValue(),
+                        timeslot_start.getYear()
                 );
-            String movieTitle = show.getMovie().getName();
-            Integer roomNumber = show.getRoom().getId();
-            showOrders.add(new OrderView(roomNumber.toString(), movieTitle, startTime, date));
+                String movieTitle = show.getMovie().getName();
+                Integer roomNumber = show.getRoom().getId();
+                Integer orderId = order.getId();
+                this.showOrders.add(new OrderView(roomNumber.toString(), movieTitle, startTime, date, orderId));
+            }
         });
         //Data for TableView
         ObservableList<OrderView> list = FXCollections.observableArrayList(showOrders);
+
         tableView.setItems(list);
+        tableView.setOnMousePressed(event -> {
+            OrderView orderView = tableView.getSelectionModel().getSelectedItem();
+            SeatController seatController1 = new SeatController();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+            LocalDate date = LocalDate.parse(orderView.getDate(), formatter);
+            List<SeatEntity> seats = seatController1.getOrderSeats(orderView.getOrderId());
+
+            this.pickDate.setValue(date);
+            this.pickMovie.setValue(orderView.getMovie());
+            this.pickTime.setValue(orderView.getTime());
+            this.ActiveOrder = orderView.getOrderId();
+
+            this.updateSelectionByMovie(null);
+            
+            seats.forEach(seat -> {
+                this.bookedSeats.remove(seat.getSeatNumber());
+                this.chosenSeats.add(seat.getSeatNumber());
+            });
+
+            // Enable delete button
+            this.deleteOrderButton.setDisable(false);
+
+            // Set active order to selected order
+            this.ActiveOrder = orderView.getOrderId();
+
+            // Enable save button
+            this.handleSaveOrderButtonState();
+
+            this.drawSeats();
+        });
     }
 
     //Get movie+time+date and display on info-label
-    public void getInfo(){
+    private void getInfo(){
         if (this.pickMovie.getValue() != null &&
             this.pickDate.getValue() != null &&
             this.pickTime.getValue() != null) {
-            info.setText("'" + pickMovie.getValue().toString() + "' ["
-                    + pickTime.getValue().toString() + "] - "
-                    + pickDate.getValue().toString());
+            info.setText("'" + this.pickMovie.getValue().toString() + "' ["
+                    + this.pickTime.getValue().toString() + "] - "
+                    + this.pickDate.getValue().toString());
         } else {
             info.setText("Please select a valid date, movie and time.");
         }
@@ -120,12 +205,18 @@ public class UIController implements Initializable {
         this.bookedSeats = new ArrayList<>();
 
         // Set date-picker to today
-        this.pickDate.setValue(LocalDate.now());
+        LocalDate now = LocalDate.now();
+        this.pickDate.setValue(now);
+        this.pickDate.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.getDayOfYear() < now.getDayOfYear() && now.getYear() > date.getYear());
+            }
+        });
 
         // Do first update of selection UI
         this.updateSelectionByDate();
-
-        getInfo();
     }
 
     public void updateSelectionByDate() {
@@ -138,19 +229,20 @@ public class UIController implements Initializable {
         // Get the titles
         List<String> movieTitles = movies.stream()
                 .map(MovieEntity::getName)
+                .distinct()
                 .collect(Collectors.toList());
 
         this.movies = FXCollections.observableList(movieTitles);
 
         // Update date input fields
-        this.updateSelectionByMovie();
+        this.updateSelectionByMovie(null);
 
         this.pickMovie.setItems(this.movies);
         // Mark first movie as selected
         this.pickMovie.getSelectionModel().selectFirst();
     }
 
-    public void updateSelectionByMovie() {
+    public void updateSelectionByMovie(ActionEvent actionEvent) {
         // Date
         String date = this.pickDate.getValue().toString();
 
@@ -159,6 +251,12 @@ public class UIController implements Initializable {
 
         // Save shows
         this.availableShows = shows;
+
+        // Remove ActiveOrder when movie changes
+        this.ActiveOrder = 0;
+
+        // Disable delete button
+        this.deleteOrderButton.setDisable(true);
 
         List<String> movieTimes;
         // If any movies for chosen date
@@ -172,15 +270,41 @@ public class UIController implements Initializable {
             movieTimes = shows.stream()
                     .filter(show -> show.getMovie().getName().equals(movieName))
                     .map(show -> show.getTimeslot().getStartTime().toLocalDateTime().format(formatter))
+                    .distinct()
+                    .sorted()
                     .collect(Collectors.toList());
         } else {
             movieTimes = Collections.emptyList();
         }
 
-        this.times = FXCollections.observableList(movieTimes);
-        this.pickTime.setItems(times);
-        this.pickTime.getSelectionModel().selectFirst();
+        // Only update timePicker, if the function was not called by the timepicker
+        Node source;
+        if (actionEvent != null) {
+            source = (Node) actionEvent.getSource();
 
+            if (!source.getId().equals("pickTime")) {
+                this.times = FXCollections.observableList(movieTimes);
+                this.pickTime.setItems(times);
+                this.pickTime.getSelectionModel().selectFirst();
+            }
+        } else {
+            this.times = FXCollections.observableList(movieTimes);
+            this.pickTime.setItems(times);
+            this.pickTime.getSelectionModel().selectFirst();
+        }
+
+
+        // Update info
+        this.getInfo();
+
+        this.handleNewOrderButtonState();
+        this.handleSaveOrderButtonState();
+
+        // Update seats
+        this.updateSeats();
+    }
+
+    private void updateSeats() {
         // Get booked seats for currently selected show
         this.bookedSeats = this.getBookedSeats();
 
@@ -191,17 +315,56 @@ public class UIController implements Initializable {
         this.drawSeats();
     }
 
-    public void newOrder() {
+    public void createOrder() {
+        // Remove chosen seats and update view
+        this.chosenSeats.clear();
+        this.updateSelectionByMovie(null);
+
         OrderController orderController = new OrderController();
-        String phoneNumber = customerId.getText();
+        String phoneNumber = this.customerId.getText();
 
         this.ActiveOrder = orderController.saveOrder(phoneNumber);
-        //this.updateView();
+        this.handleSaveOrderButtonState();
+        this.deleteOrderButton.setDisable(false);
+
+        System.out.println(this.ActiveOrder);
     }
 
     public void deleteOrder() {
         OrderController orderController = new OrderController();
+        SeatController seatController = new SeatController();
+        seatController.deleteSeatBookings(this.ActiveOrder);
         orderController.deleteOrder(this.ActiveOrder);
+
+        // Update order table
+        this.findCustomer();
+
+        // Update seats
+        this.updateSelectionByMovie(null);
+    }
+
+    public void saveOrder(){
+        OrderController orderController = new OrderController();
+        SeatController seatController = new SeatController();
+
+        System.out.println("Order saved");
+
+
+        // If order already exists and this is just an edit
+        if (seatController.doesOrderAlreadyExist(this.ActiveOrder)) {
+            System.out.println("Updating selected seats");
+            seatController.deleteSeatBookings(this.ActiveOrder);
+        }
+
+        this.chosenSeats.forEach((String seat) -> {
+            seatController.bookSeat(seat, getSelectedShow().get().getId(), this.ActiveOrder);
+        });
+
+        // Update order table
+        this.findCustomer();
+
+        // Update seats
+        this.updateSeats();
     }
 
     private void drawSeats() {
@@ -262,10 +425,24 @@ public class UIController implements Initializable {
                     String number = eventSourceId.split("-")[1];
                     System.out.println("Seat: " + number + " has been clicked.");
 
-                    this.chooseSeat(number);
+                    // Only select seats on an active order
 
-                    // Redraw seats
-                    this.drawSeats();
+                    if (this.ActiveOrder != 0) {
+                        if (this.isSeatChosen(number)) {
+                            this.removeSeat(number);
+                        } else {
+                            this.chooseSeat(number);
+                        }
+
+                        // Redraw seats
+                        this.drawSeats();
+                    } else {
+                        alertBox(
+                                "You can only edit seats on an Active Order",
+                                "Info",
+                                "Invalid input"
+                        );
+                    }
                 });
 
                 seats.add(rectangle);
@@ -334,8 +511,10 @@ public class UIController implements Initializable {
         Optional<ShowEntity> show = this.getSelectedShow();
 
         if (show.isPresent()) {
-            return seatController.getBookedSeatsByShowId(show.get().getId()).stream()
+            List<SeatEntity> seats = seatController.getBookedSeatsByShowId(show.get().getId());
+            return seats.stream()
                     .map(SeatEntity::getSeatNumber)
+                    .distinct()
                     .collect(Collectors.toList());
         } else {
             return Collections.emptyList();
@@ -353,16 +532,8 @@ public class UIController implements Initializable {
     private void chooseSeat(String seatNumber) {
         this.chosenSeats.add(seatNumber);
     }
-    //TODO create save method
 
-    //TODO update movie
-    //Happens when you pick a date
-
-    //TODO update time
-    //Hapens when you pick a movie
-
-    //TODO create delete method
-
-    //Extra features
-    //TODO create tutorial
+    private void removeSeat(String seatNumber) {
+        this.chosenSeats.remove(seatNumber);
+    }
 }

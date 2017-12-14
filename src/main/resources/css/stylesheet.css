@@ -31,11 +31,11 @@
 #showCurrentUser{
     -fx-min-height: 30px;
 }
-#newOrder{
+#newOrderButton{
     -fx-min-width: 100px;
     -fx-min-height: 45px;
 }
-#newOrder:hover{
+#newOrderButton:hover{
     -fx-background-color: cornflowerblue;
 }
 #tableView{
@@ -97,18 +97,18 @@
     -fx-min-height: 100px;
     -fx-min-width: 200px;
 }
-#saveOrder{
+#saveOrderButton{
     -fx-min-height: 50px;
     -fx-min-width: 100px;
 }
-#saveOrder:hover{
+#saveOrderButton:hover{
     -fx-background-color: forestgreen;
 }
-#deleteOrder{
+#deleteOrderButton{
     -fx-min-height: 50px;
     -fx-min-width: 100px;
 }
-#deleteOrder:hover{
+#deleteOrderButton:hover{
     -fx-background-color: red;
 }
 

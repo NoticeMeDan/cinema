@@ -8,11 +8,11 @@ import java.util.List;
 public class OrderController {
     private OrderService orderService;
 
-    OrderController() {
+    public OrderController() {
         this.orderService = new OrderService();
     }
 
-    List<OrderEntity> getOrders(String phoneNumber) {
+    public List<OrderEntity> getOrders(String phoneNumber) {
         return orderService.getOrders(phoneNumber);
     }
 

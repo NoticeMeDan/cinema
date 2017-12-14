@@ -42,7 +42,7 @@
                     </TableColumn>
                 </columns>
             </TableView>
-            <Button id="newOrder" onAction="#newOrder" layoutX="520.0" layoutY="65.0" text="New Order" />
+            <Button fx:id="newOrderButton" onAction="#createOrder" layoutX="520.0" layoutY="65.0" text="New Order" disable="true" />
         </AnchorPane>
     </top>
     <center>
@@ -59,14 +59,14 @@
             <Label text="Pick a movie" layoutX="35.0" layoutY="135.0"/>
             <ComboBox styleClass="input" fx:id="pickMovie" onAction="#updateSelectionByMovie" layoutX="35.0" layoutY="155.0"  promptText="Movie" />
             <Label text="Pick a time" layoutX="35.0" layoutY="235.0"/>
-            <ComboBox styleClass="input" fx:id="pickTime" layoutX="35.0" layoutY="255.0" promptText="Time" />
+            <ComboBox styleClass="input" fx:id="pickTime" onAction="#updateSelectionByMovie" layoutX="35.0" layoutY="255.0" promptText="Time" />
         </AnchorPane>
     </left>
     <bottom>
         <Pane styleClass="BottomPane" BorderPane.alignment="CENTER">
             <children>
-                <Button id="deleteOrder" layoutX="1152.0" layoutY="26.0" text="Delete" />
-                <Button id="saveOrder" onAction="#deleteOrder" layoutX="1021.0" layoutY="26.0" text="Save" />
+                <Button fx:id="deleteOrderButton" onAction="#deleteOrder" layoutX="1152.0" layoutY="26.0" text="Delete" disable="true" />
+                <Button fx:id="saveOrderButton" onAction="#saveOrder" layoutX="1021.0" layoutY="26.0" text="Save" disable="true" />
             </children>
         </Pane>
     </bottom>

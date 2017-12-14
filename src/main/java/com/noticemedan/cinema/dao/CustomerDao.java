@@ -11,7 +11,8 @@ import java.lang.reflect.Array;
 import java.util.List;
 
 public interface CustomerDao {
-    @SqlUpdate("INSERT INTO customers(phone_number) " +
-               "VALUES (:phone_number) ")
+    @SqlUpdate("MERGE INTO customers " +
+               "KEY(phone_number) " +
+               "VALUES(:phone_number)")
     void saveCustomer(@Bind("phone_number") String phone_number);
 }

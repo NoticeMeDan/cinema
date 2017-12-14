@@ -11,15 +11,23 @@ public class SeatController {
         this.seatService = new SeatService();
     }
 
-    public void bookSeat(int seatNumber, int showId, int orderId) {
+    public void bookSeat(String seatNumber, int showId, int orderId) {
         seatService.bookSeat(seatNumber, showId, orderId);
+    }
+
+    public void deleteSeatBookings(int orderId) {
+        seatService.deleteSeatBookings(orderId);
     }
 
     public List<SeatEntity> getOrderSeats(int orderId) {
         return seatService.getOrderSeats(orderId);
     }
 
-    public List<SeatEntity> getBookedSeatsByShowId(int seatId) {
-        return seatService.getBookedSeatsByShowId(seatId);
+    public List<SeatEntity> getBookedSeatsByShowId(int orderId) {
+        return seatService.getBookedSeatsByShowId(orderId);
+    }
+
+    public boolean doesOrderAlreadyExist(int orderId) {
+        return this.getOrderSeats(orderId).size() > 0;
     }
 }
