@@ -273,7 +273,7 @@ public class UIController implements Initializable {
 
         // If order already exists and this is just an edit
         if (seatController.doesOrderAlreadyExist(this.ActiveOrder)) {
-            System.out.println("Deleting seats");
+            System.out.println("Updating selected seats");
             seatController.deleteSeatBookings(this.ActiveOrder);
         }
 
