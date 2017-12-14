@@ -75,13 +75,14 @@ public class UIController implements Initializable {
 
                 if (orders.size() == 0) {
                     customerController.saveCustomerOrder(phoneNumber);
+                    this.tableView.setItems(FXCollections.emptyObservableList());
                 } else {
                     this.showOrders(orders);
                 }
 
                 this.validCustomer = true;
 
-                this.handleNewOrderButtonState();
+                this.updateSelectionByMovie();
             } else {
                 throw new IllegalArgumentException("Please type a phone number.");
             }
