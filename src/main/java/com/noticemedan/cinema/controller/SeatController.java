@@ -26,4 +26,8 @@ public class SeatController {
     public List<SeatEntity> getBookedSeatsByShowId(int orderId) {
         return seatService.getBookedSeatsByShowId(orderId);
     }
+
+    public boolean doesOrderAlreadyExist(int orderId) {
+        return this.getOrderSeats(orderId).size() > 0;
+    }
 }

@@ -57,7 +57,7 @@ public class UIController implements Initializable {
     public void findCustomer(){
         OrderController orderController = new OrderController();
         CustomerController customerController = new CustomerController();
-        String phoneNumber = customerId.getText();
+        String phoneNumber = this.customerId.getText();
 
         try {
             if( !phoneNumber.isEmpty() ) {
@@ -78,7 +78,7 @@ public class UIController implements Initializable {
                 "Nothing?"
             );
         }
-        showCurrentUser.setText(customerId.getText());
+        showCurrentUser.setText(this.customerId.getText());
     }
 
     private void showOrders(List<OrderEntity> orders) {
@@ -95,7 +95,7 @@ public class UIController implements Initializable {
                 LocalDateTime timeslot_start = show.getTimeslot().getStartTime().toLocalDateTime();
 
                 // Leftpad starTime with 0 if minute is less than 10
-                String startTime = String.format("%s:%02d",
+                String startTime = String.format("%02d:%02d",
                         timeslot_start.getHour(),
                         timeslot_start.getMinute()
                 );
@@ -107,7 +107,7 @@ public class UIController implements Initializable {
                 String movieTitle = show.getMovie().getName();
                 Integer roomNumber = show.getRoom().getId();
                 Integer orderId = order.getId();
-                showOrders.add(new OrderView(roomNumber.toString(), movieTitle, startTime, date, orderId));
+                this.showOrders.add(new OrderView(roomNumber.toString(), movieTitle, startTime, date, orderId));
             }
         });
         //Data for TableView
@@ -121,9 +121,9 @@ public class UIController implements Initializable {
             LocalDate date = LocalDate.parse(orderView.getDate(), formatter);
             List<SeatEntity> seats = seatController1.getOrderSeats(orderView.getOrderId());
 
-            pickDate.setValue(date);
-            pickMovie.setValue(orderView.getMovie());
-            pickTime.setValue(orderView.getTime());
+            this.pickDate.setValue(date);
+            this.pickMovie.setValue(orderView.getMovie());
+            this.pickTime.setValue(orderView.getTime());
             this.ActiveOrder = orderView.getOrderId();
             
             seats.forEach(seat -> {
@@ -136,13 +136,13 @@ public class UIController implements Initializable {
     }
 
     //Get movie+time+date and display on info-label
-    public void getInfo(){
+    private void getInfo(){
         if (this.pickMovie.getValue() != null &&
             this.pickDate.getValue() != null &&
             this.pickTime.getValue() != null) {
-            info.setText("'" + pickMovie.getValue().toString() + "' ["
-                    + pickTime.getValue().toString() + "] - "
-                    + pickDate.getValue().toString());
+            info.setText("'" + this.pickMovie.getValue().toString() + "' ["
+                    + this.pickTime.getValue().toString() + "] - "
+                    + this.pickDate.getValue().toString());
         } else {
             info.setText("Please select a valid date, movie and time.");
         }
@@ -166,8 +166,6 @@ public class UIController implements Initializable {
 
         // Do first update of selection UI
         this.updateSelectionByDate();
-
-        getInfo();
     }
 
     public void updateSelectionByDate() {
@@ -226,6 +224,9 @@ public class UIController implements Initializable {
         this.pickTime.setItems(times);
         this.pickTime.getSelectionModel().selectFirst();
 
+        // Update info
+        this.getInfo();
+
         // Update seats
         this.updateSeats();
     }
@@ -243,7 +244,7 @@ public class UIController implements Initializable {
 
     public void newOrder() {
         OrderController orderController = new OrderController();
-        String phoneNumber = customerId.getText();
+        String phoneNumber = this.customerId.getText();
 
         this.ActiveOrder = orderController.saveOrder(phoneNumber);
         //this.updateView();
@@ -256,6 +257,9 @@ public class UIController implements Initializable {
         seatController.deleteSeatBookings(this.ActiveOrder);
         orderController.deleteOrder(this.ActiveOrder);
 
+        // Update order table
+        this.findCustomer();
+
         // Update seats
         this.updateSeats();
     }
@@ -264,7 +268,15 @@ public class UIController implements Initializable {
         OrderController orderController = new OrderController();
         SeatController seatController = new SeatController();
 
-        orderController.saveOrder(customerId.getText());
+        System.out.println("Order saved");
+
+
+        // If order already exists and this is just an edit
+        if (seatController.doesOrderAlreadyExist(this.ActiveOrder)) {
+            System.out.println("Deleting seats");
+            seatController.deleteSeatBookings(this.ActiveOrder);
+        }
+
         this.chosenSeats.forEach((String seat) -> {
             seatController.bookSeat(seat, getSelectedShow().get().getId(), this.ActiveOrder);
         });
