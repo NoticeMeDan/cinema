@@ -17,7 +17,9 @@ import javafx.scene.shape.Rectangle;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -107,6 +109,16 @@ public class UIController implements Initializable {
         //Data for TableView
         ObservableList<OrderView> list = FXCollections.observableArrayList(showOrders);
         tableView.setItems(list);
+        tableView.setOnMousePressed(event -> {
+            OrderView orderView = tableView.getSelectionModel().getSelectedItem();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+            LocalDate date = LocalDate.parse(orderView.getDate(), formatter);
+
+            pickDate.setValue(date);
+            pickMovie.setValue(orderView.getMovie());
+            pickTime.setValue(orderView.getTime());
+            this.drawSeats();
+        });
     }
 
     //Get movie+time+date and display on info-label
