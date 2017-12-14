@@ -3,6 +3,7 @@ package com.noticemedan.cinema;
 import com.noticemedan.cinema.entity.SeatEntity;
 import com.noticemedan.cinema.service.BaseService;
 import com.noticemedan.cinema.service.SeatService;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -18,9 +19,33 @@ public class SeatTest extends BaseService {
 
     @Test
     public void testSeatBooking() throws Exception {
-        this.seatService.bookSeat("8:4", 1, 2);
-        List<SeatEntity> orderSeats = this.seatService.getOrderSeats(2);
-        List<SeatEntity> bookedSeatsByShow = this.seatService.getBookedSeatsByShowId(2);
+        try {
+            this.seatService.bookSeat("8:4", 1, 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    @Test
+    public void testGetOrderSeats() throws Exception {
+        List<SeatEntity> orderSeats = null;
+        try {
+            orderSeats = this.seatService.getOrderSeats(2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(orderSeats.size(), 3);
+    }
+
+    @Test
+    public void testGetBookedSeatsByShowId() throws Exception {
+        List<SeatEntity> bookedSeatsByShow = null;
+        try {
+            bookedSeatsByShow = this.seatService.getBookedSeatsByShowId(2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertTrue(bookedSeatsByShow.size() == 3);
+    }
 }

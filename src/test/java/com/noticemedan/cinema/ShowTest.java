@@ -3,6 +3,7 @@ package com.noticemedan.cinema;
 import com.noticemedan.cinema.entity.ShowEntity;
 import com.noticemedan.cinema.service.BaseService;
 import com.noticemedan.cinema.service.ShowService;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -18,9 +19,23 @@ public class ShowTest extends BaseService {
     }
 
     @Test
-    public void testShow() throws Exception {
-        ShowEntity showEntity;
-        List<ShowEntity> showsByDate = this.showService.getShowsByDate(String.valueOf(LocalDate.now()));
-        ShowEntity show = this.showService.getSeatShow(1);
+    public void testGetShow() throws Exception {
+        ShowEntity show = null;
+        try {
+            show = this.showService.getSeatShow(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(show.getMovie().getName(), "Rick and Morty the movie");
+    }
+
+    @Test
+    public void testGetShowsByDate() throws Exception {
+        try {
+            List<ShowEntity> showsByDate = this.showService.getShowsByDate(String.valueOf(LocalDate.now()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
