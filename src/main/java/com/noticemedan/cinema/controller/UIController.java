@@ -1,6 +1,10 @@
 package com.noticemedan.cinema.controller;
 
 import com.noticemedan.cinema.entity.*;
+import com.noticemedan.cinema.service.CustomerService;
+import com.noticemedan.cinema.service.OrderService;
+import com.noticemedan.cinema.service.SeatService;
+import com.noticemedan.cinema.service.ShowService;
 import com.noticemedan.cinema.view.OrderView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,9 +64,13 @@ public class UIController implements Initializable {
     private int ActiveOrder = 0;
     private boolean validCustomer = false;
 
+    // Services
+    private CustomerService customerService = new CustomerService();
+    private OrderService orderService = new OrderService();
+    private SeatService seatService = new SeatService();
+    private ShowService showService = new ShowService();
+
     public void findCustomer(){
-        OrderController orderController = new OrderController();
-        CustomerController customerController = new CustomerController();
         String phoneNumber = this.customerId.getText();
 
         // Remove activeorder if changing customer
@@ -74,10 +82,10 @@ public class UIController implements Initializable {
                 if (!phoneNumber.matches("^\\d{8}$")) {
                     throw new IllegalArgumentException("Phone number is not valid.");
                 }
-                List<OrderEntity> orders = new ArrayList<>(orderController.getOrders(phoneNumber));
+                List<OrderEntity> orders = new ArrayList<>(this.orderService.getOrders(phoneNumber));
 
                 if (orders.size() == 0) {
-                    customerController.saveCustomerOrder(phoneNumber);
+                    this.customerService.saveCustomer(phoneNumber);
                     this.tableView.setItems(FXCollections.emptyObservableList());
                 } else {
                     this.showOrders(orders);
@@ -125,13 +133,10 @@ public class UIController implements Initializable {
         // Remove already existing orders in table
         this.showOrders.clear();
 
-        ShowController showController = new ShowController();
-        SeatController seatController = new SeatController();
-
         orders.forEach(order -> {
-            List<SeatEntity> orderSeats = seatController.getOrderSeats(order.getId());
+            List<SeatEntity> orderSeats = this.seatService.getOrderSeats(order.getId());
             if (orderSeats.size() != 0) {
-                ShowEntity show = showController.getSeatShow(orderSeats.get(0).getShowId());
+                ShowEntity show = this.showService.getSeatShow(orderSeats.get(0).getShowId());
                 LocalDateTime timeslot_start = show.getTimeslot().getStartTime().toLocalDateTime();
 
                 // Leftpad starTime with 0 if minute is less than 10
@@ -156,10 +161,9 @@ public class UIController implements Initializable {
         tableView.setItems(list);
         tableView.setOnMousePressed(event -> {
             OrderView orderView = tableView.getSelectionModel().getSelectedItem();
-            SeatController seatController1 = new SeatController();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
             LocalDate date = LocalDate.parse(orderView.getDate(), formatter);
-            List<SeatEntity> seats = seatController1.getOrderSeats(orderView.getOrderId());
+            List<SeatEntity> seats = this.seatService.getOrderSeats(orderView.getOrderId());
 
             this.pickDate.setValue(date);
             this.pickMovie.setValue(orderView.getMovie());
@@ -326,10 +330,9 @@ public class UIController implements Initializable {
         this.chosenSeats.clear();
         this.updateSelectionByMovie(null);
 
-        OrderController orderController = new OrderController();
         String phoneNumber = this.customerId.getText();
 
-        this.ActiveOrder = orderController.saveOrder(phoneNumber);
+        this.ActiveOrder = this.orderService.saveOrder(phoneNumber);
         this.handleSaveOrderButtonState();
         this.deleteOrderButton.setDisable(false);
 
@@ -337,10 +340,8 @@ public class UIController implements Initializable {
     }
 
     public void deleteOrder() {
-        OrderController orderController = new OrderController();
-        SeatController seatController = new SeatController();
-        seatController.deleteSeatBookings(this.ActiveOrder);
-        orderController.deleteOrder(this.ActiveOrder);
+        this.seatService.deleteSeatBookings(this.ActiveOrder);
+        this.orderService.deleteOrder(this.ActiveOrder);
 
         // Update order table
         this.findCustomer();
@@ -350,20 +351,16 @@ public class UIController implements Initializable {
     }
 
     public void saveOrder(){
-        OrderController orderController = new OrderController();
-        SeatController seatController = new SeatController();
-
         System.out.println("Order saved");
 
-
         // If order already exists and this is just an edit
-        if (seatController.doesOrderAlreadyExist(this.ActiveOrder)) {
+        if (this.seatService.doesOrderAlreadyExist(this.ActiveOrder)) {
             System.out.println("Updating selected seats");
-            seatController.deleteSeatBookings(this.ActiveOrder);
+            this.seatService.deleteSeatBookings(this.ActiveOrder);
         }
 
         this.chosenSeats.forEach((String seat) -> {
-            seatController.bookSeat(seat, getSelectedShow().get().getId(), this.ActiveOrder);
+            this.seatService.bookSeat(seat, getSelectedShow().get().getId(), this.ActiveOrder);
         });
 
         // Update order table
@@ -484,8 +481,7 @@ public class UIController implements Initializable {
     }
 
     private List<ShowEntity> getShowsByDate(String date) {
-        ShowController showController = new ShowController();
-        List<ShowEntity> shows = showController.getAvailableShowsByDate(date);
+        List<ShowEntity> shows = this.showService.getShowsByDate(date);
         if (!shows.isEmpty()) {
             return shows;
         } else {
@@ -516,11 +512,10 @@ public class UIController implements Initializable {
     }
 
     private List<String> getBookedSeats() {
-        SeatController seatController = new SeatController();
         Optional<ShowEntity> show = this.getSelectedShow();
 
         if (show.isPresent()) {
-            List<SeatEntity> seats = seatController.getBookedSeatsByShowId(show.get().getId());
+            List<SeatEntity> seats = this.seatService.getBookedSeatsByShowId(show.get().getId());
             return seats.stream()
                     .map(SeatEntity::getSeatNumber)
                     .distinct()

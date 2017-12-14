@@ -13,7 +13,7 @@ public class ShowService extends BaseService {
         return this.showDao.getSeatShow(seatId);
     }
 
-    public List<ShowEntity> getShowsById(String date) {
+    public List<ShowEntity> getShowsByDate(String date) {
         return this.showDao.getShowsByDate(date);
     }
 }

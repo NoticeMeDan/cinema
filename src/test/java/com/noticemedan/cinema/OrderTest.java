@@ -1,29 +1,29 @@
 package com.noticemedan.cinema;
 
-import com.noticemedan.cinema.controller.OrderController;
 import com.noticemedan.cinema.entity.OrderEntity;
 import com.noticemedan.cinema.service.BaseService;
+import com.noticemedan.cinema.service.OrderService;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 public class OrderTest extends BaseService {
-    private  OrderController orderController;
+    private  OrderService orderService;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        this.orderController = new OrderController();
+        this.orderService = new OrderService();
     }
 
     @Test
     public void testOrderCreation() throws Exception {
-        int orderId = this.orderController.saveOrder("12345678");
-        this.orderController.deleteOrder(orderId);
+        int orderId = this.orderService.saveOrder("12345678");
+        this.orderService.deleteOrder(orderId);
     }
 
     @Test
     public void testGetOrders() throws Exception {
-        List<OrderEntity> orders = this.orderController.getOrders("12345678");
+        List<OrderEntity> orders = this.orderService.getOrders("12345678");
     }
 }

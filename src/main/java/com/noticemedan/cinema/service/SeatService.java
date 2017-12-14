@@ -22,4 +22,9 @@ public class SeatService extends BaseService {
     public List<SeatEntity> getBookedSeatsByShowId(int orderId) {
         return this.seatDao.getBookedSeatsByShowId(orderId);
     }
+
+    public boolean doesOrderAlreadyExist(int orderId) {
+        return this.getOrderSeats(orderId).size() > 0;
+    }
+
 }
