@@ -217,9 +217,9 @@ public class UIController implements Initializable {
 
         // Empty tableView placeholder text
         Label placeholderText = new Label();
-        placeholderText.setText("No orders for a customer to show");
+        placeholderText.setText("Enter a phone number or create an order");
         this.tableView.setPlaceholder(placeholderText);
-        
+
         // Do first update of selection UI
         this.updateSelectionByDate();
     }
