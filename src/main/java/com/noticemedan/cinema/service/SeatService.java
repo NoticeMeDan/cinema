@@ -11,6 +11,10 @@ public class SeatService extends BaseService {
         seatDao.bookSeat(seatNumber, showId, orderId);
     }
 
+    public void deleteSeatBookings(int orderId) {
+        seatDao.deleteSeatBooking(orderId);
+    }
+
     public List<SeatEntity> getOrderSeats(int orderId) {
         return seatDao.getOrderSeats(orderId);
     }

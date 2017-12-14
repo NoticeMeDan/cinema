@@ -15,6 +15,10 @@ public class SeatController {
         seatService.bookSeat(seatNumber, showId, orderId);
     }
 
+    public void deleteSeatBookings(int orderId) {
+        seatService.deleteSeatBookings(orderId);
+    }
+
     public List<SeatEntity> getOrderSeats(int orderId) {
         return seatService.getOrderSeats(orderId);
     }

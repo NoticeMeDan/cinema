@@ -103,7 +103,8 @@ public class UIController implements Initializable {
                 );
                 String movieTitle = show.getMovie().getName();
                 Integer roomNumber = show.getRoom().getId();
-                showOrders.add(new OrderView(roomNumber.toString(), movieTitle, startTime, date));
+                Integer orderId = order.getId();
+                showOrders.add(new OrderView(roomNumber.toString(), movieTitle, startTime, date, orderId));
             }
         });
         //Data for TableView
@@ -111,12 +112,19 @@ public class UIController implements Initializable {
         tableView.setItems(list);
         tableView.setOnMousePressed(event -> {
             OrderView orderView = tableView.getSelectionModel().getSelectedItem();
+            SeatController seatController1 = new SeatController();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
             LocalDate date = LocalDate.parse(orderView.getDate(), formatter);
+            List<SeatEntity> seats = seatController1.getOrderSeats(orderView.getOrderId());
 
+            seats.forEach(seat -> {
+                this.bookedSeats.remove(seat.getSeatNumber());
+                this.chosenSeats.add(seat.getSeatNumber());
+            });
             pickDate.setValue(date);
             pickMovie.setValue(orderView.getMovie());
             pickTime.setValue(orderView.getTime());
+            this.ActiveOrder = orderView.getOrderId();
             this.drawSeats();
         });
     }
@@ -233,9 +241,9 @@ public class UIController implements Initializable {
 
     public void deleteOrder() {
         OrderController orderController = new OrderController();
+        SeatController seatController = new SeatController();
+        seatController.deleteSeatBookings(this.ActiveOrder);
         orderController.deleteOrder(this.ActiveOrder);
-
-        System.out.println(this.ActiveOrder);
     }
 
     public void saveOrder(){

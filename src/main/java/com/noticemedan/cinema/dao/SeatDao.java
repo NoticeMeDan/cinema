@@ -15,6 +15,9 @@ public interface SeatDao {
                   @Bind("show_id") int show_id,
                   @Bind("order_id") int order_id);
 
+    @SqlUpdate("DELETE FROM seats WHERE :order_id = order_fk")
+    void deleteSeatBooking(@Bind("order_id") int order_id);
+
     @SqlQuery("SELECT * " +
               "FROM seats " +
               "WHERE :order_id = seats.order_fk")

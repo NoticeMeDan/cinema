@@ -19,9 +19,9 @@ public class SeatTest extends BaseService {
 
     @Test
     public void testSeatBooking() throws Exception {
-        this.seatController.bookSeat("8:4", 1, 1);
-        List<SeatEntity> orderSeats = this.seatController.getOrderSeats(1);
-        List<SeatEntity> bookedSeatsByShow = this.seatController.getBookedSeatsByShowId(1);
+        this.seatController.bookSeat("8:4", 1, 2);
+        List<SeatEntity> orderSeats = this.seatController.getOrderSeats(2);
+        List<SeatEntity> bookedSeatsByShow = this.seatController.getBookedSeatsByShowId(2);
     }
 
 }
