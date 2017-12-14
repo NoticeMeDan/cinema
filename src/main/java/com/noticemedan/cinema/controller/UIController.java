@@ -220,6 +220,11 @@ public class UIController implements Initializable {
         this.pickTime.setItems(times);
         this.pickTime.getSelectionModel().selectFirst();
 
+        // Update seats
+        this.updateSeats();
+    }
+
+    private void updateSeats() {
         // Get booked seats for currently selected show
         this.bookedSeats = this.getBookedSeats();
 
@@ -254,6 +259,9 @@ public class UIController implements Initializable {
         this.chosenSeats.forEach((String seat) -> {
             seatController.bookSeat(seat, getSelectedShow().get().getId(), this.ActiveOrder);
         });
+
+        // Update seats
+        this.updateSeats();
     }
 
     private void drawSeats() {
