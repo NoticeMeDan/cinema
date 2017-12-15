@@ -93,7 +93,7 @@ public class UIController implements Initializable {
 
                 this.validCustomer = true;
 
-                this.updateSelectionByMovie(null);
+                this.updateSelectionByMovie(false);
             } else {
                 throw new IllegalArgumentException("Please type a phone number.");
             }
@@ -170,7 +170,7 @@ public class UIController implements Initializable {
             this.pickTime.setValue(orderView.getTime());
             this.ActiveOrder = orderView.getOrderId();
 
-            this.updateSelectionByMovie(null);
+            this.updateSelectionByMovie(false);
             
             seats.forEach(seat -> {
                 this.bookedSeats.remove(seat.getSeatNumber());
@@ -245,14 +245,14 @@ public class UIController implements Initializable {
         this.movies = FXCollections.observableList(movieTitles);
 
         // Update date input fields
-        this.updateSelectionByMovie(null);
+        this.updateSelectionByMovie(false);
 
         this.pickMovie.setItems(this.movies);
         // Mark first movie as selected
         this.pickMovie.getSelectionModel().selectFirst();
     }
 
-    public void updateSelectionByMovie(ActionEvent actionEvent) {
+    public void updateSelectionByMovie(boolean updateTimePicker) {
         // Date
         String date = this.pickDate.getValue().toString();
 
@@ -288,16 +288,7 @@ public class UIController implements Initializable {
         }
 
         // Only update timePicker, if the function was not called by the timepicker
-        Node source;
-        if (actionEvent != null) {
-            source = (Node) actionEvent.getSource();
-
-            if (!source.getId().equals("pickTime")) {
-                this.times = FXCollections.observableList(movieTimes);
-                this.pickTime.setItems(times);
-                this.pickTime.getSelectionModel().selectFirst();
-            }
-        } else {
+        if (updateTimePicker) {
             this.times = FXCollections.observableList(movieTimes);
             this.pickTime.setItems(times);
             this.pickTime.getSelectionModel().selectFirst();
@@ -328,7 +319,7 @@ public class UIController implements Initializable {
     public void createOrder() {
         // Remove chosen seats and update view
         this.chosenSeats.clear();
-        this.updateSelectionByMovie(null);
+        this.updateSelectionByMovie(false);
 
         String phoneNumber = this.customerId.getText();
 
@@ -347,7 +338,7 @@ public class UIController implements Initializable {
         this.findCustomer();
 
         // Update seats
-        this.updateSelectionByMovie(null);
+        this.updateSelectionByMovie(false);
     }
 
     public void saveOrder(){
@@ -539,5 +530,13 @@ public class UIController implements Initializable {
 
     private void removeSeat(String seatNumber) {
         this.chosenSeats.remove(seatNumber);
+    }
+
+    public void handleMoveUpdate(ActionEvent actionEvent) {
+        this.updateSelectionByMovie(true);
+    }
+
+    public void handleTimeUpdate(ActionEvent actionEvent) {
+        this.updateSelectionByMovie(false);
     }
 }
