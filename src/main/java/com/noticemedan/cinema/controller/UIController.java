@@ -245,14 +245,14 @@ public class UIController implements Initializable {
         this.movies = FXCollections.observableList(movieTitles);
 
         // Update date input fields
-        this.updateSelectionByMovie(false);
+        this.updateSelectionByMovie(true);
 
         this.pickMovie.setItems(this.movies);
         // Mark first movie as selected
         this.pickMovie.getSelectionModel().selectFirst();
     }
 
-    public void updateSelectionByMovie(boolean updateTimePicker) {
+    private void updateSelectionByMovie(boolean updateTimePicker) {
         // Date
         String date = this.pickDate.getValue().toString();
 
@@ -287,13 +287,11 @@ public class UIController implements Initializable {
             movieTimes = Collections.emptyList();
         }
 
-        // Only update timePicker, if the function was not called by the timepicker
         if (updateTimePicker) {
             this.times = FXCollections.observableList(movieTimes);
             this.pickTime.setItems(times);
             this.pickTime.getSelectionModel().selectFirst();
         }
-
 
         // Update info
         this.getInfo();
@@ -422,14 +420,16 @@ public class UIController implements Initializable {
                     // Only select seats on an active order
 
                     if (this.ActiveOrder != 0) {
-                        if (this.isSeatChosen(number)) {
-                            this.removeSeat(number);
-                        } else {
-                            this.chooseSeat(number);
-                        }
+                        if (!this.isSeatBooked(number)) {
+                            if (this.isSeatChosen(number)) {
+                                this.removeSeat(number);
+                            } else {
+                                this.chooseSeat(number);
+                            }
 
-                        // Redraw seats
-                        this.drawSeats();
+                            // Redraw seats
+                            this.drawSeats();
+                        }
                     } else {
                         alertBox(
                                 "You can only edit seats on an Active Order",
