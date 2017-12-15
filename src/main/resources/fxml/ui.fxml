@@ -4,65 +4,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-
-<?import javafx.scene.shape.Line?>
 <BorderPane minHeight="720.0" minWidth="1280.0"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.noticemedan.cinema.controller.UIController"
-            stylesheets="/css/stylesheet.css"
->
+            stylesheets="/css/stylesheet.css">
     <top>
-        <AnchorPane styleClass="TopAnchor">
-            <Label text="Enter phone number" layoutX="225.0" layoutY="35.0"/>
-            <TextField styleClass="input" fx:id="customerId" layoutX="225.0" layoutY="65.0" promptText="Phone number" />
-            <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="415.0" layoutY="65.0" text="Search" />
-            <Label fx:id="customerLabel" layoutX="800.0" layoutY="35.0" text="Customer:" />
-            <Label fx:id="showCurrentUser" layoutX="890.0" layoutY="35.0" />
-            <TableView fx:id="tableView" layoutX="705.0" layoutY="15.0" >
-                <columns>
-                    <TableColumn fx:id="colMovie" text="Movie" resizable="true" >
-                        <cellValueFactory >
-                            <PropertyValueFactory  property="movie" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn fx:id="colTime" text="Time" resizable="true">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="time" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn fx:id="colDate" text="Date" resizable="false">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="date" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn fx:id="colRoom" text="Room" resizable="false">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="room" />
-                        </cellValueFactory>
-                    </TableColumn>
-                </columns>
-            </TableView>
-            <Button fx:id="newOrderButton" onAction="#createOrder" layoutX="520.0" layoutY="65.0" text="New Order" disable="true" />
-        </AnchorPane>
+        <fx:include source="TopBar.fxml" />
     </top>
     <center>
-        <AnchorPane>
-            <Label fx:id="info" text="Suppe" alignment="CENTER" layoutX="30.0" layoutY="30.0"/>
-            <Pane fx:id="seat_group" layoutX="300" layoutY="60">
-            </Pane>
-            <Line layoutX="300" layoutY="400" />
-        </AnchorPane>
+        <fx:include source="SeatArea.fxml" />
     </center>
     <left>
-        <AnchorPane fx:id="LeftAnchor" styleClass="PickInfo">
-            <Label text="Pick a date" layoutX="35.0" layoutY="35.0"/>
-            <DatePicker styleClass="input" fx:id="pickDate" onAction="#updateSelectionByDate" layoutX="35.0" layoutY="55.0" promptText="Date" />
-            <Label text="Pick a movie" layoutX="35.0" layoutY="135.0"/>
-            <ComboBox styleClass="input" fx:id="pickMovie" onAction="#updateSelectionByMovie" layoutX="35.0" layoutY="155.0"  promptText="Movie" />
-            <Label text="Pick a time" layoutX="35.0" layoutY="235.0"/>
-            <ComboBox styleClass="input" fx:id="pickTime" onAction="#updateSelectionByMovie" layoutX="35.0" layoutY="255.0" promptText="Time" />
-        </AnchorPane>
+        <fx:include source="LeftBar.fxml" />
     </left>
     <bottom>
         <Pane styleClass="BottomPane" BorderPane.alignment="CENTER">

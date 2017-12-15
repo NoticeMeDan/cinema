@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.noticemedan.cinema.view.TopBarView"
+            styleClass="TopAnchor">
+    <Label text="Enter phone number" layoutX="225.0" layoutY="35.0"/>
+    <TextField styleClass="input" fx:id="customerId" layoutX="225.0" layoutY="65.0" promptText="Phone number" />
+    <Button fx:id="findCustomer" onAction="#findCustomer" layoutX="415.0" layoutY="65.0" text="Search" />
+    <Label fx:id="customerLabel" layoutX="800.0" layoutY="35.0" text="Customer:" />
+    <Label fx:id="showCurrentUser" layoutX="890.0" layoutY="35.0" />
+    <TableView fx:id="tableView" layoutX="705.0" layoutY="15.0" >
+        <columns>
+            <TableColumn fx:id="colMovie" text="Movie" resizable="true" >
+                <cellValueFactory >
+                    <PropertyValueFactory property="movie" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="colTime" text="Time" resizable="true">
+                <cellValueFactory>
+                    <PropertyValueFactory property="time" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="colDate" text="Date" resizable="false">
+                <cellValueFactory>
+                    <PropertyValueFactory property="date" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="colRoom" text="Room" resizable="false">
+                <cellValueFactory>
+                    <PropertyValueFactory property="room" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <Button fx:id="newOrderButton" onAction="#createOrder" layoutX="520.0" layoutY="65.0" text="New Order" disable="true" />
+</AnchorPane>
